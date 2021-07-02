@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/secondaryLight"
+    tools:context=".LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="40dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/edit_text_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_editor_background"
+            android:hint="ایمیل خود را وارد کنید"
+            android:padding="7dp"
+            android:paddingEnd="20dp"
+            android:paddingRight="20dp" />
+
+        <EditText
+            android:id="@+id/edit_text_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/text_editor_background"
+            android:gravity="right"
+            android:hint="رمز خود را وارد کنید"
+            android:inputType="textPassword"
+            android:padding="7dp"
+            android:paddingEnd="20dp"
+            android:paddingRight="20dp" />
+
+        <TextView
+            android:id="@+id/text_view_login_error"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/error_red" />
+
+        <TextView
+            android:id="@+id/text_view_forgot_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/forgot_password"
+            android:textAlignment="center"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            >
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/customer_button"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/button_background"
+                android:text="خریدار"
+                android:layout_marginBottom="10dp"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/seller_button"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/button_background"
+                android:text="فروشنده"
+                android:layout_marginBottom="10dp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:textAlignment="center"
+            android:layout_marginTop="10dp"
+            >
+            <TextView
+                android:id="@+id/text_view_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="ثبت نام کنید"
+                android:textAlignment="center"
+                android:textColor="@color/primaryDark"
+                android:layout_marginRight="4dp"
+                />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="حساب کاربری ندارید؟!"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:layout_marginLeft="4dp"
+            />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

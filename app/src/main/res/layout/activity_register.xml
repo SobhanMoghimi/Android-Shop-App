@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity"
+    android:background="@color/secondaryLight"
+    >
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="40dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/RegisterText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ثبت نام"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:gravity="center"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
+            />
+
+        <EditText
+            android:id="@+id/register_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_editor_background"
+            android:drawableEnd="@drawable/ic_person"
+            android:drawablePadding="6dp"
+            android:hint="نام و نام خانوادگی *"
+            android:padding="7dp"
+            android:paddingEnd="20dp"
+            android:paddingRight="20dp"
+            android:drawableRight="@drawable/ic_person" />
+
+        <EditText
+            android:id="@+id/register_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/text_editor_background"
+            android:drawableEnd="@drawable/ic_email"
+            android:drawablePadding="6dp"
+            android:hint="ایمیل *"
+            android:inputType="textEmailAddress"
+            android:padding="7dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingRight="20dp"
+            android:drawableRight="@drawable/ic_email" />
+
+        <EditText
+            android:id="@+id/register_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/text_editor_background"
+            android:drawableEnd="@drawable/ic_security"
+            android:drawablePadding="6dp"
+            android:gravity="end"
+            android:hint="* رمز عبور"
+            android:inputType="textPassword"
+            android:padding="7dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingRight="20dp"
+            android:drawableRight="@drawable/ic_security" />
+
+        <EditText
+            android:id="@+id/register_password_repeat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/text_editor_background"
+            android:drawableEnd="@drawable/ic_security"
+            android:drawablePadding="6dp"
+            android:gravity="end"
+            android:hint="* تکرار رمز عبور"
+            android:inputType="textPassword"
+            android:padding="7dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingRight="20dp"
+            android:drawableRight="@drawable/ic_security" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/register_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_background"
+            android:text="ثبت نام"
+            />
+
+
+        <TextView
+            android:id="@+id/text_view_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="حساب کاربری دارید؟!"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:gravity="center_horizontal"
+            />
+    </LinearLayout>
+
+
+</RelativeLayout>
