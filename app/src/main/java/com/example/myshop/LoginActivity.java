@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
         {
             getWindow().setNavigationBarColor(getResources().getColor(R.color.primaryDark));
         }
-        customerButton=findViewById(R.id.customer_button);
+        customerButton=findViewById(R.id.customer_button_login);
         emailEditText=findViewById(R.id.edit_text_username);
         passwordEditText=findViewById(R.id.edit_text_password);
         errorTextView=findViewById(R.id.text_view_login_error);
