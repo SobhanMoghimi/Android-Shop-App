@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.myshop.R;
-import com.example.myshop.activities.LoginActivity;
 
 public class RegisterActivity extends AppCompatActivity {
     private AppCompatButton registerButton;
@@ -34,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
         loginTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                startActivity(new Intent(RegisterActivity.this, CustomerLoginActivity.class));
             }
         });
     }

@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
 import com.example.myshop.R;
-import com.example.myshop.activities.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         customerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                startActivity(new Intent(MainActivity.this, CustomerLoginActivity.class));
             }
         });
     }
