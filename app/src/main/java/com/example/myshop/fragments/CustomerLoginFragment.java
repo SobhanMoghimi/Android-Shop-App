@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.myshop.R;
 import com.example.myshop.activities.CustomerLoginActivity;
@@ -40,7 +41,7 @@ public class CustomerLoginFragment extends Fragment
             @Override
             public void onClick(View v)
             {
-                startActivity(new Intent(getActivity(), RegisterActivity.class));
+                Navigation.findNavController(view).navigate(R.id.action_customerLoginFragment_to_customerRegisterFragment);
             }
         });
         customerButton.setOnClickListener(new View.OnClickListener() {

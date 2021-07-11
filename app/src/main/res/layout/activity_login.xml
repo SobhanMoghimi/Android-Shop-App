@@ -7,24 +7,15 @@
     android:background="@color/secondaryLight"
     tools:context=".fragments.CustomerLoginFragment">
 
+
+
+
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_customer_login"
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.example.myshop.fragments.CustomerLoginFragment"
-        tools:layout="@layout/fragment_customer_login" />
-
-
-
-
-
-
-
-
-
-
-
-
-
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/navigation_customer_login" />
 
 </FrameLayout>

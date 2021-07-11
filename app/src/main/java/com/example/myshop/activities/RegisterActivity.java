@@ -13,9 +13,6 @@ import android.widget.TextView;
 import com.example.myshop.R;
 
 public class RegisterActivity extends AppCompatActivity {
-    private AppCompatButton registerButton;
-    private EditText emailText,registerPassword,usernameText;
-    private TextView forgetPasswordTextView,loginTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -25,16 +22,5 @@ public class RegisterActivity extends AppCompatActivity {
         {
             getWindow().setNavigationBarColor(getResources().getColor(R.color.primaryDark));
         }
-        registerButton=findViewById(R.id.register_button);
-        emailText=findViewById(R.id.register_email);
-        registerPassword=findViewById(R.id.edit_text_password);
-        forgetPasswordTextView=findViewById(R.id.text_view_forgot_password);
-        loginTextView=findViewById(R.id.text_view_login);
-        loginTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(RegisterActivity.this, CustomerLoginActivity.class));
-            }
-        });
     }
 }

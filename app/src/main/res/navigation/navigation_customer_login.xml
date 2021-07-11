@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_customer_login"
+    app:startDestination="@id/customerLoginFragment">
+
+    <fragment
+        android:id="@+id/customerLoginFragment"
+        android:name="com.example.myshop.fragments.CustomerLoginFragment"
+        android:label="fragment_customer_login"
+        tools:layout="@layout/fragment_customer_login" >
+        <action
+            android:id="@+id/action_customerLoginFragment_to_customerRegisterFragment"
+            app:destination="@id/customerRegisterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/customerRegisterFragment"
+        android:name="com.example.myshop.fragments.CustomerRegisterFragment"
+        android:label="fragment_customer_register"
+        tools:layout="@layout/fragment_customer_register" />
+</navigation>
