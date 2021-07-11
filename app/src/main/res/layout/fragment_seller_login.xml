@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/secondaryLight"
-    tools:context=".fragments.CustomerLoginFragment">
+    android:background="@color/primary"
+    tools:context=".fragments.SellerLoginFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,13 +21,13 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="100dp"
             android:textSize="30dp"
-            android:text="ورود مشتریان"
+            android:text="ورود فروشندگان"
             android:textAlignment="center"
             android:textColor="@color/black"
             />
 
         <EditText
-            android:id="@+id/edit_text_username"
+            android:id="@+id/edit_text_seller_login_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/text_editor_background"
@@ -36,7 +37,7 @@
             android:paddingRight="20dp" />
 
         <EditText
-            android:id="@+id/edit_text_password"
+            android:id="@+id/edit_text_seller_login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -51,30 +52,31 @@
         <TextView
             android:id="@+id/text_view_login_error"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginTop="10dp"
+           android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
             android:textColor="@color/error_red" />
 
         <TextView
-            android:id="@+id/text_view_forgot_password"
+            android:layout_marginTop="5dp"
+            android:id="@+id/text_view_seller_forgot_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
+            android:layout_marginRight="15dp"
             android:text="@string/forgot_password"
-            android:textAlignment="center"
             android:textColor="@color/black" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/customer_button_login"
+                android:id="@+id/seller_button_login"
                 android:layout_width="wrap_content"
-                android:paddingRight="20dp"
-                android:paddingLeft="20dp"
+                android:paddingStart="40dp"
+                android:paddingEnd="40dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="right"
                 android:background="@drawable/button_background"
                 android:text="ورود"
-                android:layout_gravity="right"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginRight="20dp"
                 android:layout_marginBottom="10dp"
                 />
         <LinearLayout
@@ -86,7 +88,7 @@
             android:layout_marginTop="10dp"
             >
             <TextView
-                android:id="@+id/text_view_register"
+                android:id="@+id/text_view_seller_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -104,7 +106,6 @@
                 android:textColor="@color/black"
                 android:layout_marginLeft="4dp"
                 />
-
         </LinearLayout>
     </LinearLayout>
 

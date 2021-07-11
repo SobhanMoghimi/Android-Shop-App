@@ -16,7 +16,7 @@ import androidx.navigation.Navigation;
 
 import com.example.myshop.R;
 
-public class CustomerLoginFragment extends Fragment
+public class SellerLoginFragment extends Fragment
 {
     private AppCompatButton loginButton;
     private EditText emailEditText,passwordEditText;
@@ -26,26 +26,34 @@ public class CustomerLoginFragment extends Fragment
     @Override
     public View onCreateView(@NonNull @org.jetbrains.annotations.NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState)
     {
-        View view=inflater.inflate(R.layout.fragment_customer_login,container,false);
-        loginButton=view.findViewById(R.id.customer_button_login);
-        emailEditText=view.findViewById(R.id.edit_text_username);
-        passwordEditText=view.findViewById(R.id.edit_text_password);
+        View view=inflater.inflate(R.layout.fragment_seller_login,container,false);
+        loginButton=view.findViewById(R.id.seller_button_login);
+        emailEditText=view.findViewById(R.id.edit_text_seller_login_email);
+        passwordEditText=view.findViewById(R.id.edit_text_seller_login_password);
         errorTextView=view.findViewById(R.id.text_view_login_error);
-        forgetPasswordTextView=view.findViewById(R.id.text_view_forgot_password);
-        registerTextView=view.findViewById(R.id.text_view_register);
+        forgetPasswordTextView=view.findViewById(R.id.text_view_seller_forgot_password);
+        registerTextView=view.findViewById(R.id.text_view_seller_register);
         registerTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                Navigation.findNavController(view).navigate(R.id.action_customerLoginFragment_to_customerRegisterFragment);
+                Navigation.findNavController(view).navigate(R.id.action_sellerLoginFragment_to_sellerRegisterFragment);
             }
         });
+
+
+
+
+
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(),"Later maybe!",Toast.LENGTH_LONG).show();
             }
         });
+
+
         return view;
     }
 }
