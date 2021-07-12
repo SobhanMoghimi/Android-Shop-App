@@ -53,6 +53,21 @@
             android:paddingEnd="20dp" />
 
         <EditText
+            android:id="@+id/seller_register_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/text_editor_background"
+            android:drawableEnd="@drawable/ic_email"
+            android:drawablePadding="6dp"
+            android:hint="* شماره ‌تماس"
+            android:gravity="end"
+            android:inputType="phone"
+            android:padding="7dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp" />
+
+        <EditText
             android:id="@+id/seller_register_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

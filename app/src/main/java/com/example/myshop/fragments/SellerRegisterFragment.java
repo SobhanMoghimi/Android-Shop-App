@@ -18,7 +18,7 @@ import com.example.myshop.R;
 public class SellerRegisterFragment extends Fragment
 {
     private AppCompatButton registerButton;
-    private EditText emailText,registerPassword,registerPasswordRepeat;
+    private EditText emailText,registerPassword,registerPasswordRepeat,phoneNumber;
     private TextView loginTextView;
     @Nullable
     @org.jetbrains.annotations.Nullable
@@ -31,6 +31,7 @@ public class SellerRegisterFragment extends Fragment
         emailText=view.findViewById(R.id.seller_register_email);
         registerPassword=view.findViewById(R.id.seller_register_password);
         loginTextView=view.findViewById(R.id.seller_text_view_login);
+        phoneNumber = view.findViewById(R.id.seller_register_phone_number);
         loginTextView.setOnClickListener(new View.OnClickListener()
         {
             @Override
