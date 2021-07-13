@@ -5,7 +5,6 @@ import java.util.Date;
 public class Product {
 
     private String name;
-    //private static int id=1;
     private int price;
     private String imagePath;
     private Seller seller;
@@ -21,6 +20,62 @@ public class Product {
         this.seller = seller;
         this.description = description;
         this.releaseDate = releaseDate;
+        this.category = category;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public Seller getSeller() {
+        return seller;
+    }
+
+    public void setSeller(Seller seller) {
+        this.seller = seller;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isPin() {
+        return isPin;
+    }
+
+    public void setPin(boolean pin) {
+        isPin = pin;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
         this.category = category;
     }
 }
