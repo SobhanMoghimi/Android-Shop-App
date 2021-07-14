@@ -7,10 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 
 import androidx.annotation.Nullable;
-
 import com.example.myshop.model.Product;
-
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 public class DataBaseHandlerProduct extends SQLiteOpenHelper {
@@ -69,7 +66,9 @@ public class DataBaseHandlerProduct extends SQLiteOpenHelper {
         if (insert==-1) {
             return false;
         }
+
         return true;
+
     }
 
 
