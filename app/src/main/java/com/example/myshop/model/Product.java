@@ -1,22 +1,24 @@
 package com.example.myshop.model;
 
+import android.graphics.Bitmap;
+
 import java.util.Date;
 
 public class Product {
 
     private String name;
     private int price;
-    private String imagePath;
+    private Bitmap image;
     private Seller seller;
     private String description;
     private boolean isPin=false;
     private Date releaseDate;
     private Category category;
 
-    public Product(String name, int price, String imagePath, Seller seller, String description, Date releaseDate, Category category) {
+    public Product(String name, int price, Bitmap image, Seller seller, String description, Date releaseDate, Category category) {
         this.name = name;
         this.price = price;
-        this.imagePath = imagePath;
+        this.image = image;
         this.seller = seller;
         this.description = description;
         this.releaseDate = releaseDate;
@@ -39,12 +41,12 @@ public class Product {
         this.price = price;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public Bitmap getImage() {
+        return image;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImage(Bitmap image) {
+        this.image = image;
     }
 
     public Seller getSeller() {
@@ -63,8 +65,11 @@ public class Product {
         this.description = description;
     }
 
-    public boolean isPin() {
-        return isPin;
+    public String isPin() {
+        if (isPin) {
+            return "true";
+        }
+        return "false";
     }
 
     public void setPin(boolean pin) {

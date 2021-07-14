@@ -10,6 +10,9 @@ import androidx.annotation.Nullable;
 
 import com.example.myshop.model.Seller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DataBaseHandlerSeller extends SQLiteOpenHelper {
 
     private static final int VERSION = 1;
@@ -80,6 +83,45 @@ public class DataBaseHandlerSeller extends SQLiteOpenHelper {
 
 //    public Seller logInSeller(String email, String password) {
 //
+//    }
+
+//    public boolean deleteOne(Person person) {
+//        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+//        String queryString = "DELETE FROM " + CUSTOMER_TABLE +" WHERE " + COLUMN_ID + " = " + person.getId();
+//
+//        Cursor cursor = sqLiteDatabase.rawQuery(queryString,null);
+//        if (cursor.moveToFirst()) {
+//            return true;
+//        }
+//        return false;
+//
+//    }
+
+//    public List<Person> getEveryone() {
+//        List<Person> returnList = new ArrayList<>();
+//
+//        String queryString = "SELECT * FROM " + CUSTOMER_TABLE;
+//
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        Cursor cursor = db.rawQuery(queryString,null);
+//
+//        if (cursor.moveToFirst()) {
+//            do {
+//                int id = cursor.getInt(0);
+//                String name = cursor.getString(1);
+//                int age = cursor.getInt(2);
+//
+//                Person person = new Person(name,age);
+//                returnList.add(person);
+//            }while (cursor.moveToNext());
+//        } else {
+//
+//        }
+//
+//        cursor.close();
+//        db.close();
+//        return returnList;
 //    }
 
     @Override
