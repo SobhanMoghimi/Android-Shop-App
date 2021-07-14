@@ -31,4 +31,12 @@ public class Seller extends Person {
     public void setLogCount(int logCount) {
         this.logCount = logCount;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

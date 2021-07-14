@@ -8,6 +8,8 @@ import android.os.Bundle;
 import com.example.myshop.R;
 
 public class SellerLoginActivity extends AppCompatActivity {
+
+    
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

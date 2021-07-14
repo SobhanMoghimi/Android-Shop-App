@@ -28,7 +28,7 @@
             android:layout_marginBottom="50dp"
             />
         <EditText
-            android:id="@+id/seller_register_username"
+            android:id="@+id/seller_register_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/text_editor_background"
@@ -96,11 +96,21 @@
             android:padding="7dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp" />
+        <TextView
+            android:id="@+id/text_view_seller_register_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif-thin"
+            android:textColor="@color/error_red" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/seller_register_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
             android:background="@drawable/button_background"

@@ -78,4 +78,12 @@ public class Product {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    public Date getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
+    }
 }
