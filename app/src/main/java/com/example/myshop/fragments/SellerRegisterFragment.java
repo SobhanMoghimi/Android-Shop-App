@@ -1,6 +1,7 @@
 package com.example.myshop.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,13 +18,13 @@ import androidx.navigation.Navigation;
 
 import com.example.myshop.R;
 import com.example.myshop.activities.MainActivity;
+import com.example.myshop.activities.SellerHomePageActivity;
 import com.example.myshop.activities.SellerLoginActivity;
 import com.example.myshop.dataBase.DataBaseHandlerSeller;
 import com.example.myshop.model.Seller;
 
 public class SellerRegisterFragment extends Fragment
 {
-    DataBaseHandlerSeller db = new DataBaseHandlerSeller(getActivity());
     private AppCompatButton registerButton;
     private EditText email,password,passwordRepeat,phoneNumber,name;
     private TextView loginTextView,errorField;
@@ -66,13 +67,16 @@ public class SellerRegisterFragment extends Fragment
                     }
 
                     else {
+                        DataBaseHandlerSeller db = new DataBaseHandlerSeller(getActivity());
                         Seller seller = new Seller(name.getText().toString(), email.getText().toString(), password.getText().toString(), phoneNumber.getText().toString());
                         boolean success = db.addSeller(seller);
-                        //this part needs to be complete
+                        Toast.makeText(getActivity(),"okay3",Toast.LENGTH_SHORT).show();
                         if (success) {
-                            //goes to homePage
+                            Toast.makeText(getActivity(),"خوش آمدید",Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getActivity(), SellerHomePageActivity.class));
                         }
                         else {
+                            Toast.makeText(getActivity(),"in else",Toast.LENGTH_SHORT).show();
                             errorField.setText("ثبت نام با خطا مواجه شده است!");
                         }
                     }
