@@ -37,7 +37,9 @@
             android:inputType="textPersonName"
             android:hint="نام و نام خانوادگی *"
             android:padding="7dp"
-            android:paddingEnd="20dp" />
+            android:paddingEnd="20dp"
+            android:paddingStart="10dp"
+            />
         <EditText
             android:id="@+id/seller_register_email"
             android:layout_width="match_parent"
@@ -49,7 +51,7 @@
             android:hint="ایمیل *"
             android:inputType="textEmailAddress"
             android:padding="7dp"
-            android:paddingStart="20dp"
+            android:paddingStart="10dp"
             android:paddingEnd="20dp" />
 
         <EditText
@@ -58,13 +60,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/text_editor_background"
-            android:drawableEnd="@drawable/ic_email"
+            android:drawableEnd="@drawable/ic_phone"
             android:drawablePadding="6dp"
-            android:hint="* شماره ‌تماس"
             android:gravity="end"
+            android:hint="* شماره ‌تماس"
             android:inputType="phone"
             android:padding="7dp"
-            android:paddingStart="20dp"
+            android:paddingStart="10dp"
             android:paddingEnd="20dp" />
 
         <EditText
@@ -79,7 +81,7 @@
             android:hint="@string/password"
             android:inputType="textPassword"
             android:padding="7dp"
-            android:paddingStart="20dp"
+            android:paddingStart="10dp"
             android:paddingEnd="20dp" />
 
         <EditText

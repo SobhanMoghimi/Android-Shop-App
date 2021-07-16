@@ -6,7 +6,8 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
-    defaultConfig {
+    defaultConfig
+            {
         applicationId "com.example.myshop"
         minSdkVersion 21
         targetSdkVersion 30
