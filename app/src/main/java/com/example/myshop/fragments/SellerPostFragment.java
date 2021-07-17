@@ -96,7 +96,7 @@ public class SellerPostFragment extends Fragment {
             public void onClick(View v) {
                 try {
                     Intent intent = new Intent();
-                    intent.setType("image/");
+                    intent.setType("image/*");
 
                     intent.setAction(Intent.ACTION_GET_CONTENT);
                     startActivityForResult(intent,100);
