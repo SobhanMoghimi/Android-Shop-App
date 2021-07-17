@@ -65,7 +65,6 @@ public class SellerPostFragment extends Fragment {
     public View onCreateView(@NonNull @org.jetbrains.annotations.NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_seller_post,container,false);
         categorySpinner = view.findViewById(R.id.category);
-        //Log.d("myLog", Calendar.getInstance().toString());
         Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         image = view.findViewById(R.id.imageView);
         name = view.findViewById(R.id.productName);
@@ -119,7 +118,7 @@ public class SellerPostFragment extends Fragment {
 
     public void post(View view) {
         try {
-            if (name.getText().toString().equals("") || price.getText().toString().equals("") || image.getDrawable()==null) {
+            if (name.getText().toString().equals("") || price.getText().toString().equals("")) {
                 //شبیه ارور تکست فیلد باید بذاری اینجا
                 Toast.makeText(getActivity(),"error",Toast.LENGTH_SHORT).show();
 

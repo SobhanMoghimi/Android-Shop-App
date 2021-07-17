@@ -69,8 +69,6 @@ public class SellerRegisterFragment extends Fragment
 
                     else {
                         DataBaseHandlerSeller db = new DataBaseHandlerSeller(getActivity());
-                        //اینو پاک کن حتما
-                        db.deleteAll();
                         seller = new Seller(name.getText().toString(), email.getText().toString(), password.getText().toString(), phoneNumber.getText().toString());
                         boolean success = db.addSeller(seller);
                         if (success) {
