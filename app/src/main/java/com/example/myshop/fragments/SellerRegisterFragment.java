@@ -1,6 +1,6 @@
 package com.example.myshop.fragments;
 
-import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,6 +26,7 @@ import com.example.myshop.model.Seller;
 public class SellerRegisterFragment extends Fragment
 {
     private AppCompatButton registerButton;
+    public Seller seller;
     private EditText email,password,passwordRepeat,phoneNumber,name;
     private TextView loginTextView,errorField;
     @Nullable
@@ -68,15 +69,15 @@ public class SellerRegisterFragment extends Fragment
 
                     else {
                         DataBaseHandlerSeller db = new DataBaseHandlerSeller(getActivity());
-                        Seller seller = new Seller(name.getText().toString(), email.getText().toString(), password.getText().toString(), phoneNumber.getText().toString());
+                        //اینو پاک کن حتما
+                        db.deleteAll();
+                        seller = new Seller(name.getText().toString(), email.getText().toString(), password.getText().toString(), phoneNumber.getText().toString());
                         boolean success = db.addSeller(seller);
-                        Toast.makeText(getActivity(),"okay3",Toast.LENGTH_SHORT).show();
                         if (success) {
                             Toast.makeText(getActivity(),"خوش آمدید",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getActivity(), SellerHomePageActivity.class));
                         }
                         else {
-                            Toast.makeText(getActivity(),"in else",Toast.LENGTH_SHORT).show();
                             errorField.setText("ثبت نام با خطا مواجه شده است!");
                         }
                     }
@@ -86,5 +87,9 @@ public class SellerRegisterFragment extends Fragment
             }
         });
         return view;
+    }
+
+    public Seller getSeller() {
+        return seller;
     }
 }

@@ -38,6 +38,7 @@ public class SellerHomePageActivity extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener listener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
+
             Fragment selected_fragment = null;
             switch (item.getItemId()) {
                 case R.id.home:
@@ -50,7 +51,7 @@ public class SellerHomePageActivity extends AppCompatActivity {
                     selected_fragment = new SellerMyAccFragment();
                     break;
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.seller_frame_layout,selected_fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.seller_frame_layout, selected_fragment).commit();
 
             return true;
         }

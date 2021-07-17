@@ -15,14 +15,14 @@ public class Product {
     private Date releaseDate;
     private Category category;
 
-    public Product(String name, int price, Bitmap image, Seller seller, String description, Date releaseDate, Category category) {
+    public Product(String name, int price, Bitmap image, Seller seller, String description, Date releaseDate, String category) {
         this.name = name;
         this.price = price;
         this.image = image;
         this.seller = seller;
         this.description = description;
         this.releaseDate = releaseDate;
-        this.category = category;
+        setCategory(category);
     }
 
     public String getName() {
@@ -80,8 +80,19 @@ public class Product {
         return category;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategory(String category) {
+        if (category.equals("فشن"))
+            this.category = Category.FASHION;
+        else if (category.equals("لوازم بهداشتی"))
+            this.category = Category.BEAUTY;
+        else if (category.equals("کتاب"))
+            this.category = Category.BOOK;
+        else if (category.equals("ماشین"))
+            this.category = Category.CAR;
+        else if (category.equals("لوازم الکترونیکی"))
+            this.category = Category.ELECTRONICS;
+        else if (category.equals("لوازم خانه"))
+            this.category = Category.HOME;
     }
 
     public Date getReleaseDate() {
