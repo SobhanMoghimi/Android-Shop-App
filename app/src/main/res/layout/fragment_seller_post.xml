@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/secondaryLight"
+    tools:context=".fragments.SellerPostFragment">
+
+
+    <EditText
+        android:id="@+id/productName"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/text_editor_background"
+        android:drawablePadding="6dp"
+        android:hint="نام محصول"
+        android:inputType="textPersonName"
+        android:padding="7dp"
+        android:paddingEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <!--    <EditText-->
+    <!--        android:id="@+id/description"-->
+    <!--        android:layout_width="243dp"-->
+    <!--        android:layout_height="74dp"-->
+    <!--        android:layout_marginTop="24dp"-->
+    <!--        android:background="@drawable/text_editor_background"-->
+    <!--        android:ems="10"-->
+    <!--        android:gravity="start|top"-->
+    <!--        android:inputType="textMultiLine"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/productPrice" />-->
+
+    <EditText
+        android:id="@+id/productPrice"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/text_editor_background"
+        android:drawablePadding="6dp"
+        android:hint="قیمت (به تومن)"
+        android:inputType="number"
+        android:padding="7dp"
+        android:paddingEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productName" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="409dp"
+        android:layout_height="226dp"
+        android:src="@drawable/default_image_620x600"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/category"
+        android:layout_width="247dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/text_editor_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productPrice" />
+
+    <EditText
+        android:id="@+id/description"
+        android:layout_width="300dp"
+        android:layout_height="119dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/text_editor_background"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="توضیحات آگهی"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/category" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addingPhotoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:src="@drawable/ic_baseline_add_circle_24"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.957"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.947" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/postButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ثبت آگهی"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description"
+        app:layout_constraintVertical_bias="0.215" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

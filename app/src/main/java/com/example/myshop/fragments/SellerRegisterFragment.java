@@ -1,6 +1,7 @@
 package com.example.myshop.fragments;
 
-import android.content.Context;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,15 +17,14 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.myshop.R;
-import com.example.myshop.activities.MainActivity;
-import com.example.myshop.activities.SellerLoginActivity;
-import com.example.myshop.dataBase.DataBaseHandlerSeller;
+import com.example.myshop.activities.SellerHomePageActivity;
+import com.example.myshop.dataBase.DataBaseHandler;
 import com.example.myshop.model.Seller;
 
 public class SellerRegisterFragment extends Fragment
 {
-    DataBaseHandlerSeller db = new DataBaseHandlerSeller(getActivity());
     private AppCompatButton registerButton;
+    public static Seller seller;
     private EditText email,password,passwordRepeat,phoneNumber,name;
     private TextView loginTextView,errorField;
     @Nullable
@@ -66,11 +66,12 @@ public class SellerRegisterFragment extends Fragment
                     }
 
                     else {
-                        Seller seller = new Seller(name.getText().toString(), email.getText().toString(), password.getText().toString(), phoneNumber.getText().toString());
+                        DataBaseHandler db = new DataBaseHandler(getActivity());
+                        seller = new Seller(name.getText().toString(), email.getText().toString(), password.getText().toString(), phoneNumber.getText().toString());
                         boolean success = db.addSeller(seller);
-                        //this part needs to be complete
                         if (success) {
-                            //goes to homePage
+                            Toast.makeText(getActivity(),"خوش آمدید",Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getActivity(), SellerHomePageActivity.class));
                         }
                         else {
                             errorField.setText("ثبت نام با خطا مواجه شده است!");
@@ -82,5 +83,9 @@ public class SellerRegisterFragment extends Fragment
             }
         });
         return view;
+    }
+
+    public Seller getSeller() {
+        return seller;
     }
 }

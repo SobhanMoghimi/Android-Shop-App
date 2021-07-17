@@ -10,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyShop">
+        <activity android:name=".activities.SellerHomePageActivity"></activity>
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,10 +19,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.SellerLoginActivity" />
-        <activity android:name=".activities.CustomerLoginActivity"/>
+        <activity android:name=".activities.CustomerLoginActivity" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

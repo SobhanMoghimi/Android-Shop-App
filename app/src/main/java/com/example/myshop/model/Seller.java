@@ -5,15 +5,20 @@ import java.util.ArrayList;
 public class Seller extends Person {
 
     private int logCount;
-    private static int ID=1;
-    private int id;
+    int id;
     private String phoneNumber;
     public Seller(String fullName, String email, String password, String phoneNumber) {
         super(fullName, email, password);
         this.phoneNumber = phoneNumber;
         logCount = 0;
-        this.id = ID;
-        ID++;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPhoneNumber() {
@@ -30,13 +35,5 @@ public class Seller extends Person {
 
     public void setLogCount(int logCount) {
         this.logCount = logCount;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }
