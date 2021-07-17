@@ -24,22 +24,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <EditText
-        android:id="@+id/productPrice"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/text_editor_background"
-        android:drawablePadding="6dp"
-        android:hint="قیمت (به تومن)"
-        android:inputType="number"
-        android:padding="7dp"
-        android:paddingEnd="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productName" />
-
     <!--    <EditText-->
     <!--        android:id="@+id/description"-->
     <!--        android:layout_width="243dp"-->
@@ -52,6 +36,22 @@
     <!--        app:layout_constraintEnd_toEndOf="parent"-->
     <!--        app:layout_constraintStart_toStartOf="parent"-->
     <!--        app:layout_constraintTop_toBottomOf="@+id/productPrice" />-->
+
+    <EditText
+        android:id="@+id/productPrice"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/text_editor_background"
+        android:drawablePadding="6dp"
+        android:hint="قیمت (به تومن)"
+        android:inputType="number"
+        android:padding="7dp"
+        android:paddingEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productName" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -66,7 +66,7 @@
         android:id="@+id/category"
         android:layout_width="247dp"
         android:layout_height="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/text_editor_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,14 +76,14 @@
         android:id="@+id/description"
         android:layout_width="300dp"
         android:layout_height="119dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/text_editor_background"
         android:ems="10"
         android:gravity="start|top"
         android:hint="توضیحات آگهی"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/category" />
 
@@ -98,8 +98,7 @@
         app:layout_constraintHorizontal_bias="0.957"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.947"
-        android:onClick="chooseImage"/>
+        app:layout_constraintVertical_bias="0.947" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/postButton"
@@ -108,9 +107,10 @@
         android:text="ثبت آگهی"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description"
-        android:onClick="post"/>
+        app:layout_constraintVertical_bias="0.215" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

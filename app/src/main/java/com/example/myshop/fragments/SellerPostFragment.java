@@ -69,10 +69,14 @@ public class SellerPostFragment extends Fragment {
         image = view.findViewById(R.id.imageView);
         name = view.findViewById(R.id.productName);
         price = view.findViewById(R.id.productPrice);
+        post = view.findViewById(R.id.postButton);
         sellerRegisterFragment = new SellerRegisterFragment();
         seller = sellerRegisterFragment.getSeller();
         description = view.findViewById(R.id.description);
         add = view.findViewById(R.id.addingPhotoButton);
+        imageToStore = image.getDrawingCache();
+
+
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getActivity(),R.array.categories, android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(spinnerAdapter);
@@ -105,46 +109,46 @@ public class SellerPostFragment extends Fragment {
                 }
             }
         });
+
+        post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Toast.makeText(getActivity(),"if",Toast.LENGTH_SHORT).show();
+                    if (name.getText().toString().equals("") || price.getText().toString().equals("") || chosenCategory.equals("")) {
+                        //شبیه ارور تکست فیلد باید بذاری اینجا
+                        Toast.makeText(getActivity(),"error",Toast.LENGTH_SHORT).show();
+
+                    }
+                    else if (imageToStore==null) {
+                        Toast.makeText(getActivity(),"null",Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        product = new Product(name.getText().toString(),Integer.parseInt(price.getText().toString()),imageToStore,seller,description.getText().toString(), Calendar.getInstance().getTime(), chosenCategory);
+                        DataBaseHandlerProduct db = new DataBaseHandlerProduct(getActivity());
+
+                        boolean success = db.addProduct(product);
+                        if (success) {
+                            Toast.makeText(getActivity(),"added",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(getActivity(),"not successful", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                } catch (Exception e) {
+                    //ارور
+                    Toast.makeText(getActivity(),e.getMessage().toString(),Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         return view;
     }
 
-//    public void chooseImage(View view) {
-//        Intent intent = new Intent();
-//        intent.setType("image/");
-//
-//        intent.setAction(Intent.ACTION_GET_CONTENT);
-//        startActivityForResult(intent,100);
-//    }
-
-    public void post(View view) {
-        try {
-            if (name.getText().toString().equals("") || price.getText().toString().equals("")) {
-                //شبیه ارور تکست فیلد باید بذاری اینجا
-                Toast.makeText(getActivity(),"error",Toast.LENGTH_SHORT).show();
-
-            }
-            else {
-                product = new Product(name.getText().toString(),Integer.parseInt(price.getText().toString()),imageToStore,seller,description.getText().toString(), Calendar.getInstance().getTime(), chosenCategory);
-                DataBaseHandlerProduct db = new DataBaseHandlerProduct(getActivity());
-
-                boolean success = db.addProduct(product);
-                if (success) {
-                    Toast.makeText(getActivity(),"added",Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(getActivity(),"not successful", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        } catch (Exception e) {
-            //ارور
-        }
-    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==100 && resultCode== SellerHomePageActivity.RESULT_OK && data!=null && data.getData()!=null) {
-            imageFilePath=data.getData();
+        if (requestCode==100 && resultCode==SellerHomePageActivity.RESULT_OK && data!=null && data.getData()!=null) {
+            imageFilePath = data.getData();
             try {
                 imageToStore = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),imageFilePath);
             } catch (IOException e) {
