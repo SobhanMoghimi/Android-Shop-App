@@ -17,10 +17,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.myshop.R;
-import com.example.myshop.activities.MainActivity;
 import com.example.myshop.activities.SellerHomePageActivity;
-import com.example.myshop.activities.SellerLoginActivity;
-import com.example.myshop.dataBase.DataBaseHandlerSeller;
+import com.example.myshop.dataBase.DataBaseHandler;
 import com.example.myshop.model.Seller;
 
 public class SellerRegisterFragment extends Fragment
@@ -68,7 +66,7 @@ public class SellerRegisterFragment extends Fragment
                     }
 
                     else {
-                        DataBaseHandlerSeller db = new DataBaseHandlerSeller(getActivity());
+                        DataBaseHandler db = new DataBaseHandler(getActivity());
                         seller = new Seller(name.getText().toString(), email.getText().toString(), password.getText().toString(), phoneNumber.getText().toString());
                         boolean success = db.addSeller(seller);
                         if (success) {

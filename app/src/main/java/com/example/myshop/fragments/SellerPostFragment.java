@@ -1,13 +1,7 @@
 package com.example.myshop.fragments;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -17,7 +11,6 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,17 +23,12 @@ import android.widget.Toast;
 
 import com.example.myshop.R;
 import com.example.myshop.activities.SellerHomePageActivity;
-import com.example.myshop.dataBase.DataBaseHandlerProduct;
+import com.example.myshop.dataBase.DataBaseHandler;
 import com.example.myshop.model.Product;
-import com.example.myshop.model.Seller;
-import com.example.myshop.fragments.SellerRegisterFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
 import java.util.Calendar;
-
-import static android.app.Activity.RESULT_CANCELED;
-import static android.app.Activity.RESULT_OK;
 
 public class SellerPostFragment extends Fragment {
 
@@ -121,8 +109,8 @@ public class SellerPostFragment extends Fragment {
                     }
                     else {
                         product = new Product(name.getText().toString(),Integer.parseInt(price.getText().toString()),imageToStore,SellerRegisterFragment.seller,description.getText().toString(), Calendar.getInstance().getTime(), chosenCategory);
-                        DataBaseHandlerProduct db = new DataBaseHandlerProduct(getActivity());
-
+                        SellerRegisterFragment.seller.setId(9);
+                        DataBaseHandler db = new DataBaseHandler(getActivity());
                         boolean success = db.addProduct(product);
                         if (success) {
                             Toast.makeText(getActivity(),"added",Toast.LENGTH_SHORT).show();
