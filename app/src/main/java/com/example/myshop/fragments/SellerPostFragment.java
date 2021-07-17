@@ -74,8 +74,6 @@ public class SellerPostFragment extends Fragment {
         seller = sellerRegisterFragment.getSeller();
         description = view.findViewById(R.id.description);
         add = view.findViewById(R.id.addingPhotoButton);
-        imageToStore = image.getDrawingCache();
-
 
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getActivity(),R.array.categories, android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
