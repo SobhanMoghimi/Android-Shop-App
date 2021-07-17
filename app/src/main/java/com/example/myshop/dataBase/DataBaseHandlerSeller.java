@@ -63,7 +63,7 @@ public class DataBaseHandlerSeller extends SQLiteOpenHelper {
 
     public boolean deleteSeller(Seller seller) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String queryStatement = "DELETE FROM " + SELLER_TABLE + " WHERE " + COLUMN_ID + " = " + seller.getId();
+        String queryStatement = "DELETE FROM " + SELLER_TABLE + " WHERE " + COLUMN_SELLER_EMAIL + " = " + seller.getEmail();
 
         Cursor cursor = db.rawQuery(queryStatement,null);
 
@@ -75,10 +75,33 @@ public class DataBaseHandlerSeller extends SQLiteOpenHelper {
     }
 
     public void deleteAll() {
+
         SQLiteDatabase db = this.getWritableDatabase();
         String queryStatement = "DELETE FROM " + SELLER_TABLE + ";";
 
         db.execSQL(queryStatement);
+    }
+
+    public Seller getSeller(Seller seller) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryStatement = "SELECT FROM " + SELLER_TABLE + " WHERE" + COLUMN_SELLER_EMAIL + " = " + seller.getEmail();
+
+        Cursor cursor = db.rawQuery(queryStatement,null);
+
+        if (cursor.moveToFirst()) {
+            int id = cursor.getInt(0);
+            String name = cursor.getString(1);
+            String email = cursor.getString(2);
+            String password = cursor.getString(3);
+            String phone = cursor.getString(4);
+            int logCount = cursor.getInt(5);
+            Seller seller1 = new Seller(name,email,password,phone);
+            seller1.setId(id);
+            seller1.setLogCount(logCount);
+            return seller1;
+        }
+        return null;
     }
 
 //    public Seller logInSeller(String email, String password) {

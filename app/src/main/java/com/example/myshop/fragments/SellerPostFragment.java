@@ -45,7 +45,6 @@ import static android.app.Activity.RESULT_OK;
 public class SellerPostFragment extends Fragment {
 
     private Product product;
-    Seller seller;
     SellerRegisterFragment sellerRegisterFragment;
     Spinner categorySpinner;
     String chosenCategory;
@@ -71,7 +70,6 @@ public class SellerPostFragment extends Fragment {
         price = view.findViewById(R.id.productPrice);
         post = view.findViewById(R.id.postButton);
         sellerRegisterFragment = new SellerRegisterFragment();
-        seller = sellerRegisterFragment.getSeller();
         description = view.findViewById(R.id.description);
         add = view.findViewById(R.id.addingPhotoButton);
 
@@ -112,7 +110,7 @@ public class SellerPostFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
-                    Toast.makeText(getActivity(),"if",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),SellerRegisterFragment.seller.getFullName().toString(),Toast.LENGTH_SHORT).show();
                     if (name.getText().toString().equals("") || price.getText().toString().equals("") || chosenCategory.equals("")) {
                         //شبیه ارور تکست فیلد باید بذاری اینجا
                         Toast.makeText(getActivity(),"error",Toast.LENGTH_SHORT).show();
@@ -122,7 +120,7 @@ public class SellerPostFragment extends Fragment {
                         Toast.makeText(getActivity(),"null",Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        product = new Product(name.getText().toString(),Integer.parseInt(price.getText().toString()),imageToStore,seller,description.getText().toString(), Calendar.getInstance().getTime(), chosenCategory);
+                        product = new Product(name.getText().toString(),Integer.parseInt(price.getText().toString()),imageToStore,SellerRegisterFragment.seller,description.getText().toString(), Calendar.getInstance().getTime(), chosenCategory);
                         DataBaseHandlerProduct db = new DataBaseHandlerProduct(getActivity());
 
                         boolean success = db.addProduct(product);
@@ -135,7 +133,7 @@ public class SellerPostFragment extends Fragment {
                     }
                 } catch (Exception e) {
                     //ارور
-                    Toast.makeText(getActivity(),e.getMessage().toString(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),SellerRegisterFragment.seller.getEmail().toString(),Toast.LENGTH_SHORT).show();
                 }
             }
         });

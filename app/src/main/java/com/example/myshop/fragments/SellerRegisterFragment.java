@@ -26,7 +26,7 @@ import com.example.myshop.model.Seller;
 public class SellerRegisterFragment extends Fragment
 {
     private AppCompatButton registerButton;
-    public Seller seller;
+    public static Seller seller;
     private EditText email,password,passwordRepeat,phoneNumber,name;
     private TextView loginTextView,errorField;
     @Nullable
