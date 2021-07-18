@@ -109,7 +109,6 @@ public class SellerPostFragment extends Fragment {
                     }
                     else {
                         product = new Product(name.getText().toString(),Integer.parseInt(price.getText().toString()),imageToStore,SellerRegisterFragment.seller,description.getText().toString(), Calendar.getInstance().getTime(), chosenCategory);
-                        SellerRegisterFragment.seller.setId(9);
                         DataBaseHandler db = new DataBaseHandler(getActivity());
                         boolean success = db.addProduct(product);
                         if (success) {

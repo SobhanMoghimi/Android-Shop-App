@@ -5,20 +5,11 @@ import java.util.ArrayList;
 public class Seller extends Person {
 
     private int logCount;
-    int id;
     private String phoneNumber;
     public Seller(String fullName, String email, String password, String phoneNumber) {
         super(fullName, email, password);
         this.phoneNumber = phoneNumber;
         logCount = 0;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getPhoneNumber() {
