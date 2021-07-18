@@ -72,11 +72,19 @@ public class SellerLoginFragment extends Fragment
 
     public boolean isRegistered(String email, String password) {
         seller = db.getSeller(email);
-        if (seller!=null && seller.getPassword().equals(password)) {
-            int perLogCount = seller.getLogCount();
-            seller.setLogCount(perLogCount++);
-            return true;
+        if(seller==null)
+        {
+            errorTextView.setText("شما عضو نیستید!");
+            return false;
         }
-        return false;
+        if (!seller.getPassword().equals(password))
+        {
+            errorTextView.setText("رمز عبور اشتباه است!");
+            return false;
+        }
+
+        int perLogCount = seller.getLogCount();
+        seller.setLogCount(perLogCount++);
+        return true;
     }
 }
