@@ -43,6 +43,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private static final String COLUMN_PRODUCT_IS_PIN = "PRODUCT_PIN";
     private static final String COLUMN_PRODUCT_RELEASE_DATE = "PRODUCT_RELEASE_DATE";
     private static final String COLUMN_PRODUCT_IMAGE = "PRODUCT_IMAGE";
+    private static final String COLUMN_PRODUCT_SELLER_NAME="PRODUCT_SELLER_NAME";
     private ByteArrayOutputStream byteArrayOutputStream;
     private byte[] imageInBytes;
 
@@ -56,7 +57,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String onCreateTableString_Seller = "CREATE TABLE " + SELLER_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_SELLER_NAME + " TEXT, " + COLUMN_SELLER_EMAIL + " TEXT, " + COLUMN_SELLER_PASSWORD + " TEXT, " + COLUMN_SELLER_NUMBER + " TEXT, "+ COLUMN_SELLER_LOGIN_COUNT + " INT)";
-        String createTableStatement_Product = "CREATE TABLE " + PRODUCT_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_PRODUCT_NAME + " TEXT, " + COLUMN_PRODUCT_PRICE + " INT, " + COLUMN_PRODUCT_DESCRIPTION + " TEXT, " + COLUMN_PRODUCT_SELLER_ID + " INT, " + COLUMN_PRODUCT_CATEGORY + " TEXT, " + COLUMN_PRODUCT_IS_PIN + " TEXT, " + COLUMN_PRODUCT_RELEASE_DATE + " TEXT, " + COLUMN_PRODUCT_IMAGE + " BLOB)";
+        String createTableStatement_Product = "CREATE TABLE " + PRODUCT_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_PRODUCT_NAME + " TEXT, " + COLUMN_PRODUCT_PRICE + " INT, " + COLUMN_PRODUCT_DESCRIPTION + " TEXT, "+COLUMN_PRODUCT_SELLER_NAME+" TEXT, " + COLUMN_PRODUCT_SELLER_ID + " INT, " + COLUMN_PRODUCT_CATEGORY + " TEXT, " + COLUMN_PRODUCT_IS_PIN + " TEXT, " + COLUMN_PRODUCT_RELEASE_DATE + " TEXT, "+ COLUMN_PRODUCT_IMAGE + " BLOB)";
 
         db.execSQL(createTableStatement_Product);
         db.execSQL(onCreateTableString_Seller);
@@ -183,17 +184,14 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         cv.put(COLUMN_PRODUCT_RELEASE_DATE, product.getReleaseDate().toString());
         cv.put(COLUMN_PRODUCT_DESCRIPTION, product.getDescription());
         cv.put(COLUMN_PRODUCT_IS_PIN, product.isPin());
-        cv.put(COLUMN_PRODUCT_SELLER_ID, product.getSeller().getId());
+        cv.put(COLUMN_PRODUCT_SELLER_ID, product.getSeller().getPhoneNumber());
         cv.put(COLUMN_PRODUCT_IMAGE, imageInBytes);
-
+        cv.put(COLUMN_PRODUCT_SELLER_NAME,product.getSeller().getFullName());
         long insert = db.insert(PRODUCT_TABLE, null, cv);
-
         if (insert==-1) {
             return false;
         }
-
         return true;
-
     }
 
     @Override

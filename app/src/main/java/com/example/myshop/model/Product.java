@@ -14,7 +14,7 @@ public class Product {
     private boolean isPin=false;
     private Date releaseDate;
     private Category category;
-
+    private String sellerPhoneNumber;
     public Product(String name, int price, Bitmap image, Seller seller, String description, Date releaseDate, String category) {
         this.name = name;
         this.price = price;
@@ -95,11 +95,35 @@ public class Product {
             this.category = Category.HOME;
     }
 
+    public String getCategoryString()
+    {
+        if(this.category==Category.BEAUTY)
+            return "لوازم بهداشتی";
+        if(this.category==Category.BOOK)
+            return "کتاب";
+        if(this.category==Category.FASHION)
+            return "فشن";
+        if(this.category==Category.ELECTRONICS)
+            return "لوازم الکترونیکی";
+        if(this.category==Category.HOME)
+            return "لوازم خانه";
+        if(this.category==Category.CAR)
+            return "خودرو";
+        return "بدون دسته بندی";
+    }
     public Date getReleaseDate() {
         return releaseDate;
     }
 
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    public String getSellerPhoneNumber() {
+        return sellerPhoneNumber;
+    }
+
+    public void setSellerPhoneNumber(String sellerPhoneNumber) {
+        this.sellerPhoneNumber = sellerPhoneNumber;
     }
 }

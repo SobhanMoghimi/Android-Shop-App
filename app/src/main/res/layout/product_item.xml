@@ -13,9 +13,12 @@
 
     <ImageView
         android:id="@+id/imageView_row_product_pic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginStart="5dp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:fadingEdge="none"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -31,10 +34,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_view_row_product_seller"
+        android:id="@+id/text_view_row_product_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
+        android:textColor="@color/design_default_color_primary_variant"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/text_view_row_product_phoneNumber"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,13 +54,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/text_view_row_product_category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/text_view_row_product_name"
-        app:layout_constraintStart_toEndOf="@+id/imageView_row_product_pic"
-        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
