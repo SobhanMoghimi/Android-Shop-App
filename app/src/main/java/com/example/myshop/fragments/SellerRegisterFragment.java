@@ -70,6 +70,7 @@ public class SellerRegisterFragment extends Fragment
                         seller = new Seller(name.getText().toString(), email.getText().toString(), password.getText().toString(), phoneNumber.getText().toString());
                         boolean success = db.addSeller(seller);
                         if (success) {
+                            seller.setLogCount(1);
                             Toast.makeText(getActivity(),"خوش آمدید",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getActivity(), SellerHomePageActivity.class));
                         }
