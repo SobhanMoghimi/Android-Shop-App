@@ -71,6 +71,7 @@ public class SellerRegisterFragment extends Fragment
                         boolean success = db.addSeller(seller);
                         if (success) {
                             Toast.makeText(getActivity(),"خوش آمدید",Toast.LENGTH_SHORT).show();
+                            Seller.activeSeller=seller;
                             startActivity(new Intent(getActivity(), SellerHomePageActivity.class));
                         }
                         else {

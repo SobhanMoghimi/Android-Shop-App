@@ -6,14 +6,22 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.example.myshop.fragments.SellerRegisterFragment;
 import com.example.myshop.model.Product;
 import com.example.myshop.model.Seller;
 
 import java.io.ByteArrayOutputStream;
+import java.lang.reflect.Type;
+import java.sql.Blob;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 public class DataBaseHandler extends SQLiteOpenHelper {
@@ -27,6 +35,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private static final String COLUMN_SELLER_PASSWORD = "SELLER_PASSWORD";
     private static final String COLUMN_SELLER_NUMBER = "SELLER_NUMBER";
     private static final String COLUMN_SELLER_LOGIN_COUNT = "SELLER_LOG_COUNT";
+
     private static final String COLUMN_ID = "ID";
 
 
@@ -37,13 +46,13 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private static final String PRODUCT_TABLE = "PRODUCT_TABLE";
     private static final String COLUMN_PRODUCT_NAME = "PRODUCT_NAME";
     private static final String COLUMN_PRODUCT_PRICE = "PRODUCT_PRICE";
-    private static final String COLUMN_PRODUCT_SELLER_ID = "PRODUCT_SELLER_ID";
     private static final String COLUMN_PRODUCT_CATEGORY = "PRODUCT_CATEGORY";
     private static final String COLUMN_PRODUCT_DESCRIPTION = "PRODUCT_DESCRIPTION";
     private static final String COLUMN_PRODUCT_IS_PIN = "PRODUCT_PIN";
     private static final String COLUMN_PRODUCT_RELEASE_DATE = "PRODUCT_RELEASE_DATE";
     private static final String COLUMN_PRODUCT_IMAGE = "PRODUCT_IMAGE";
     private static final String COLUMN_PRODUCT_SELLER_NAME="PRODUCT_SELLER_NAME";
+    private static final String COLUMN_PRODUCT_SELLER_PHONE_NUMBER= "SELLER_PHONE_NUMBER";
     private ByteArrayOutputStream byteArrayOutputStream;
     private byte[] imageInBytes;
 
@@ -57,7 +66,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String onCreateTableString_Seller = "CREATE TABLE " + SELLER_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_SELLER_NAME + " TEXT, " + COLUMN_SELLER_EMAIL + " TEXT, " + COLUMN_SELLER_PASSWORD + " TEXT, " + COLUMN_SELLER_NUMBER + " TEXT, "+ COLUMN_SELLER_LOGIN_COUNT + " INT)";
-        String createTableStatement_Product = "CREATE TABLE " + PRODUCT_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_PRODUCT_NAME + " TEXT, " + COLUMN_PRODUCT_PRICE + " INT, " + COLUMN_PRODUCT_DESCRIPTION + " TEXT, "+COLUMN_PRODUCT_SELLER_NAME+" TEXT, " + COLUMN_PRODUCT_SELLER_ID + " INT, " + COLUMN_PRODUCT_CATEGORY + " TEXT, " + COLUMN_PRODUCT_IS_PIN + " TEXT, " + COLUMN_PRODUCT_RELEASE_DATE + " TEXT, "+ COLUMN_PRODUCT_IMAGE + " BLOB)";
+        String createTableStatement_Product = "CREATE TABLE " + PRODUCT_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_PRODUCT_NAME + " TEXT, " + COLUMN_PRODUCT_PRICE + " INT, " + COLUMN_PRODUCT_DESCRIPTION + " TEXT, "+COLUMN_PRODUCT_SELLER_NAME+" TEXT, " + COLUMN_PRODUCT_SELLER_PHONE_NUMBER + " TEXT, " + COLUMN_PRODUCT_CATEGORY + " TEXT, " + COLUMN_PRODUCT_IS_PIN + " TEXT, " + COLUMN_PRODUCT_RELEASE_DATE + " TEXT, "+ COLUMN_PRODUCT_IMAGE + " BLOB)";
 
         db.execSQL(createTableStatement_Product);
         db.execSQL(onCreateTableString_Seller);
@@ -180,11 +189,11 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         cv.put(COLUMN_PRODUCT_NAME , product.getName());
         cv.put(COLUMN_PRODUCT_PRICE, product.getPrice());
-        cv.put(COLUMN_PRODUCT_CATEGORY, product.getCategory().toString());
+        cv.put(COLUMN_PRODUCT_CATEGORY, product.getCategoryString());
         cv.put(COLUMN_PRODUCT_RELEASE_DATE, product.getReleaseDate().toString());
         cv.put(COLUMN_PRODUCT_DESCRIPTION, product.getDescription());
         cv.put(COLUMN_PRODUCT_IS_PIN, product.isPin());
-        cv.put(COLUMN_PRODUCT_SELLER_ID, product.getSeller().getPhoneNumber());
+        cv.put(COLUMN_PRODUCT_SELLER_PHONE_NUMBER, product.getSeller().getPhoneNumber());
         cv.put(COLUMN_PRODUCT_IMAGE, imageInBytes);
         cv.put(COLUMN_PRODUCT_SELLER_NAME,product.getSeller().getFullName());
         long insert = db.insert(PRODUCT_TABLE, null, cv);
@@ -192,6 +201,57 @@ public class DataBaseHandler extends SQLiteOpenHelper {
             return false;
         }
         return true;
+    }
+
+
+
+    public List<Product> getAllProductsOfSeller(Seller seller){
+        List<Product> AllProducts = this.getAllProducts();
+        List<Product> AllProductsOfSeller = new ArrayList<>();
+        for (Product product : AllProducts){
+            if(product.getSellerPhoneNumber().equalsIgnoreCase(seller.getPhoneNumber()))
+                AllProductsOfSeller.add(product);
+        }
+        return AllProductsOfSeller;
+    }
+
+
+    public List<Product> getAllProducts()
+    {
+        try {
+            List<Product> products = new LinkedList<>();
+            String query = "SELECT * FROM " + PRODUCT_TABLE;
+            SQLiteDatabase DB = this.getReadableDatabase();
+            Cursor cursor = DB.rawQuery(query, null);
+            if (cursor.moveToFirst()) {
+                //loop through the table of products
+                do {
+                    int Id = cursor.getInt(0);
+                    String Name = cursor.getString(1);
+                    int Price = cursor.getInt(2);
+                    String Description = cursor.getString(3);
+                    String sellerName = cursor.getString(4);
+                    String sellerPhoneNumber = cursor.getString(5);
+                    String Category = cursor.getString(6);
+                    String isPin = cursor.getString(7);
+                    String releaseDate = cursor.getString(8);
+                    byte[] imageBytes = cursor.getBlob(9);
+
+                    Bitmap imageProduct = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+                    boolean isPinBool = isPin.equals("true");
+                    Product product = new Product(Name, Price, imageProduct, Description, isPinBool, sellerPhoneNumber, Category);
+                    products.add(product);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            DB.close();
+            return products;
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(context,e.getMessage(),Toast.LENGTH_SHORT).show();
+            return null;
+        }
     }
 
     @Override

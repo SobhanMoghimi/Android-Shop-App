@@ -99,21 +99,22 @@ public class SellerPostFragment extends Fragment {
             public void onClick(View v) {
                 try {
                     Toast.makeText(getActivity(),SellerRegisterFragment.seller.getFullName().toString(),Toast.LENGTH_SHORT).show();
-                    if (name.getText().toString().equals("") || price.getText().toString().equals("") || chosenCategory.equals("")) {
+                    if (name.getText().toString().equals("") || price.getText().toString().equals("") || chosenCategory.equals(""))
+                    {
                         //شبیه ارور تکست فیلد باید بذاری اینجا
-                        Toast.makeText(getActivity(),"error",Toast.LENGTH_SHORT).show();
-
+                        Toast.makeText(getActivity(),"empty fields",Toast.LENGTH_SHORT).show();
                     }
                     else if (imageToStore==null) {
-                        Toast.makeText(getActivity(),"null",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"null Image",Toast.LENGTH_SHORT).show();
                     }
                     else {
                         product = new Product(name.getText().toString(),Integer.parseInt(price.getText().toString()),imageToStore,SellerRegisterFragment.seller,description.getText().toString(), Calendar.getInstance().getTime(), chosenCategory);
                         SellerRegisterFragment.seller.setId(9);
                         DataBaseHandler db = new DataBaseHandler(getActivity());
                         boolean success = db.addProduct(product);
-                        if (success) {
-                            Toast.makeText(getActivity(),"added",Toast.LENGTH_SHORT).show();
+                        if (success)
+                        {
+                            Toast.makeText(getActivity(),"کالای شما ثبت شد.",Toast.LENGTH_SHORT).show();
                         }
                         else {
                             Toast.makeText(getActivity(),"not successful", Toast.LENGTH_SHORT).show();

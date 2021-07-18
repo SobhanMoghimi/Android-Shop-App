@@ -4,7 +4,9 @@ import android.graphics.Bitmap;
 
 import java.util.Date;
 
-public class Product {
+public class Product
+{
+
 
     private String name;
     private int price;
@@ -15,6 +17,7 @@ public class Product {
     private Date releaseDate;
     private Category category;
     private String sellerPhoneNumber;
+
     public Product(String name, int price, Bitmap image, Seller seller, String description, Date releaseDate, String category) {
         this.name = name;
         this.price = price;
@@ -22,6 +25,17 @@ public class Product {
         this.seller = seller;
         this.description = description;
         this.releaseDate = releaseDate;
+        setCategory(category);
+    }
+
+    public Product(String name, int price, Bitmap image, String description, boolean isPin, String sellerPhoneNumber, String category)
+    {
+        this.name = name;
+        this.price = price;
+        this.image = image;
+        this.description = description;
+        this.isPin = isPin;
+        this.sellerPhoneNumber = sellerPhoneNumber;
         setCategory(category);
     }
 
@@ -47,6 +61,21 @@ public class Product {
 
     public void setImage(Bitmap image) {
         this.image = image;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", image=" + image +
+                ", seller=" + seller +
+                ", description='" + description + '\'' +
+                ", isPin=" + isPin +
+                ", releaseDate=" + releaseDate +
+                ", category=" + category +
+                ", sellerPhoneNumber='" + sellerPhoneNumber + '\'' +
+                '}';
     }
 
     public Seller getSeller() {
@@ -80,6 +109,7 @@ public class Product {
         return category;
     }
 
+
     public void setCategory(String category) {
         if (category.equals("فشن"))
             this.category = Category.FASHION;
@@ -94,23 +124,24 @@ public class Product {
         else if (category.equals("لوازم خانه"))
             this.category = Category.HOME;
     }
-
     public String getCategoryString()
     {
-        if(this.category==Category.BEAUTY)
+        if(category==Category.BEAUTY)
             return "لوازم بهداشتی";
-        if(this.category==Category.BOOK)
+        if(category==Category.BOOK)
             return "کتاب";
-        if(this.category==Category.FASHION)
+        if(category==Category.FASHION)
             return "فشن";
-        if(this.category==Category.ELECTRONICS)
+        if(category==Category.ELECTRONICS)
             return "لوازم الکترونیکی";
-        if(this.category==Category.HOME)
+        if(category==Category.HOME)
             return "لوازم خانه";
-        if(this.category==Category.CAR)
+        if(category==Category.CAR)
             return "خودرو";
         return "بدون دسته بندی";
     }
+
+
     public Date getReleaseDate() {
         return releaseDate;
     }
