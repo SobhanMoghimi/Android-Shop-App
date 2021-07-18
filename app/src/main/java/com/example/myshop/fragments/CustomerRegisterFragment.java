@@ -27,7 +27,7 @@ public class CustomerRegisterFragment extends Fragment
 {
     private AppCompatButton registerButton;
     private EditText emailText,registerPassword,usernameText,registerPasswordRepeat;
-    private TextView loginTextView;
+    private TextView loginTextView,errorField;
     public static Customer customer;
     DataBaseHandler db;
     @Nullable
@@ -39,6 +39,7 @@ public class CustomerRegisterFragment extends Fragment
         View view=inflater.inflate(R.layout.fragment_customer_register,container,false);
         registerPasswordRepeat=view.findViewById(R.id.customer_register_password_repeat);
         registerButton=view.findViewById(R.id.customer_register_button);
+        errorField = view.findViewById(R.id.text_view_customer_register_error);
         usernameText = view.findViewById(R.id.customer_register_username);
         emailText=view.findViewById(R.id.custom_register_email);
         registerPassword=view.findViewById(R.id.customer_register_password);
@@ -55,7 +56,7 @@ public class CustomerRegisterFragment extends Fragment
             @Override
             public void onClick(View v) {
                 try {
-                    if (registerPassword.getText().toString().equals("") || emailText.getText().toString().equals("") || registerPasswordRepeat.getText().toString().equals("") || name.getText().toString().equals("") || phoneNumber.getText().toString().equals("") ) {
+                    if (registerPassword.getText().toString().equals("") || emailText.getText().toString().equals("") || registerPasswordRepeat.getText().toString().equals("") || usernameText.getText().toString().equals("")) {
                         errorField.setText("اطلاعات وارد شده کافی نیست!");
                     }
 
@@ -63,7 +64,7 @@ public class CustomerRegisterFragment extends Fragment
                         errorField.setText("رمز عبور مطابقت ندارد!");
                     }
 
-                    else if (checkEmail(emailText.getText().toString())){
+                    else if (checkEmail(emailText.getText().toString()) && registerPassword.getText().toString().equals(registerPasswordRepeat.getText().toString())){
                         //DataBaseHandler db = new DataBaseHandler(getActivity());
                         customer = new Customer(usernameText.getText().toString(), emailText.getText().toString(), registerPassword.getText().toString());
                         boolean success = db.addCustomer(customer);
