@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 
 import androidx.annotation.Nullable;
 
+import com.example.myshop.model.Customer;
 import com.example.myshop.model.Product;
 import com.example.myshop.model.Seller;
 
@@ -21,6 +22,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private static final int VERSION = 1;
     private Context context;
     private static final String NAME = "database.db";
+
+    //Seller
     private static final String SELLER_TABLE = "SELLER_TABLE";
     private static final String COLUMN_SELLER_NAME = "SELLER_NAME";
     private static final String COLUMN_SELLER_EMAIL = "SELLER_EMAIL";
@@ -29,6 +32,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private static final String COLUMN_SELLER_LOGIN_COUNT = "SELLER_LOG_COUNT";
     private static final String COLUMN_ID = "ID";
 
+    //Product
     private static final String PRODUCT_TABLE = "PRODUCT_TABLE";
     private static final String COLUMN_PRODUCT_NAME = "PRODUCT_NAME";
     private static final String COLUMN_PRODUCT_PRICE = "PRODUCT_PRICE";
@@ -38,13 +42,16 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private static final String COLUMN_PRODUCT_IS_PIN = "PRODUCT_PIN";
     private static final String COLUMN_PRODUCT_RELEASE_DATE = "PRODUCT_RELEASE_DATE";
     private static final String COLUMN_PRODUCT_IMAGE = "PRODUCT_IMAGE";
+    private static final String COLUMN_PRODUCT_CUSTOMERS_BOOKMARKED = "BOOKMARKED";
     private ByteArrayOutputStream byteArrayOutputStream;
     private byte[] imageInBytes;
 
+    //Customer
     private static final String CUSTOMER_TABLE = "CUSTOMER_TABLE";
     private static final String CUSTOMER_NAME = "CUSTOMER_NAME";
     private static final String CUSTOMER_EMAIL = "CUSTOMER_EMAIL";
     private static final String CUSTOMER_PASSWORD = "CUSTOMER_PASSWORD";
+    private static final String CUSTOMER_LOGIN_COUNT = "SELLER_LOG_COUNT";
 
 
     public DataBaseHandler(@Nullable Context context) {
@@ -58,7 +65,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         String onCreateTableString_Seller = "CREATE TABLE " + SELLER_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_SELLER_NAME + " TEXT, " + COLUMN_SELLER_EMAIL + " TEXT, " + COLUMN_SELLER_PASSWORD + " TEXT, " + COLUMN_SELLER_NUMBER + " TEXT, "+ COLUMN_SELLER_LOGIN_COUNT + " INT)";
         String createTableStatement_Product = "CREATE TABLE " + PRODUCT_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_PRODUCT_NAME + " TEXT, " + COLUMN_PRODUCT_PRICE + " INT, " + COLUMN_PRODUCT_DESCRIPTION + " TEXT, " + COLUMN_PRODUCT_SELLER_ID + " INT, " + COLUMN_PRODUCT_CATEGORY + " TEXT, " + COLUMN_PRODUCT_IS_PIN + " TEXT, " + COLUMN_PRODUCT_RELEASE_DATE + " TEXT, " + COLUMN_PRODUCT_IMAGE + " BLOB)";
-        String createCustomer = "CREATE TABLE " + CUSTOMER_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + CUSTOMER_NAME + " TEXT, " + CUSTOMER_EMAIL + " TEXT, " + CUSTOMER_PASSWORD + " TEXT)";
+        String createCustomer = "CREATE TABLE " + CUSTOMER_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + CUSTOMER_NAME + " TEXT, " + CUSTOMER_EMAIL + " TEXT, " + COLUMN_PRODUCT_CUSTOMERS_BOOKMARKED + " TEXT, "+ CUSTOMER_PASSWORD + " TEXT)";
 
         db.execSQL(createTableStatement_Product);
         db.execSQL(onCreateTableString_Seller);
@@ -146,6 +153,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         return null;
     }
 
+
 //    public boolean deleteOne(Person person) {
 //        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 //        String queryString = "DELETE FROM " + CUSTOMER_TABLE +" WHERE " + COLUMN_ID + " = " + person.getId();
@@ -175,6 +183,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         cv.put(COLUMN_PRODUCT_DESCRIPTION, product.getDescription());
         cv.put(COLUMN_PRODUCT_IS_PIN, product.isPin());
         cv.put(COLUMN_PRODUCT_IMAGE, imageInBytes);
+        cv.put(COLUMN_PRODUCT_CUSTOMERS_BOOKMARKED, "");
 
         long insert = db.insert(PRODUCT_TABLE, null, cv);
 
@@ -186,6 +195,48 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
     }
 
+    public boolean addCustomer(Customer customer) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(CUSTOMER_NAME, customer.getFullName());
+        cv.put(CUSTOMER_EMAIL, customer.getEmail());
+        cv.put(CUSTOMER_PASSWORD, customer.getPassword());
+        cv.put(CUSTOMER_LOGIN_COUNT, 1);
+
+        long insert = db.insert(CUSTOMER_TABLE, null, cv);
+
+        if (insert==-1)
+            return false;
+        return true;
+    }
+
+    public List<Customer> getAllCustomers() {
+        List<Customer> allCustomers = new ArrayList<>();
+
+        String queryStatement = "SELECT * FROM " + CUSTOMER_TABLE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryStatement,null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String name = cursor.getString(1);
+                String email = cursor.getString(2);
+                String password = cursor.getString(3);
+                int logCount = cursor.getInt(5);
+                Customer customer = new Customer(name,email,password);
+                customer.setLogCount(logCount);
+                allCustomers.add(customer);
+            } while (cursor.moveToNext());
+        }
+        else {
+
+        }
+        cursor.close();
+        db.close();
+        return allCustomers;
+    }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Customer extends Person {
 
     private ArrayList<Product> bookMark;
+    private int logCount;
 
     public Customer(String fullName, String email, String password) {
         super(fullName, email, password);
@@ -46,5 +47,13 @@ public class Customer extends Person {
     @Override
     public String getPassword() {
         return super.getPassword();
+    }
+
+    public int getLogCount() {
+        return logCount;
+    }
+
+    public void setLogCount(int logCount) {
+        this.logCount = logCount;
     }
 }

@@ -30,6 +30,7 @@ public class SellerLoginFragment extends Fragment
     public static Seller seller;
     private EditText emailEditText,passwordEditText;
     private TextView errorTextView,forgetPasswordTextView,registerTextView;
+    DataBaseHandler db;
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
@@ -42,8 +43,8 @@ public class SellerLoginFragment extends Fragment
         errorTextView=view.findViewById(R.id.text_view_login_error);
         forgetPasswordTextView=view.findViewById(R.id.text_view_seller_forgot_password);
         registerTextView=view.findViewById(R.id.text_view_seller_register);
-        DataBaseHandler db = new DataBaseHandler(getActivity());
-
+        db = new DataBaseHandler(getActivity());
+        //List<Seller> allSellers = db.getAllSellers();
         registerTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -57,7 +58,7 @@ public class SellerLoginFragment extends Fragment
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isRegistered(emailEditText.getText().toString(), passwordEditText.getText().toString(), db)) {
+                if (isRegistered(emailEditText.getText().toString(), passwordEditText.getText().toString())) {
                     startActivity(new Intent(getActivity(), SellerHomePageActivity.class));
                 }
                 else {
@@ -69,7 +70,7 @@ public class SellerLoginFragment extends Fragment
         return view;
     }
 
-    public boolean isRegistered(String email, String password, DataBaseHandler db) {
+    public boolean isRegistered(String email, String password) {
         seller = db.getSeller(email);
         if (seller!=null && seller.getPassword().equals(password)) {
             int perLogCount = seller.getLogCount();
