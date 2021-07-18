@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.myshop.R;
+import com.example.myshop.activities.CustomerHomePageActivity;
 import com.example.myshop.activities.SellerHomePageActivity;
 import com.example.myshop.dataBase.DataBaseHandler;
 import com.example.myshop.model.Customer;
@@ -29,13 +30,13 @@ public class CustomerRegisterFragment extends Fragment
     private EditText emailText,registerPassword,usernameText,registerPasswordRepeat;
     private TextView loginTextView,errorField;
     public static Customer customer;
-    DataBaseHandler db;
+    //DataBaseHandler db;
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
     public View onCreateView(@NonNull @org.jetbrains.annotations.NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState)
     {
-        db = new DataBaseHandler(getActivity());
+        //db = new DataBaseHandler(getActivity());
         View view=inflater.inflate(R.layout.fragment_customer_register,container,false);
         registerPasswordRepeat=view.findViewById(R.id.customer_register_password_repeat);
         registerButton=view.findViewById(R.id.customer_register_button);
@@ -65,19 +66,19 @@ public class CustomerRegisterFragment extends Fragment
                     }
 
                     else if (checkEmail(emailText.getText().toString()) && registerPassword.getText().toString().equals(registerPasswordRepeat.getText().toString())){
-                        //DataBaseHandler db = new DataBaseHandler(getActivity());
+                        DataBaseHandler db = new DataBaseHandler(getActivity());
                         customer = new Customer(usernameText.getText().toString(), emailText.getText().toString(), registerPassword.getText().toString());
                         boolean success = db.addCustomer(customer);
                         if (success) {
                             Toast.makeText(getActivity(),"خوش آمدید",Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getActivity(), SellerHomePageActivity.class));
+                            startActivity(new Intent(getActivity(), CustomerHomePageActivity.class));
                         }
                         else {
-                            errorField.setText("ثبت نام با خطا مواجه شده است!");
+                            errorField.setText("ثبت نام با خطا مواجه شده است");
                         }
                     }
                 } catch (Exception e) {
-                    errorField.setText("ثبت نام با خطا مواجه شده است!");
+                    errorField.setText(e.getMessage().toString());
                 }
             }
         });
@@ -85,6 +86,7 @@ public class CustomerRegisterFragment extends Fragment
     }
 
     public boolean checkEmail(String email) {
+        DataBaseHandler db = new DataBaseHandler(getActivity());
         List<Customer> customers = db.getAllCustomers();
         for (Customer customer1 : customers) {
             if (customer1.getEmail().equalsIgnoreCase(emailText.getText().toString())) {

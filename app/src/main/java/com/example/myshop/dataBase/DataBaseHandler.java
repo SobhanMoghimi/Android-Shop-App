@@ -20,7 +20,6 @@ import java.util.List;
 public class DataBaseHandler extends SQLiteOpenHelper {
 
     private static final int VERSION = 1;
-    private Context context;
     private static final String NAME = "database.db";
 
     //Seller
@@ -51,12 +50,11 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private static final String CUSTOMER_NAME = "CUSTOMER_NAME";
     private static final String CUSTOMER_EMAIL = "CUSTOMER_EMAIL";
     private static final String CUSTOMER_PASSWORD = "CUSTOMER_PASSWORD";
-    private static final String CUSTOMER_LOGIN_COUNT = "SELLER_LOG_COUNT";
+    private static final String CUSTOMER_LOGIN_COUNT = "CUSTOMER_LOG_COUNT";
 
 
     public DataBaseHandler(@Nullable Context context) {
         super(context,NAME,null,VERSION);
-        this.context = context;
     }
 
 
@@ -65,7 +63,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         String onCreateTableString_Seller = "CREATE TABLE " + SELLER_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_SELLER_NAME + " TEXT, " + COLUMN_SELLER_EMAIL + " TEXT, " + COLUMN_SELLER_PASSWORD + " TEXT, " + COLUMN_SELLER_NUMBER + " TEXT, "+ COLUMN_SELLER_LOGIN_COUNT + " INT)";
         String createTableStatement_Product = "CREATE TABLE " + PRODUCT_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_PRODUCT_NAME + " TEXT, " + COLUMN_PRODUCT_PRICE + " INT, " + COLUMN_PRODUCT_DESCRIPTION + " TEXT, " + COLUMN_PRODUCT_SELLER_ID + " INT, " + COLUMN_PRODUCT_CATEGORY + " TEXT, " + COLUMN_PRODUCT_IS_PIN + " TEXT, " + COLUMN_PRODUCT_RELEASE_DATE + " TEXT, " + COLUMN_PRODUCT_IMAGE + " BLOB)";
-        String createCustomer = "CREATE TABLE " + CUSTOMER_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + CUSTOMER_NAME + " TEXT, " + CUSTOMER_EMAIL + " TEXT, " + COLUMN_PRODUCT_CUSTOMERS_BOOKMARKED + " TEXT, "+ CUSTOMER_PASSWORD + " TEXT)";
+        String createCustomer = "CREATE TABLE " + CUSTOMER_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + CUSTOMER_NAME + " TEXT, " + CUSTOMER_EMAIL + " TEXT, " + CUSTOMER_PASSWORD + " TEXT, " + CUSTOMER_LOGIN_COUNT + " INT)";
 
         db.execSQL(createTableStatement_Product);
         db.execSQL(onCreateTableString_Seller);
@@ -77,10 +75,10 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(COLUMN_SELLER_NAME, seller.getFullName());
-        cv.put(COLUMN_SELLER_EMAIL, seller.getEmail());
+        cv.put(COLUMN_SELLER_NAME, seller.getFullName().toString());
+        cv.put(COLUMN_SELLER_EMAIL, seller.getEmail().toString());
         cv.put(COLUMN_SELLER_NUMBER, seller.getPhoneNumber());
-        cv.put(COLUMN_SELLER_PASSWORD, seller.getPassword());
+        cv.put(COLUMN_SELLER_PASSWORD, seller.getPassword().toString());
         cv.put(COLUMN_SELLER_LOGIN_COUNT, 1);
 
         long insert = db.insert(SELLER_TABLE,null, cv);
@@ -116,7 +114,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public List<Seller> getAllSellers() {
         List<Seller> allSellers = new ArrayList<>();
 
-        String queryStatement = "SELECT * FROM " + SELLER_TABLE;
+        String queryStatement = "SELECT * FROM " + SELLER_TABLE + ";";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryStatement,null);
@@ -196,6 +194,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     }
 
     public boolean addCustomer(Customer customer) {
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -206,8 +205,9 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         long insert = db.insert(CUSTOMER_TABLE, null, cv);
 
-        if (insert==-1)
+        if (insert==-1) {
             return false;
+        }
         return true;
     }
 
