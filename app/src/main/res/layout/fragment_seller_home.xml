@@ -3,13 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primary"
     tools:context=".fragments.SellerHomeFragment">
 
-    <TextView
-        android:gravity="center"
-        android:background="@color/secondaryDark"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/seller_products_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="home" />
-
+        />
 </FrameLayout>
