@@ -44,7 +44,8 @@ public class SellerLoginFragment extends Fragment
         forgetPasswordTextView=view.findViewById(R.id.text_view_seller_forgot_password);
         registerTextView=view.findViewById(R.id.text_view_seller_register);
         db = new DataBaseHandler(getActivity());
-        //List<Seller> allSellers = db.getAllSellers();
+        List<Seller> allSellers = db.getAllSellers();
+
         registerTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -55,36 +56,36 @@ public class SellerLoginFragment extends Fragment
 
 
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isRegistered(emailEditText.getText().toString(), passwordEditText.getText().toString())) {
-                    startActivity(new Intent(getActivity(), SellerHomePageActivity.class));
+        loginButton.setOnClickListener(v -> {
+
+            boolean found = false;
+            if (emailEditText.getText().toString().equals("") || passwordEditText.getText().toString().equals("")) {
+                errorTextView.setText("باید تمام فیلد ها را پر کنید!");
+            }
+            else {
+                for(Seller seller1 : allSellers) {
+                    if (seller1.getEmail().equalsIgnoreCase(emailEditText.getText().toString())) {
+                        if (seller1.getPassword().equals(passwordEditText.getText().toString())) {
+                            found = true;
+                            seller = seller1;
+                            boolean isUpdated = db.updateSellerLogCount(seller,seller.getLoginCount()+1);
+                            seller.setLoginCount(seller1.getLoginCount()+1);
+                            if (isUpdated) {
+                                Toast.makeText(getActivity(),String.valueOf(seller.getLoginCount()),Toast.LENGTH_SHORT).show();
+                            }
+                            startActivity(new Intent(getActivity(),SellerHomePageActivity.class));
+                        }
+                        else {
+                            errorTextView.setText("رمز عبور اشتباه است!");
+                        }
+                    }
                 }
-                else {
-                    errorTextView.setText("شما عضو نیستید");
+                if (found==false) {
+                    errorTextView.setText("شما عضو نیستید!");
                 }
             }
         });
 
         return view;
-    }
-
-    public boolean isRegistered(String email, String password) {
-        seller = db.getSeller(email);
-        if(seller==null)
-        {
-            errorTextView.setText("شما عضو نیستید!");
-            return false;
-        }
-        if (!seller.getPassword().equals(password))
-        {
-            errorTextView.setText("رمز عبور اشتباه است!");
-            return false;
-        }
-
-        int perLogCount = seller.getLogCount();
-        seller.setLogCount(perLogCount++);
-        return true;
     }
 }

@@ -42,6 +42,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private static final String COLUMN_PRODUCT_RELEASE_DATE = "PRODUCT_RELEASE_DATE";
     private static final String COLUMN_PRODUCT_IMAGE = "PRODUCT_IMAGE";
     private static final String COLUMN_PRODUCT_CUSTOMERS_BOOKMARKED = "BOOKMARKED";
+    private static final String PRODUCT_OWNER_PHONE = "PHONENUMBER";
     private ByteArrayOutputStream byteArrayOutputStream;
     private byte[] imageInBytes;
 
@@ -62,7 +63,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String onCreateTableString_Seller = "CREATE TABLE " + SELLER_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_SELLER_NAME + " TEXT, " + COLUMN_SELLER_EMAIL + " TEXT, " + COLUMN_SELLER_PASSWORD + " TEXT, " + COLUMN_SELLER_NUMBER + " TEXT, "+ COLUMN_SELLER_LOGIN_COUNT + " INT)";
-        String createTableStatement_Product = "CREATE TABLE " + PRODUCT_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_PRODUCT_NAME + " TEXT, " + COLUMN_PRODUCT_PRICE + " INT, " + COLUMN_PRODUCT_DESCRIPTION + " TEXT, " + COLUMN_PRODUCT_SELLER_ID + " INT, " + COLUMN_PRODUCT_CATEGORY + " TEXT, " + COLUMN_PRODUCT_IS_PIN + " TEXT, " + COLUMN_PRODUCT_RELEASE_DATE + " TEXT, " + COLUMN_PRODUCT_IMAGE + " BLOB)";
+        String createTableStatement_Product = "CREATE TABLE " + PRODUCT_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_PRODUCT_NAME + " TEXT, " + COLUMN_PRODUCT_PRICE + " INT, " + COLUMN_PRODUCT_DESCRIPTION + " TEXT, " + COLUMN_PRODUCT_SELLER_ID + " INT, " + COLUMN_PRODUCT_CATEGORY + " TEXT, " + COLUMN_PRODUCT_IS_PIN + " TEXT, " + COLUMN_PRODUCT_RELEASE_DATE + " TEXT, " + COLUMN_PRODUCT_IMAGE + " BLOB," + PRODUCT_OWNER_PHONE + "TEXT)";
         String createCustomer = "CREATE TABLE " + CUSTOMER_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + CUSTOMER_NAME + " TEXT, " + CUSTOMER_EMAIL + " TEXT, " + CUSTOMER_PASSWORD + " TEXT, " + CUSTOMER_LOGIN_COUNT + " INT)";
 
         db.execSQL(createTableStatement_Product);
@@ -121,13 +122,15 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
+                int id = cursor.getInt(0);
                 String name = cursor.getString(1);
                 String email = cursor.getString(2);
-                String phoneNumber = cursor.getString(3);
-                String password = cursor.getString(4);
-                int logCount = cursor.getInt(5);
+                String phoneNumber = cursor.getString(4);
+                String password = cursor.getString(3);
+                int logCount = Integer.parseInt(cursor.getString(5));
                 Seller seller = new Seller(name,email,password,phoneNumber);
-                seller.setLogCount(logCount);
+                seller.setLoginCount(logCount);
+                seller.setId(id);
                 allSellers.add(seller);
             } while (cursor.moveToNext());
         }
@@ -137,18 +140,6 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return allSellers;
-    }
-
-    public Seller getSeller(String email) {
-        Seller seller;
-        List<Seller> sellers = this.getAllSellers();
-        for (Seller seller1 : sellers) {
-            if (seller1.getEmail().equalsIgnoreCase(email)) {
-                seller = new Seller(seller1.getFullName(),seller1.getEmail(),seller1.getPassword(),seller1.getPhoneNumber());
-                return seller;
-            }
-        }
-        return null;
     }
 
 
@@ -182,6 +173,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         cv.put(COLUMN_PRODUCT_IS_PIN, product.isPin());
         cv.put(COLUMN_PRODUCT_IMAGE, imageInBytes);
         cv.put(COLUMN_PRODUCT_CUSTOMERS_BOOKMARKED, "");
+        cv.put(PRODUCT_OWNER_PHONE, product.getSeller().getPhoneNumber().toString());
 
         long insert = db.insert(PRODUCT_TABLE, null, cv);
 
@@ -221,12 +213,14 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
+                int id = cursor.getInt(0);
                 String name = cursor.getString(1);
                 String email = cursor.getString(2);
                 String password = cursor.getString(3);
-                int logCount = cursor.getInt(5);
+                int logCount = cursor.getInt(4);
                 Customer customer = new Customer(name,email,password);
-                customer.setLogCount(logCount);
+                customer.setLoginCount(logCount);
+                customer.setId(id);
                 allCustomers.add(customer);
             } while (cursor.moveToNext());
         }
@@ -237,6 +231,28 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         db.close();
         return allCustomers;
     }
+
+    public boolean updateCustomerLogCount(Customer customer, int newNum) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(CUSTOMER_LOGIN_COUNT, newNum);
+        long update = db.update(CUSTOMER_TABLE,cv,CUSTOMER_EMAIL + " = ?", new String[] {customer.getEmail()});
+
+        return update !=-1;
+    }
+
+    public boolean updateSellerLogCount(Seller seller, int newNum) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_SELLER_LOGIN_COUNT, newNum);
+        long update = db.update(SELLER_TABLE,cv,COLUMN_SELLER_EMAIL + " = ?", new String[] {seller.getEmail()});
+
+        return update !=-1;
+    }
+
+//    public boolean updateSellerName(Seller seller, String name) {
+//
+//    }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 

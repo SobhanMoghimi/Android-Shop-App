@@ -1,16 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.SellerMyAccFragment">
+    tools:context=".fragments.SellerMyAccFragment"
+    android:background="@drawable/gradient_seller_myacc">
 
 
     <TextView
-        android:gravity="center"
-        android:background="@color/primaryLight"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="my account" />
+        android:id="@+id/textView"
+        android:layout_width="190dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="28dp"
+        android:text="اطلاعات شما"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.429"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/seller_myacc_name"
+        android:layout_width="259dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="40dp"
+        android:text="name"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.842"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/seller_myacc_email"
+        android:layout_width="259dp"
+        android:layout_height="37dp"
+        android:text="email"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.838"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seller_myacc_name" />
+
+    <TextView
+        android:id="@+id/seller_myacc_phone"
+        android:layout_width="259dp"
+        android:layout_height="37dp"
+        android:text="phone"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.838"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seller_myacc_email" />
+
+    <Button
+        android:id="@+id/seller_edit"
+        android:layout_width="110dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="52dp"
+        android:text="ویرایش اطلاعات"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seller_myacc_phone"
+        app:layout_constraintVertical_bias="0.188" />
+
+    <Button
+        android:id="@+id/seller_password_edit"
+        android:layout_width="110dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="52dp"
+        android:text="تغییر رمز عبور"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/seller_edit"
+        app:layout_constraintHorizontal_bias="0.404"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seller_myacc_phone"
+        app:layout_constraintVertical_bias="0.188" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

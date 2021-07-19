@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.SellerHomePageActivity"
+    android:id="@+id/seller_home_page"
     android:background="@color/secondaryLight">
 
 

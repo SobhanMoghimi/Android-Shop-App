@@ -102,4 +102,5 @@ public class Product {
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
     }
+
 }

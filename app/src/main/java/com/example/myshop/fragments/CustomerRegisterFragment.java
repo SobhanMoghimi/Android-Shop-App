@@ -30,13 +30,11 @@ public class CustomerRegisterFragment extends Fragment
     private EditText emailText,registerPassword,usernameText,registerPasswordRepeat;
     private TextView loginTextView,errorField;
     public static Customer customer;
-    //DataBaseHandler db;
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
     public View onCreateView(@NonNull @org.jetbrains.annotations.NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState)
     {
-        //db = new DataBaseHandler(getActivity());
         View view=inflater.inflate(R.layout.fragment_customer_register,container,false);
         registerPasswordRepeat=view.findViewById(R.id.customer_register_password_repeat);
         registerButton=view.findViewById(R.id.customer_register_button);
@@ -74,7 +72,7 @@ public class CustomerRegisterFragment extends Fragment
                             startActivity(new Intent(getActivity(), CustomerHomePageActivity.class));
                         }
                         else {
-                            errorField.setText("ثبت نام با خطا مواجه شده است");
+                            errorField.setText("ثبت نام با خطا مواجه شده است!");
                         }
                     }
                 } catch (Exception e) {

@@ -3,6 +3,7 @@ package com.example.myshop.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -33,6 +34,10 @@ public class SellerHomePageActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(listener);
         frameLayout = findViewById(R.id.seller_frame_layout);
         getSupportFragmentManager().beginTransaction().replace(R.id.seller_frame_layout,new SellerHomeFragment()).commit();
+
+//
+//        SellerMyAccFragment f1 = new SellerMyAccFragment();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener listener = new BottomNavigationView.OnNavigationItemSelectedListener() {

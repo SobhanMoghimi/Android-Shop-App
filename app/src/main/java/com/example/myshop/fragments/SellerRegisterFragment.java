@@ -21,6 +21,8 @@ import com.example.myshop.activities.SellerHomePageActivity;
 import com.example.myshop.dataBase.DataBaseHandler;
 import com.example.myshop.model.Seller;
 
+import java.util.List;
+
 public class SellerRegisterFragment extends Fragment
 {
     private AppCompatButton registerButton;
@@ -65,12 +67,12 @@ public class SellerRegisterFragment extends Fragment
                         errorField.setText("رمز عبور مطابقت ندارد!");
                     }
 
-                    else {
+                    else if (password.getText().toString().equals(passwordRepeat.getText().toString()) && isChecked(email.getText().toString())){
                         DataBaseHandler db = new DataBaseHandler(getActivity());
                         seller = new Seller(name.getText().toString(), email.getText().toString(), password.getText().toString(), phoneNumber.getText().toString());
                         boolean success = db.addSeller(seller);
                         if (success) {
-                            seller.setLogCount(1);
+                            seller.setLoginCount(1);
                             Toast.makeText(getActivity(),"خوش آمدید",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getActivity(), SellerHomePageActivity.class));
                         }
@@ -84,6 +86,18 @@ public class SellerRegisterFragment extends Fragment
             }
         });
         return view;
+    }
+
+    public boolean isChecked(String email) {
+
+        DataBaseHandler db = new DataBaseHandler(getActivity());
+        List<Seller> sellers = db.getAllSellers();
+        for (Seller seller1 : sellers) {
+            if (seller1.getEmail().equalsIgnoreCase(email)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public Seller getSeller() {
