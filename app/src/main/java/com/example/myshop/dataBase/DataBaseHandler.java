@@ -306,9 +306,20 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         return update !=-1;
     }
 
-//    public boolean updateSellerName(Seller seller, String name) {
-//
-//    }
+    public boolean updateSeller(Seller seller, String name, String email, String phone) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_SELLER_NAME,name);
+        cv.put(COLUMN_SELLER_EMAIL,email);
+        cv.put(COLUMN_SELLER_NUMBER,phone);
+
+        long update = db.update(SELLER_TABLE,cv,COLUMN_ID + " = ?" , new String[] {String.valueOf(seller.getId())});
+
+        return update!=-1;
+    }
+
+    public boolean
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
