@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myshop.R;
 import com.example.myshop.model.Product;
+import com.example.myshop.model.Seller;
+
 import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
@@ -44,6 +46,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.tv_row_product_phoneNumber.setText(productList.get(position).getSellerPhoneNumber());
         holder.tv_row_product_price.setText(productList.get(position).getPrice()+ "\t" + "تومان");
         holder.iv_row_prod_pic.setImageBitmap(productList.get(position).getImage());
+
+        if(Seller.activeSeller==null)
+        {
+            holder.row_product_layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+        }
     }
 
     @Override

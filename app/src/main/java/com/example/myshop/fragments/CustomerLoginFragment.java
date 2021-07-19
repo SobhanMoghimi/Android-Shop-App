@@ -19,6 +19,7 @@ import com.example.myshop.R;
 import com.example.myshop.activities.CustomerHomePageActivity;
 import com.example.myshop.dataBase.DataBaseHandler;
 import com.example.myshop.model.Customer;
+import com.example.myshop.model.Seller;
 
 import java.util.List;
 
@@ -50,30 +51,33 @@ public class CustomerLoginFragment extends Fragment
                 Navigation.findNavController(view).navigate(R.id.action_customerLoginFragment_to_customerRegisterFragment);
             }
         });
-
         loginButton.setOnClickListener(v -> {
 
             boolean found = false;
             if (emailEditText.getText().toString().equals("") || passwordEditText.getText().toString().equals("")) {
                 errorTextView.setText("باید تمام فیلد ها را پر کنید!");
             }
-
             else {
                 for (Customer customer1 : allCustomers) {
-                    if (customer1.getEmail().equalsIgnoreCase(emailEditText.getText().toString())) {
-                        if (customer1.getPassword().equals(passwordEditText.getText().toString())) {
+                    if (customer1.getEmail().equalsIgnoreCase(emailEditText.getText().toString()))
+                    {
+                        if (customer1.getPassword().equals(passwordEditText.getText().toString()))
+                        {
                             customer = customer1;
                             found = true;
                             boolean updated = db.updateCustomerLogCount(customer,customer.getLoginCount()+1);
                             customer.setLoginCount(customer.getLoginCount()+1);
+                            Customer.activeCustomer=customer;
+                            Seller.activeSeller=null;
                             startActivity(new Intent(getActivity(), CustomerHomePageActivity.class));
                         }
                         else {
                             errorTextView.setText("رمز عبور اشتباه است!");
+                            break;
                         }
                     }
                 }
-                if (found==false){
+                if (!found){
                     errorTextView.setText("شما عضو نیستید!");
                 }
             }

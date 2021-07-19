@@ -59,13 +59,16 @@ public class SellerLoginFragment extends Fragment
         loginButton.setOnClickListener(v -> {
 
             boolean found = false;
-            if (emailEditText.getText().toString().equals("") || passwordEditText.getText().toString().equals("")) {
-                errorTextView.setText("باید تمام فیلد ها را پر کنید!");
+            if (emailEditText.getText().toString().equals("") || passwordEditText.getText().toString().equals(""))
+            {
+                errorTextView.setText("تمامی اطلاعات را وارد کنید!");
             }
             else {
                 for(Seller seller1 : allSellers) {
-                    if (seller1.getEmail().equalsIgnoreCase(emailEditText.getText().toString())) {
-                        if (seller1.getPassword().equals(passwordEditText.getText().toString())) {
+                    if (seller1.getEmail().equalsIgnoreCase(emailEditText.getText().toString()))
+                    {
+                        if (seller1.getPassword().equals(passwordEditText.getText().toString()))
+                        {
                             found = true;
                             seller = seller1;
                             boolean isUpdated = db.updateSellerLogCount(seller,seller.getLoginCount()+1);
@@ -73,14 +76,17 @@ public class SellerLoginFragment extends Fragment
                             if (isUpdated) {
                                 Toast.makeText(getActivity(),String.valueOf(seller.getLoginCount()),Toast.LENGTH_SHORT).show();
                             }
+                            Seller.activeSeller=seller;
                             startActivity(new Intent(getActivity(),SellerHomePageActivity.class));
+                            break;
                         }
                         else {
                             errorTextView.setText("رمز عبور اشتباه است!");
+                            break;
                         }
                     }
                 }
-                if (found==false) {
+                if (!found) {
                     errorTextView.setText("شما عضو نیستید!");
                 }
             }

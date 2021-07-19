@@ -66,8 +66,12 @@ public class SellerRegisterFragment extends Fragment
                     else if (!password.getText().toString().equals(passwordRepeat.getText().toString())) {
                         errorField.setText("رمز عبور مطابقت ندارد!");
                     }
-
-                    else if (password.getText().toString().equals(passwordRepeat.getText().toString()) && isChecked(email.getText().toString())){
+                    else if (!isChecked(email.getText().toString(),phoneNumber.getText().toString()).equals(""))
+                    {
+                        errorField.setText(isChecked(email.getText().toString(),phoneNumber.getText().toString()));
+                    }
+                    else
+                    {
                         DataBaseHandler db = new DataBaseHandler(getActivity());
                         seller = new Seller(name.getText().toString(), email.getText().toString(), password.getText().toString(), phoneNumber.getText().toString());
                         boolean success = db.addSeller(seller);
@@ -89,16 +93,22 @@ public class SellerRegisterFragment extends Fragment
         return view;
     }
 
-    public boolean isChecked(String email) {
+    public String isChecked(String email,String phoneNumber)
+    {
 
         DataBaseHandler db = new DataBaseHandler(getActivity());
         List<Seller> sellers = db.getAllSellers();
         for (Seller seller1 : sellers) {
-            if (seller1.getEmail().equalsIgnoreCase(email)) {
-                return false;
+            if (seller1.getEmail().equalsIgnoreCase(email))
+            {
+                return "فروشنده ای با این ایمیل موجود است !";
+            }
+            if(seller1.getPhoneNumber().equalsIgnoreCase(phoneNumber))
+            {
+                return "فروشنده ای با این شماره موجود است !";
             }
         }
-        return true;
+        return "";
     }
 
     public Seller getSeller() {

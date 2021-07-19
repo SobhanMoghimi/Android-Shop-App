@@ -62,12 +62,17 @@ public class CustomerRegisterFragment extends Fragment
                     else if (!registerPassword.getText().toString().equals(registerPasswordRepeat.getText().toString())) {
                         errorField.setText("رمز عبور مطابقت ندارد!");
                     }
-
-                    else if (checkEmail(emailText.getText().toString()) && registerPassword.getText().toString().equals(registerPasswordRepeat.getText().toString())){
+                    else if(!checkEmail(emailText.getText().toString()))
+                    {
+                        errorField.setText("کاربر با این ایمیل موجود است !");
+                    }
+                    else {
                         DataBaseHandler db = new DataBaseHandler(getActivity());
                         customer = new Customer(usernameText.getText().toString(), emailText.getText().toString(), registerPassword.getText().toString());
                         boolean success = db.addCustomer(customer);
                         if (success) {
+                            Customer.activeCustomer=customer;
+                            Seller.activeSeller=null;
                             Toast.makeText(getActivity(),"خوش آمدید",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getActivity(), CustomerHomePageActivity.class));
                         }

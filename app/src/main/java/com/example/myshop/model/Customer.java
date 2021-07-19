@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Customer extends Person {
 
     private ArrayList<Product> bookMark;
-
+    public static Customer activeCustomer;
     public Customer(String fullName, String email, String password) {
         super(fullName, email, password);
     }
