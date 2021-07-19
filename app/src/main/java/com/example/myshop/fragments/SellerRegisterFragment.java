@@ -77,6 +77,7 @@ public class SellerRegisterFragment extends Fragment
                         boolean success = db.addSeller(seller);
                         if (success) {
                             seller.setLoginCount(1);
+                            seller.setId(getNewSellerId(email.getText().toString()));
                             Toast.makeText(getActivity(),"خوش آمدید",Toast.LENGTH_SHORT).show();
                             Seller.activeSeller=seller;
                             startActivity(new Intent(getActivity(), SellerHomePageActivity.class));
@@ -111,7 +112,8 @@ public class SellerRegisterFragment extends Fragment
         return "";
     }
 
-    public Seller getSeller() {
-        return seller;
+    public int getNewSellerId(String email) {
+        DataBaseHandler db = new DataBaseHandler(getActivity());
+        return db.getSellerId(email);
     }
 }

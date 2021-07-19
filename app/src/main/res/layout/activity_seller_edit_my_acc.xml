@@ -10,6 +10,7 @@
 
     <TextView
         android:id="@+id/textView"
+        android:textColor="@color/primaryLight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
@@ -26,6 +27,7 @@
         android:layout_height="46dp"
         android:layout_marginTop="52dp"
         android:ems="10"
+        android:textColor="@color/primaryLight"
         android:inputType="textPersonName"
         android:hint="نام و نام خانوادگی"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,6 +42,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="ایمیل"
+        android:textColor="@color/primaryLight"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.884"
@@ -53,33 +56,37 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="شماره تلفن‌همراه"
+        android:textColor="@color/primaryLight"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.882"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
 
-<!--    <androidx.appcompat.widget.AppCompatButton-->
-<!--        android:id="@+id/buttonPress"-->
-<!--        app:buttonColor="@color/light_blue"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="ثبت"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.498"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/editTextNumber"-->
-<!--        app:layout_constraintVertical_bias="0.214" />-->
-
-    <com.unstoppable.submitbuttonview.SubmitButton
-        android:id="@+id/submitbutton"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonPress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="28dp"
+        android:text="ثبت"
+        app:buttonColor="@color/light_blue"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
+
+    <TextView
+        android:id="@+id/errorEditSeller"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:textColor="@color/primaryLight"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonPress"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

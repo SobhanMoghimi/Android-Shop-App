@@ -11,17 +11,12 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.example.myshop.fragments.SellerRegisterFragment;
 import com.example.myshop.model.Customer;
 import com.example.myshop.model.Product;
 import com.example.myshop.model.Seller;
 
 import java.io.ByteArrayOutputStream;
-import java.lang.reflect.Type;
-import java.sql.Blob;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -318,8 +313,65 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         return update!=-1;
     }
 
-    public boolean
+    public boolean updateCustomer(Customer customer, String name, String email) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(CUSTOMER_NAME,name);
+        cv.put(CUSTOMER_EMAIL, email);
 
+        long update = db.update(CUSTOMER_TABLE,cv,COLUMN_ID + " = ?",new String[] {String.valueOf(customer.getId())});
+
+        return update!=-1;
+    }
+
+    public boolean updateProduct(Product product, String name, int price, Bitmap newImage, String description) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        Bitmap imageToStoreBitmap = newImage;
+        byteArrayOutputStream = new ByteArrayOutputStream();
+        imageToStoreBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        imageInBytes = byteArrayOutputStream.toByteArray();
+
+
+        cv.put(COLUMN_PRODUCT_NAME,name);
+        cv.put(COLUMN_PRODUCT_PRICE,price);
+        cv.put(COLUMN_PRODUCT_IMAGE,imageInBytes);
+        cv.put(COLUMN_PRODUCT_DESCRIPTION,description);
+
+        long update = db.update(PRODUCT_TABLE,cv, COLUMN_ID + " = ?",new String[] {String.valueOf(product.getId())});
+
+        return update!=-1;
+    }
+
+    public Seller getSellerById(int id) {
+        List<Seller> sellers = this.getAllSellers();
+        for (Seller seller : sellers) {
+            if (seller.getId()==id) {
+                return seller;
+            }
+        }
+        return null;
+    }
+
+    public int getSellerId(String email) {
+        List<Seller> sellers = this.getAllSellers();
+        for (Seller seller : sellers) {
+            if (seller.getEmail().equals(email)) {
+                return seller.getId();
+            }
+        }
+        return 0;
+    }
+
+    public boolean updatePassSeller(Seller seller,String newPass) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_SELLER_NAME,newPass);
+
+        long update = db.update(SELLER_TABLE,cv,COLUMN_ID + " = ?",new String[] {String.valueOf(seller.getId())});
+        return update!=-1;
+    }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 

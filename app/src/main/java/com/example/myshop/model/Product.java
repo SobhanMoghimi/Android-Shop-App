@@ -9,6 +9,7 @@ public class Product
 
 
     private String name;
+    private int id;
     private int price;
     private Bitmap image;
     private Seller seller;
@@ -156,5 +157,13 @@ public class Product
 
     public void setSellerPhoneNumber(String sellerPhoneNumber) {
         this.sellerPhoneNumber = sellerPhoneNumber;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
