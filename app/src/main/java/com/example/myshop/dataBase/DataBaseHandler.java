@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.example.myshop.fragments.SellerRegisterFragment;
+import com.example.myshop.model.Customer;
 import com.example.myshop.model.Product;
 import com.example.myshop.model.Seller;
 
@@ -27,8 +28,9 @@ import java.util.List;
 public class DataBaseHandler extends SQLiteOpenHelper {
 
     private static final int VERSION = 1;
+    private static final String NAME = "database.db";
     private Context context;
-    private static final String NAME = "seller.db";
+    //Seller
     private static final String SELLER_TABLE = "SELLER_TABLE";
     private static final String COLUMN_SELLER_NAME = "SELLER_NAME";
     private static final String COLUMN_SELLER_EMAIL = "SELLER_EMAIL";
@@ -38,11 +40,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
     private static final String COLUMN_ID = "ID";
 
-
-
-
-
-
+    //Product
     private static final String PRODUCT_TABLE = "PRODUCT_TABLE";
     private static final String COLUMN_PRODUCT_NAME = "PRODUCT_NAME";
     private static final String COLUMN_PRODUCT_PRICE = "PRODUCT_PRICE";
@@ -56,6 +54,14 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private ByteArrayOutputStream byteArrayOutputStream;
     private byte[] imageInBytes;
 
+    //Customer
+    private static final String CUSTOMER_TABLE = "CUSTOMER_TABLE";
+    private static final String CUSTOMER_NAME = "CUSTOMER_NAME";
+    private static final String CUSTOMER_EMAIL = "CUSTOMER_EMAIL";
+    private static final String CUSTOMER_PASSWORD = "CUSTOMER_PASSWORD";
+    private static final String CUSTOMER_LOGIN_COUNT = "CUSTOMER_LOG_COUNT";
+
+
     public DataBaseHandler(@Nullable Context context) {
         super(context,NAME,null,VERSION);
         this.context = context;
@@ -66,20 +72,22 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String onCreateTableString_Seller = "CREATE TABLE " + SELLER_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_SELLER_NAME + " TEXT, " + COLUMN_SELLER_EMAIL + " TEXT, " + COLUMN_SELLER_PASSWORD + " TEXT, " + COLUMN_SELLER_NUMBER + " TEXT, "+ COLUMN_SELLER_LOGIN_COUNT + " INT)";
+        String createCustomer = "CREATE TABLE " + CUSTOMER_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + CUSTOMER_NAME + " TEXT, " + CUSTOMER_EMAIL + " TEXT, " + CUSTOMER_PASSWORD + " TEXT, " + CUSTOMER_LOGIN_COUNT + " INT)";
         String createTableStatement_Product = "CREATE TABLE " + PRODUCT_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_PRODUCT_NAME + " TEXT, " + COLUMN_PRODUCT_PRICE + " INT, " + COLUMN_PRODUCT_DESCRIPTION + " TEXT, "+COLUMN_PRODUCT_SELLER_NAME+" TEXT, " + COLUMN_PRODUCT_SELLER_PHONE_NUMBER + " TEXT, " + COLUMN_PRODUCT_CATEGORY + " TEXT, " + COLUMN_PRODUCT_IS_PIN + " TEXT, " + COLUMN_PRODUCT_RELEASE_DATE + " TEXT, "+ COLUMN_PRODUCT_IMAGE + " BLOB)";
-
         db.execSQL(createTableStatement_Product);
         db.execSQL(onCreateTableString_Seller);
+        db.execSQL(createCustomer);
     }
 
     public boolean addSeller(Seller seller) {
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(COLUMN_SELLER_NAME, seller.getFullName());
-        cv.put(COLUMN_SELLER_EMAIL, seller.getEmail());
+        cv.put(COLUMN_SELLER_NAME, seller.getFullName().toString());
+        cv.put(COLUMN_SELLER_EMAIL, seller.getEmail().toString());
         cv.put(COLUMN_SELLER_NUMBER, seller.getPhoneNumber());
-        cv.put(COLUMN_SELLER_PASSWORD, seller.getPassword());
+        cv.put(COLUMN_SELLER_PASSWORD, seller.getPassword().toString());
         cv.put(COLUMN_SELLER_LOGIN_COUNT, 1);
 
         long insert = db.insert(SELLER_TABLE,null, cv);
@@ -112,31 +120,36 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         db.execSQL(queryStatement);
     }
 
-    public Seller getSeller(Seller seller) {
+    public List<Seller> getAllSellers() {
+        List<Seller> allSellers = new ArrayList<>();
+
+        String queryStatement = "SELECT * FROM " + SELLER_TABLE + ";";
 
         SQLiteDatabase db = this.getReadableDatabase();
-        String queryStatement = "SELECT FROM " + SELLER_TABLE + " WHERE" + COLUMN_SELLER_EMAIL + " = " + seller.getEmail();
-
         Cursor cursor = db.rawQuery(queryStatement,null);
 
         if (cursor.moveToFirst()) {
-            int id = cursor.getInt(0);
-            String name = cursor.getString(1);
-            String email = cursor.getString(2);
-            String password = cursor.getString(3);
-            String phone = cursor.getString(4);
-            int logCount = cursor.getInt(5);
-            Seller seller1 = new Seller(name,email,password,phone);
-            seller1.setId(id);
-            seller1.setLogCount(logCount);
-            return seller1;
+            do {
+                int id = cursor.getInt(0);
+                String name = cursor.getString(1);
+                String email = cursor.getString(2);
+                String phoneNumber = cursor.getString(4);
+                String password = cursor.getString(3);
+                int logCount = Integer.parseInt(cursor.getString(5));
+                Seller seller = new Seller(name,email,password,phoneNumber);
+                seller.setLoginCount(logCount);
+                seller.setId(id);
+                allSellers.add(seller);
+            } while (cursor.moveToNext());
         }
-        return null;
+        else {
+
+        }
+        cursor.close();
+        db.close();
+        return allSellers;
     }
 
-//    public Seller logInSeller(String email, String password) {
-//
-//    }
 
 //    public boolean deleteOne(Person person) {
 //        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
@@ -148,33 +161,6 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 //        }
 //        return false;
 //
-//    }
-
-//    public List<Person> getEveryone() {
-//        List<Person> returnList = new ArrayList<>();
-//
-//        String queryString = "SELECT * FROM " + CUSTOMER_TABLE;
-//
-//        SQLiteDatabase db = this.getReadableDatabase();
-//
-//        Cursor cursor = db.rawQuery(queryString,null);
-//
-//        if (cursor.moveToFirst()) {
-//            do {
-//                int id = cursor.getInt(0);
-//                String name = cursor.getString(1);
-//                int age = cursor.getInt(2);
-//
-//                Person person = new Person(name,age);
-//                returnList.add(person);
-//            }while (cursor.moveToNext());
-//        } else {
-//
-//        }
-//
-//        cursor.close();
-//        db.close();
-//        return returnList;
 //    }
 
     public boolean addProduct(Product product)
@@ -189,7 +175,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         cv.put(COLUMN_PRODUCT_NAME , product.getName());
         cv.put(COLUMN_PRODUCT_PRICE, product.getPrice());
-        cv.put(COLUMN_PRODUCT_CATEGORY, product.getCategoryString());
+        cv.put(COLUMN_PRODUCT_CATEGORY, product.getCategory().toString());
         cv.put(COLUMN_PRODUCT_RELEASE_DATE, product.getReleaseDate().toString());
         cv.put(COLUMN_PRODUCT_DESCRIPTION, product.getDescription());
         cv.put(COLUMN_PRODUCT_IS_PIN, product.isPin());
@@ -200,6 +186,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         if (insert==-1) {
             return false;
         }
+
         return true;
     }
 
@@ -254,6 +241,74 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    public boolean addCustomer(Customer customer) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(CUSTOMER_NAME, customer.getFullName());
+        cv.put(CUSTOMER_EMAIL, customer.getEmail());
+        cv.put(CUSTOMER_PASSWORD, customer.getPassword());
+        cv.put(CUSTOMER_LOGIN_COUNT, 1);
+
+        long insert = db.insert(CUSTOMER_TABLE, null, cv);
+
+        if (insert==-1) {
+            return false;
+        }
+        return true;
+    }
+
+    public List<Customer> getAllCustomers() {
+        List<Customer> allCustomers = new ArrayList<>();
+
+        String queryStatement = "SELECT * FROM " + CUSTOMER_TABLE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryStatement,null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                String name = cursor.getString(1);
+                String email = cursor.getString(2);
+                String password = cursor.getString(3);
+                int logCount = cursor.getInt(4);
+                Customer customer = new Customer(name,email,password);
+                customer.setLoginCount(logCount);
+                customer.setId(id);
+                allCustomers.add(customer);
+            } while (cursor.moveToNext());
+        }
+        else {
+
+        }
+        cursor.close();
+        db.close();
+        return allCustomers;
+    }
+
+    public boolean updateCustomerLogCount(Customer customer, int newNum) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(CUSTOMER_LOGIN_COUNT, newNum);
+        long update = db.update(CUSTOMER_TABLE,cv,CUSTOMER_EMAIL + " = ?", new String[] {customer.getEmail()});
+
+        return update !=-1;
+    }
+
+    public boolean updateSellerLogCount(Seller seller, int newNum) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_SELLER_LOGIN_COUNT, newNum);
+        long update = db.update(SELLER_TABLE,cv,COLUMN_SELLER_EMAIL + " = ?", new String[] {seller.getEmail()});
+
+        return update !=-1;
+    }
+
+//    public boolean updateSellerName(Seller seller, String name) {
+//
+//    }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 

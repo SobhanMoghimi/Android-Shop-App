@@ -94,6 +94,18 @@
             android:paddingEnd="20dp"
             android:paddingRight="20dp"
             android:drawableRight="@drawable/ic_security" />
+
+        <TextView
+            android:id="@+id/text_view_customer_register_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif-thin"
+            android:textColor="@color/error_red" />
+
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/customer_register_button"
             android:layout_width="wrap_content"

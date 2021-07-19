@@ -8,4 +8,5 @@
     <color name="secondaryLight">#FFDDD2</color>
     <color name="secondaryDark">#E29578</color>
     <color name="error_red">#FB0D0D</color>
+    <color name="light_blue">#2C8DDA</color>
 </resources>

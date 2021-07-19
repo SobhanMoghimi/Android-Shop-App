@@ -13,15 +13,6 @@ public class Seller extends Person
     public Seller(String fullName, String email, String password, String phoneNumber) {
         super(fullName, email, password);
         this.phoneNumber = phoneNumber;
-        logCount = 0;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getPhoneNumber() {
@@ -32,9 +23,6 @@ public class Seller extends Person
         this.phoneNumber = phoneNumber;
     }
 
-    public int getLogCount() {
-        return logCount;
-    }
 
     public void setLogCount(int logCount) {
         this.logCount = logCount;

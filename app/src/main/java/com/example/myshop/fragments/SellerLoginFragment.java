@@ -1,5 +1,7 @@
 package com.example.myshop.fragments;
 
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +17,20 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.myshop.R;
+import com.example.myshop.activities.SellerHomePageActivity;
+import com.example.myshop.dataBase.DataBaseHandler;
+import com.example.myshop.model.Seller;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SellerLoginFragment extends Fragment
 {
     private AppCompatButton loginButton;
+    public static Seller seller;
     private EditText emailEditText,passwordEditText;
     private TextView errorTextView,forgetPasswordTextView,registerTextView;
+    DataBaseHandler db;
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
@@ -33,6 +43,9 @@ public class SellerLoginFragment extends Fragment
         errorTextView=view.findViewById(R.id.text_view_login_error);
         forgetPasswordTextView=view.findViewById(R.id.text_view_seller_forgot_password);
         registerTextView=view.findViewById(R.id.text_view_seller_register);
+        db = new DataBaseHandler(getActivity());
+        List<Seller> allSellers = db.getAllSellers();
+
         registerTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -43,16 +56,35 @@ public class SellerLoginFragment extends Fragment
 
 
 
+        loginButton.setOnClickListener(v -> {
 
-
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(),"Later maybe!",Toast.LENGTH_LONG).show();
+            boolean found = false;
+            if (emailEditText.getText().toString().equals("") || passwordEditText.getText().toString().equals("")) {
+                errorTextView.setText("باید تمام فیلد ها را پر کنید!");
+            }
+            else {
+                for(Seller seller1 : allSellers) {
+                    if (seller1.getEmail().equalsIgnoreCase(emailEditText.getText().toString())) {
+                        if (seller1.getPassword().equals(passwordEditText.getText().toString())) {
+                            found = true;
+                            seller = seller1;
+                            boolean isUpdated = db.updateSellerLogCount(seller,seller.getLoginCount()+1);
+                            seller.setLoginCount(seller1.getLoginCount()+1);
+                            if (isUpdated) {
+                                Toast.makeText(getActivity(),String.valueOf(seller.getLoginCount()),Toast.LENGTH_SHORT).show();
+                            }
+                            startActivity(new Intent(getActivity(),SellerHomePageActivity.class));
+                        }
+                        else {
+                            errorTextView.setText("رمز عبور اشتباه است!");
+                        }
+                    }
+                }
+                if (found==false) {
+                    errorTextView.setText("شما عضو نیستید!");
+                }
             }
         });
-
 
         return view;
     }

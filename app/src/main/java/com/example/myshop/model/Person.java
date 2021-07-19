@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public abstract class Person {
 
     private String fullName;
+    private int id;
     private String email;
     private String password;
-    private ArrayList<Product> products;
     private int loginCount;
 
     public Person(String fullName, String email, String password) {
@@ -40,19 +40,19 @@ public abstract class Person {
         this.password = password;
     }
 
-    public ArrayList<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(ArrayList<Product> products) {
-        this.products = products;
-    }
-
     public int getLoginCount() {
         return loginCount;
     }
 
     public void setLoginCount(int loginCount) {
         this.loginCount = loginCount;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
