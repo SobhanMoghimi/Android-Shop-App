@@ -40,7 +40,6 @@ public class CustomerLoginFragment extends Fragment
         errorTextView=view.findViewById(R.id.text_view_login_error);
         forgetPasswordTextView=view.findViewById(R.id.text_view_forgot_password);
         registerTextView=view.findViewById(R.id.text_view_register);
-        List<Customer> allCustomers = db.getAllCustomers();
         registerTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -50,6 +49,7 @@ public class CustomerLoginFragment extends Fragment
         });
         loginButton.setOnClickListener(v -> {
 
+            List<Customer> allCustomers = db.getAllCustomers();
             boolean found = false;
             if (emailEditText.getText().toString().equals("") || passwordEditText.getText().toString().equals("")) {
                 errorTextView.setText("باید تمام فیلد ها را پر کنید!");
