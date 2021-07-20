@@ -8,18 +8,17 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myshop.R;
-import com.example.myshop.dataBase.DataBaseHandler;
 
 public class MainActivity extends AppCompatActivity
 {
-    DataBaseHandler db;
     private Button customerButton,sellerButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        DataBaseHandler db = new DataBaseHandler(this);
+//        db.deleteAllSellers();
+//        db.deleteAllCustomers();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        db = new DataBaseHandler(this);
-        db.addAdmin();
         if(android.os.Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP)
         {
             getWindow().setNavigationBarColor(getResources().getColor(R.color.secondaryDark));

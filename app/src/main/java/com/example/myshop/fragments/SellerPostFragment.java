@@ -40,7 +40,7 @@ public class SellerPostFragment extends Fragment {
     ImageView image;
     FloatingActionButton add;
     private Uri imageFilePath;
-    Seller seller;
+    Seller seller=Seller.getActiveSeller();
     private Bitmap imageToStore;
     AppCompatButton post;
 
@@ -100,7 +100,6 @@ public class SellerPostFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
-                    Toast.makeText(getActivity(),SellerRegisterFragment.seller.getFullName().toString(),Toast.LENGTH_SHORT).show();
                     if (name.getText().toString().equals("") || price.getText().toString().equals("") || chosenCategory.equals(""))
                     {
                         //شبیه ارور تکست فیلد باید بذاری اینجا
@@ -110,12 +109,12 @@ public class SellerPostFragment extends Fragment {
                         Toast.makeText(getActivity(),"null Image",Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        product = new Product(name.getText().toString(),Integer.parseInt(price.getText().toString()),imageToStore,SellerRegisterFragment.seller,description.getText().toString(), Calendar.getInstance().getTime(), chosenCategory);
+                        product = new Product(name.getText().toString(),Integer.parseInt(price.getText().toString()),imageToStore,seller,description.getText().toString(), Calendar.getInstance().getTime(), chosenCategory);
                         DataBaseHandler db = new DataBaseHandler(getActivity());
                         boolean success = db.addProduct(product);
                         seller.setPosts(seller.getPosts()+1);
                         db.addSellerPostCount(seller,seller.getPosts()+1);
-                        Seller.activeSeller = seller;
+                        Seller.setActiveSeller(seller);
                         if (success)
                         {
                             Toast.makeText(getActivity(),"کالای شما ثبت شد.",Toast.LENGTH_SHORT).show();
@@ -126,7 +125,6 @@ public class SellerPostFragment extends Fragment {
                     }
                 } catch (Exception e) {
                     //ارور
-                    Toast.makeText(getActivity(),SellerRegisterFragment.seller.getEmail().toString(),Toast.LENGTH_SHORT).show();
                 }
             }
         });

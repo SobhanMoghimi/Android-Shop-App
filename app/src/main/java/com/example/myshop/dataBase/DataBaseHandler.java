@@ -77,13 +77,33 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         String onCreateTableString_Seller = "CREATE TABLE " + SELLER_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_SELLER_NAME + " TEXT, " + COLUMN_SELLER_EMAIL + " TEXT, " + COLUMN_SELLER_PASSWORD + " TEXT, " + COLUMN_SELLER_NUMBER + " TEXT, "+ COLUMN_SELLER_LOGIN_COUNT + " INT, " + SELLER_POSTS + " INT)";
         String createCustomer = "CREATE TABLE " + CUSTOMER_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + CUSTOMER_NAME + " TEXT, " + CUSTOMER_EMAIL + " TEXT, " + CUSTOMER_PASSWORD + " TEXT, " + CUSTOMER_LOGIN_COUNT + " INT)";
         String createTableStatement_Product = "CREATE TABLE " + PRODUCT_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_PRODUCT_NAME + " TEXT, " + COLUMN_PRODUCT_PRICE + " INT, " + COLUMN_PRODUCT_DESCRIPTION + " TEXT, "+COLUMN_PRODUCT_SELLER_NAME+" TEXT, " + COLUMN_PRODUCT_SELLER_PHONE_NUMBER + " TEXT, " + COLUMN_PRODUCT_CATEGORY + " TEXT, " + COLUMN_PRODUCT_IS_PIN + " TEXT, " + COLUMN_PRODUCT_RELEASE_DATE + " TEXT, "+ COLUMN_PRODUCT_IMAGE + " BLOB)";
-        String createTableAdmin = "CREATE TABLE " + ADMIN_TABLE + " (" + ADMIN_USERNAME + " TEXT, " + ADMIN_PASSWORD + " TEXT, " + ADMIN_PIN_PRODUCTS + " INT)";
+        String createTableAdmin = "CREATE TABLE " + ADMIN_TABLE + " (" + ADMIN_USERNAME + " TEXT, " + ADMIN_PASSWORD + " TEXT, " + ADMIN_PIN_PRODUCTS + " TEXT)";
+
+        db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(ADMIN_USERNAME,"admin");
+        cv.put(ADMIN_PASSWORD,"admin");
+        cv.put(ADMIN_PIN_PRODUCTS,"0");
+
+        db.insert(ADMIN_TABLE,null,cv);
 
         db.execSQL(createTableAdmin);
         db.execSQL(createTableStatement_Product);
         db.execSQL(onCreateTableString_Seller);
         db.execSQL(createCustomer);
     }
+
+//    public void addAdmin() {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues cv = new ContentValues();
+//
+//        cv.put(ADMIN_USERNAME,"admin");
+//        cv.put(ADMIN_PASSWORD,"admin");
+//        cv.put(ADMIN_PIN_PRODUCTS,0);
+//
+//        db.insert(ADMIN_TABLE,null,cv);
+//    }
 
     public boolean addSeller(Seller seller) {
 
@@ -158,7 +178,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 String phoneNumber = cursor.getString(4);
                 String password = cursor.getString(3);
                 int logCount = Integer.parseInt(cursor.getString(5));
-                int posts = Integer.parseInt(cursor.getString(6));
+                int posts = cursor.getInt(6);
                 Seller seller = new Seller(name,email,password,phoneNumber);
                 seller.setLoginCount(logCount);
                 seller.setId(id);
@@ -187,16 +207,6 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 //
 //    }
 
-    public void addAdmin() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-
-        cv.put(ADMIN_USERNAME,"admin");
-        cv.put(ADMIN_PASSWORD,"admin");
-        cv.put(ADMIN_PIN_PRODUCTS,0);
-
-        db.insert(ADMIN_TABLE,null,cv);
-    }
     public boolean addProduct(Product product)
     {
         SQLiteDatabase db = this.getWritableDatabase();

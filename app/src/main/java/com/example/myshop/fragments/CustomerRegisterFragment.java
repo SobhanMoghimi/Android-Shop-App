@@ -17,10 +17,8 @@ import androidx.navigation.Navigation;
 
 import com.example.myshop.R;
 import com.example.myshop.activities.CustomerHomePageActivity;
-import com.example.myshop.activities.SellerHomePageActivity;
 import com.example.myshop.dataBase.DataBaseHandler;
 import com.example.myshop.model.Customer;
-import com.example.myshop.model.Seller;
 
 import java.util.List;
 
@@ -29,7 +27,6 @@ public class CustomerRegisterFragment extends Fragment
     private AppCompatButton registerButton;
     private EditText emailText,registerPassword,usernameText,registerPasswordRepeat;
     private TextView loginTextView,errorField;
-    public static Customer customer;
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
@@ -68,11 +65,11 @@ public class CustomerRegisterFragment extends Fragment
                     }
                     else {
                         DataBaseHandler db = new DataBaseHandler(getActivity());
-                        customer = new Customer(usernameText.getText().toString(), emailText.getText().toString(), registerPassword.getText().toString());
+                        Customer customer = new Customer(usernameText.getText().toString(), emailText.getText().toString(), registerPassword.getText().toString());
                         boolean success = db.addCustomer(customer);
                         if (success) {
-                            Customer.activeCustomer=customer;
-                            Seller.activeSeller=null;
+                            Customer.setActiveCustomer(customer);
+                            //Seller.activeSeller=null;
                             Toast.makeText(getActivity(),"خوش آمدید",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getActivity(), CustomerHomePageActivity.class));
                         }

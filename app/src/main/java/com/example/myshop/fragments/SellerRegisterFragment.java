@@ -26,7 +26,6 @@ import java.util.List;
 public class SellerRegisterFragment extends Fragment
 {
     private AppCompatButton registerButton;
-    public static Seller seller;
     private EditText email,password,passwordRepeat,phoneNumber,name;
     private TextView loginTextView,errorField;
     @Nullable
@@ -73,21 +72,22 @@ public class SellerRegisterFragment extends Fragment
                     else
                     {
                         DataBaseHandler db = new DataBaseHandler(getActivity());
-                        seller = new Seller(name.getText().toString(), email.getText().toString(), password.getText().toString(), phoneNumber.getText().toString());
+                        Seller seller = new Seller(name.getText().toString(), email.getText().toString(), password.getText().toString(), phoneNumber.getText().toString());
                         boolean success = db.addSeller(seller);
                         if (success) {
                             seller.setLoginCount(1);
                             seller.setId(getNewSellerId(email.getText().toString()));
                             Toast.makeText(getActivity(),"خوش آمدید",Toast.LENGTH_SHORT).show();
-                            Seller.activeSeller=seller;
+                            Seller.setActiveSeller(seller);
                             startActivity(new Intent(getActivity(), SellerHomePageActivity.class));
                         }
                         else {
-                            errorField.setText("ثبت نام با خطا مواجه شده است!");
+                            errorField.setText("کیر");
                         }
                     }
                 } catch (Exception e) {
-                    errorField.setText("ثبت نام با خطا مواجه شده است!");
+                    //errorField.setText("ثبت نام با خطا مواجه شده است!");
+                    errorField.setText(e.getMessage().toString());
                 }
             }
         });

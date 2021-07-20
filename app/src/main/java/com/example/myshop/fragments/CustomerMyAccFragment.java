@@ -19,7 +19,7 @@ public class CustomerMyAccFragment extends Fragment {
 
     private AppCompatButton editInfoBtn,changePass;
     private TextView name,email;
-    Customer customer;
+    private Customer customer;
 
 
     public CustomerMyAccFragment() {
@@ -31,13 +31,12 @@ public class CustomerMyAccFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_customer_myacc, container, false);
-        customer = Customer.activeCustomer;
+        customer = Customer.getActiveCustomer();
         name = view.findViewById(R.id.customerName);
         email = view.findViewById(R.id.customerEmail);
         editInfoBtn = view.findViewById(R.id.editCustomerInfo);
         changePass = view.findViewById(R.id.changeCustomerPass);
 
-        customer = Customer.activeCustomer;
 
         name.setText(customer.getFullName());
         email.setText(customer.getEmail());

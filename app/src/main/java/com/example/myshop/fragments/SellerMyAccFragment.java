@@ -38,7 +38,7 @@ public class SellerMyAccFragment extends Fragment {
         email = view.findViewById(R.id.seller_myacc_email);
         phoneNumber = view.findViewById(R.id.seller_myacc_phone);
 
-        seller = Seller.activeSeller;
+        seller = Seller.getActiveSeller();
 
         name.setText(seller.getFullName().toString());
         email.setText(seller.getEmail().toString());

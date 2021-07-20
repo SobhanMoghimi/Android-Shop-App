@@ -18,4 +18,11 @@ public class Customer extends Person {
         this.bookMark = bookMark;
     }
 
+    public static Customer getActiveCustomer() {
+        return activeCustomer;
+    }
+
+    public static void setActiveCustomer(Customer activeCustomer) {
+        Customer.activeCustomer = activeCustomer;
+    }
 }

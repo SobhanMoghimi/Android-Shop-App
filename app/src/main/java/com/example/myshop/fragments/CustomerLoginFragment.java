@@ -18,7 +18,6 @@ import com.example.myshop.R;
 import com.example.myshop.activities.CustomerHomePageActivity;
 import com.example.myshop.dataBase.DataBaseHandler;
 import com.example.myshop.model.Customer;
-import com.example.myshop.model.Seller;
 
 import java.util.List;
 
@@ -27,7 +26,6 @@ public class CustomerLoginFragment extends Fragment
     private AppCompatButton loginButton;
     private EditText emailEditText,passwordEditText;
     private TextView errorTextView,forgetPasswordTextView,registerTextView;
-    public Customer customer;
     DataBaseHandler db;
     @Nullable
     @org.jetbrains.annotations.Nullable
@@ -57,17 +55,16 @@ public class CustomerLoginFragment extends Fragment
                 errorTextView.setText("باید تمام فیلد ها را پر کنید!");
             }
             else {
-                for (Customer customer1 : allCustomers) {
-                    if (customer1.getEmail().equalsIgnoreCase(emailEditText.getText().toString()))
+                for (Customer customer : allCustomers) {
+                    if (customer.getEmail().equalsIgnoreCase(emailEditText.getText().toString()))
                     {
-                        if (customer1.getPassword().equals(passwordEditText.getText().toString()))
+                        if (customer.getPassword().equals(passwordEditText.getText().toString()))
                         {
-                            customer = customer1;
                             found = true;
-                            boolean updated = db.updateCustomerLogCount(customer,customer.getLoginCount()+1);
+                            db.updateCustomerLogCount(customer,customer.getLoginCount()+1);
                             customer.setLoginCount(customer.getLoginCount()+1);
-                            Customer.activeCustomer=customer;
-                            Seller.activeSeller=null;
+                            Customer.setActiveCustomer(customer);
+                            //Seller.activeSeller=null;
                             startActivity(new Intent(getActivity(), CustomerHomePageActivity.class));
                         }
                         else {

@@ -40,4 +40,12 @@ public class Seller extends Person
                 ", phoneNumber = " + phoneNumber + '\n' +
                 '}';
     }
+
+    public static Seller getActiveSeller() {
+        return activeSeller;
+    }
+
+    public static void setActiveSeller(Seller activeSeller) {
+        Seller.activeSeller = activeSeller;
+    }
 }

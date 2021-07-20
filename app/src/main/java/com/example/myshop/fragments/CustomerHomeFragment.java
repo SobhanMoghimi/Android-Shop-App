@@ -13,7 +13,6 @@ import com.example.myshop.R;
 import com.example.myshop.dataBase.DataBaseHandler;
 import com.example.myshop.dataBase.RecyclerViewAdapter;
 import com.example.myshop.model.Product;
-import com.example.myshop.model.Seller;
 
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class CustomerHomeFragment extends Fragment
 
         View view=inflater.inflate(R.layout.fragment_customer_home,container,false);
 
-        recyclerView = view.findViewById(R.id.customer_home_recycler_view);
+        //recyclerView = view.findViewById(R.id.customer_home_recycler_view);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);

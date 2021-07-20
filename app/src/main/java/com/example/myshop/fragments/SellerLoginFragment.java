@@ -24,7 +24,6 @@ import java.util.List;
 public class SellerLoginFragment extends Fragment
 {
     private AppCompatButton loginButton;
-    public static Seller seller;
     private EditText emailEditText,passwordEditText;
     private TextView errorTextView,forgetPasswordTextView,registerTextView;
     DataBaseHandler db;
@@ -60,18 +59,17 @@ public class SellerLoginFragment extends Fragment
             {
                 errorTextView.setText("تمامی اطلاعات را وارد کنید!");
             }
-            else {
-                for(Seller seller1 : allSellers) {
-                    if (seller1.getEmail().equalsIgnoreCase(emailEditText.getText().toString()))
+            else if (){
+                for(Seller seller : allSellers) {
+                    if (seller.getEmail().equalsIgnoreCase(emailEditText.getText().toString()))
                     {
-                        if (seller1.getPassword().equals(passwordEditText.getText().toString()))
+                        if (seller.getPassword().equals(passwordEditText.getText().toString()))
                         {
                             found = true;
-                            seller = seller1;
                             boolean isUpdated = db.updateSellerLogCount(seller,seller.getLoginCount()+1);
-                            seller.setLoginCount(seller1.getLoginCount()+1);
-                            seller.setId(seller1.getId());
-                            Seller.activeSeller=seller;
+                            seller.setLoginCount(seller.getLoginCount()+1);
+                            seller.setId(seller.getId());
+                            Seller.setActiveSeller(seller);
                             startActivity(new Intent(getActivity(),SellerHomePageActivity.class));
                             break;
                         }
