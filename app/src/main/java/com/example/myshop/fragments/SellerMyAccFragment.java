@@ -2,24 +2,16 @@ package com.example.myshop.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.example.myshop.R;
-import com.example.myshop.activities.SellerLoginActivity;
-import com.example.myshop.activities.SellerEditMyAccActivity;
-import com.example.myshop.activities.SellerLoginActivity;
+import com.example.myshop.activities.SellerChangePassword;
 import com.example.myshop.activities.SellerEditMyAccActivity;
 import com.example.myshop.model.Seller;
 
@@ -46,7 +38,7 @@ public class SellerMyAccFragment extends Fragment {
         email = view.findViewById(R.id.seller_myacc_email);
         phoneNumber = view.findViewById(R.id.seller_myacc_phone);
 
-        seller=Seller.activeSeller;
+        seller = Seller.activeSeller;
 
         name.setText(seller.getFullName().toString());
         email.setText(seller.getEmail().toString());
@@ -56,6 +48,9 @@ public class SellerMyAccFragment extends Fragment {
             startActivity(new Intent(getActivity(), SellerEditMyAccActivity.class));
         });
 
+        changePassButton.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), SellerChangePassword.class));
+        });
         return view;
     }
 }
