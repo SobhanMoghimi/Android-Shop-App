@@ -28,7 +28,6 @@ import com.example.myshop.model.Seller;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
-import java.util.Calendar;
 
 public class SellerPostFragment extends Fragment {
 
@@ -109,7 +108,7 @@ public class SellerPostFragment extends Fragment {
                         Toast.makeText(getActivity(),"null Image",Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        product = new Product(name.getText().toString(),Integer.parseInt(price.getText().toString()),imageToStore,seller,description.getText().toString(), Calendar.getInstance().getTime(), chosenCategory);
+                        product = new Product(name.getText().toString(),Integer.parseInt(price.getText().toString()),imageToStore,seller,description.getText().toString(), chosenCategory);
                         DataBaseHandler db = new DataBaseHandler(getActivity());
                         boolean success = db.addProduct(product);
                         seller.setPosts(seller.getPosts()+1);

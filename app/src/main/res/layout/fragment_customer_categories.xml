@@ -1,6 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/seach_gradient">
 
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/primaryLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/carCatButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:text="خودرو"
+        android:textSize="22dp"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        tools:layout_editor_absoluteX="0dp"
+        android:textColor="@color/black"
+        android:textAlignment="textStart"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/elecCatButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="4dp"
+        android:text="لوازم الکترونیکی"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="22dp"
+        app:layout_constraintTop_toBottomOf="@+id/carCatButton"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/fashionCatButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="4dp"
+        android:text="پوشاک"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="22dp"
+        app:layout_constraintTop_toBottomOf="@+id/elecCatButton"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bookCatButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="4dp"
+        android:text="کتاب"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="22dp"
+        app:layout_constraintTop_toBottomOf="@+id/fashionCatButton"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/homeCatButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="4dp"
+        android:text="لوازم خانه"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="22dp"
+        app:layout_constraintTop_toBottomOf="@+id/bookCatButton"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/beautyCatButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="4dp"
+        android:text="لوازم بهداشتی"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="22dp"
+        app:layout_constraintTop_toBottomOf="@+id/homeCatButton"
+        tools:layout_editor_absoluteX="0dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,8 +2,6 @@ package com.example.myshop.model;
 
 import android.graphics.Bitmap;
 
-import java.util.Date;
-
 public class Product
 {
 
@@ -15,28 +13,15 @@ public class Product
     private Seller seller;
     private String description;
     private boolean isPin=false;
-    private Date releaseDate;
     private Category category;
-    private String sellerPhoneNumber;
     public static Product workingProduct;
-    public Product(String name, int price, Bitmap image, Seller seller, String description, Date releaseDate, String category) {
+
+    public Product(String name, int price, Bitmap image, Seller seller, String description, String category) {
         this.name = name;
         this.price = price;
         this.image = image;
         this.seller = seller;
         this.description = description;
-        this.releaseDate = releaseDate;
-        setCategory(category);
-    }
-
-    public Product(String name, int price, Bitmap image, String description, boolean isPin, String sellerPhoneNumber, String category)
-    {
-        this.name = name;
-        this.price = price;
-        this.image = image;
-        this.description = description;
-        this.isPin = isPin;
-        this.sellerPhoneNumber = sellerPhoneNumber;
         setCategory(category);
     }
 
@@ -73,9 +58,8 @@ public class Product
                 ", seller=" + seller +
                 ", description='" + description + '\'' +
                 ", isPin=" + isPin +
-                ", releaseDate=" + releaseDate +
                 ", category=" + category +
-                ", sellerPhoneNumber='" + sellerPhoneNumber + '\'' +
+                ", sellerPhoneNumber='" + seller.getPhoneNumber() + '\'' +
                 '}';
     }
 
@@ -142,22 +126,6 @@ public class Product
         return "بدون دسته بندی";
     }
 
-
-    public Date getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public String getSellerPhoneNumber() {
-        return sellerPhoneNumber;
-    }
-
-    public void setSellerPhoneNumber(String sellerPhoneNumber) {
-        this.sellerPhoneNumber = sellerPhoneNumber;
-    }
 
     public int getId() {
         return id;

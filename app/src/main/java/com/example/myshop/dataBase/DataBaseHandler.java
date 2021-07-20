@@ -43,10 +43,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private static final String COLUMN_PRODUCT_CATEGORY = "PRODUCT_CATEGORY";
     private static final String COLUMN_PRODUCT_DESCRIPTION = "PRODUCT_DESCRIPTION";
     private static final String COLUMN_PRODUCT_IS_PIN = "PRODUCT_PIN";
-    private static final String COLUMN_PRODUCT_RELEASE_DATE = "PRODUCT_RELEASE_DATE";
     private static final String COLUMN_PRODUCT_IMAGE = "PRODUCT_IMAGE";
-    private static final String COLUMN_PRODUCT_SELLER_NAME="PRODUCT_SELLER_NAME";
-    private static final String COLUMN_PRODUCT_SELLER_PHONE_NUMBER= "SELLER_PHONE_NUMBER";
+    private static final String PRODUCT_SELLER_ID = "SELLER_ID";
     private ByteArrayOutputStream byteArrayOutputStream;
     private byte[] imageInBytes;
 
@@ -76,7 +74,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         String onCreateTableString_Seller = "CREATE TABLE " + SELLER_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_SELLER_NAME + " TEXT, " + COLUMN_SELLER_EMAIL + " TEXT, " + COLUMN_SELLER_PASSWORD + " TEXT, " + COLUMN_SELLER_NUMBER + " TEXT, "+ COLUMN_SELLER_LOGIN_COUNT + " INT, " + SELLER_POSTS + " INT)";
         String createCustomer = "CREATE TABLE " + CUSTOMER_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + CUSTOMER_NAME + " TEXT, " + CUSTOMER_EMAIL + " TEXT, " + CUSTOMER_PASSWORD + " TEXT, " + CUSTOMER_LOGIN_COUNT + " INT)";
-        String createTableStatement_Product = "CREATE TABLE " + PRODUCT_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_PRODUCT_NAME + " TEXT, " + COLUMN_PRODUCT_PRICE + " INT, " + COLUMN_PRODUCT_DESCRIPTION + " TEXT, "+COLUMN_PRODUCT_SELLER_NAME+" TEXT, " + COLUMN_PRODUCT_SELLER_PHONE_NUMBER + " TEXT, " + COLUMN_PRODUCT_CATEGORY + " TEXT, " + COLUMN_PRODUCT_IS_PIN + " TEXT, " + COLUMN_PRODUCT_RELEASE_DATE + " TEXT, "+ COLUMN_PRODUCT_IMAGE + " BLOB)";
+        String createTableStatement_Product = "CREATE TABLE " + PRODUCT_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_PRODUCT_NAME + " TEXT, " + COLUMN_PRODUCT_PRICE + " INT, " + COLUMN_PRODUCT_DESCRIPTION + " TEXT, "+ PRODUCT_SELLER_ID + " INT, " + COLUMN_PRODUCT_CATEGORY + " TEXT, " + COLUMN_PRODUCT_IS_PIN + " TEXT, " + COLUMN_PRODUCT_IMAGE + " BLOB)";
         String createTableAdmin = "CREATE TABLE " + ADMIN_TABLE + " (" + ADMIN_USERNAME + " TEXT, " + ADMIN_PASSWORD + " TEXT, " + ADMIN_PIN_PRODUCTS + " TEXT)";
 
 
@@ -213,12 +211,10 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         cv.put(COLUMN_PRODUCT_NAME , product.getName());
         cv.put(COLUMN_PRODUCT_PRICE, product.getPrice());
         cv.put(COLUMN_PRODUCT_CATEGORY, product.getCategory().toString());
-        cv.put(COLUMN_PRODUCT_RELEASE_DATE, product.getReleaseDate().toString());
         cv.put(COLUMN_PRODUCT_DESCRIPTION, product.getDescription());
         cv.put(COLUMN_PRODUCT_IS_PIN, product.isPin());
-        cv.put(COLUMN_PRODUCT_SELLER_PHONE_NUMBER, product.getSeller().getPhoneNumber());
         cv.put(COLUMN_PRODUCT_IMAGE, imageInBytes);
-        cv.put(COLUMN_PRODUCT_SELLER_NAME,product.getSeller().getFullName());
+        cv.put(PRODUCT_SELLER_ID,product.getSeller().getId());
         long insert = db.insert(PRODUCT_TABLE, null, cv);
         if (insert==-1) {
             return false;
@@ -239,7 +235,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         List<Product> AllProducts = this.getAllProducts();
         List<Product> AllProductsOfSeller = new ArrayList<>();
         for (Product product : AllProducts){
-            if(product.getSellerPhoneNumber().equalsIgnoreCase(seller.getPhoneNumber()))
+            if(product.getSeller().getId()==seller.getId())
                 AllProductsOfSeller.add(product);
         }
         return AllProductsOfSeller;
@@ -259,9 +255,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                     int Id = cursor.getInt(0);
                     String Name = cursor.getString(1);
                     int Price = cursor.getInt(2);
+                    Seller seller = this.getSellerById(cursor.getInt(5));
                     String Description = cursor.getString(3);
-                    String sellerName = cursor.getString(4);
-                    String sellerPhoneNumber = cursor.getString(5);
                     String Category = cursor.getString(6);
                     String isPin = cursor.getString(7);
                     String releaseDate = cursor.getString(8);
@@ -269,7 +264,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
                     Bitmap imageProduct = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
                     boolean isPinBool = isPin.equals("true");
-                    Product product = new Product(Name, Price, imageProduct, Description, isPinBool, sellerPhoneNumber, Category);
+                    Product product = new Product(Name, Price, imageProduct, seller, Description, Category);
+                    product.setPin(isPinBool);
                     products.add(product);
                 } while (cursor.moveToNext());
             }
