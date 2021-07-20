@@ -1,6 +1,9 @@
 package com.example.myshop.dataBase;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.transition.Fade;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +12,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myshop.R;
+import com.example.myshop.activities.CustomerProductFullView;
+import com.example.myshop.activities.SellerHomePageActivity;
 import com.example.myshop.model.Product;
 import com.example.myshop.model.Seller;
 
@@ -49,12 +56,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         if(Seller.activeSeller==null)
         {
-            holder.row_product_layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
+            holder.row_product_layout.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    Intent intent=new Intent(context, CustomerProductFullView.class);
+                    Product.workingProduct=productList.get(position);
+                    context.startActivity(intent);
                 }
             });
+
         }
     }
 

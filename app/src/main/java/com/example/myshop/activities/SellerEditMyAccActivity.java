@@ -29,7 +29,7 @@ public class SellerEditMyAccActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seller_edit_my_acc);
         db = new DataBaseHandler(this);
-        button = findViewById(R.id.buttonPress);
+        button = findViewById(R.id.buttonPressSellerChange);
         newName = findViewById(R.id.editTextPersonName);
         newEmail = findViewById(R.id.editTextEmail);
         error = findViewById(R.id.errorEditSeller);

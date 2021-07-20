@@ -18,7 +18,7 @@ public class Product
     private Date releaseDate;
     private Category category;
     private String sellerPhoneNumber;
-
+    public static Product workingProduct;
     public Product(String name, int price, Bitmap image, Seller seller, String description, Date releaseDate, String category) {
         this.name = name;
         this.price = price;
