@@ -4,6 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ProductFilterFashion">
+    tools:context=".activities.ProductFilterFashion"
+    android:background="#ffe47a">
+
+
+    <SearchView
+        android:id="@+id/fashiomSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/primaryLight"/>>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
