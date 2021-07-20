@@ -79,7 +79,7 @@ public class SellerEditProductActivity extends AppCompatActivity
                         Toast.makeText(SellerEditProductActivity.this,"empty fields",Toast.LENGTH_SHORT).show();
                     }
                     else if (editImageToStore==null) {
-                        Toast.makeText(SellerEditProductActivity.this,"null Image",Toast.LENGTH_SHORT).show();
+                        editImageToStore = product.getImage();
                     }
                     else
                         {
@@ -91,7 +91,8 @@ public class SellerEditProductActivity extends AppCompatActivity
                             Intent intent=new Intent(SellerEditProductActivity.this, SellerHomePageActivity.class);
                             SellerEditProductActivity.this.startActivity(intent);
                         }
-                        else {
+                        else
+                            {
                             Toast.makeText(SellerEditProductActivity.this,"کالای مورد نظر به روز رسانی نشد!", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -116,5 +117,4 @@ public class SellerEditProductActivity extends AppCompatActivity
             product_image.setImageBitmap(editImageToStore);
         }
     }
-
 }
