@@ -21,6 +21,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.example.myshop.R;
+import com.example.myshop.activities.CustomerProductFullView;
 import com.example.myshop.activities.SellerHomePageActivity;
 import com.example.myshop.dataBase.DataBaseHandler;
 import com.example.myshop.model.Product;
@@ -117,6 +118,8 @@ public class SellerPostFragment extends Fragment {
                         if (success)
                         {
                             Toast.makeText(getActivity(),"کالای شما ثبت شد.",Toast.LENGTH_SHORT).show();
+                            Intent intent=new Intent(getActivity(), SellerHomePageActivity.class);
+                            getActivity().startActivity(intent);
                         }
                         else {
                             Toast.makeText(getActivity(),"not successful", Toast.LENGTH_SHORT).show();

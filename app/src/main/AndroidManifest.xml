@@ -12,6 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyShop">
+        <activity android:name=".activities.SellerEditProductActivity"
+            android:theme="@style/Theme.MyShop.NoActionBar"
+            />
         <activity android:name=".activities.ProductFilterBeauty" />
         <activity android:name=".activities.ProductFilterHome" />
         <activity android:name=".activities.ProductFilterBook" />

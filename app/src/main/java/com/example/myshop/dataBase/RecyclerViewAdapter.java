@@ -2,6 +2,7 @@ package com.example.myshop.dataBase;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.transition.Fade;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
@@ -18,7 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myshop.R;
 import com.example.myshop.activities.CustomerProductFullView;
+import com.example.myshop.activities.SellerEditProductActivity;
 import com.example.myshop.activities.SellerHomePageActivity;
+import com.example.myshop.model.Customer;
 import com.example.myshop.model.Product;
 import com.example.myshop.model.Seller;
 
@@ -56,7 +60,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         if(Seller.getActiveSeller()==null)
         {
-
             holder.row_product_layout.setOnClickListener(new View.OnClickListener()
             {
                 @Override
@@ -67,8 +70,38 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     context.startActivity(intent);
                 }
             });
-
         }
+
+        if(Customer.getActiveCustomer()==null)
+        {
+            holder.row_product_layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v)
+                {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+                    dialog.setCancelable(false);
+                    dialog.setTitle(productList.get(position).getName());
+                    dialog.setMessage("آیا میخواهید اطلاعات کالای مورد نظر را تغییر دهید؟" );
+                    dialog.setPositiveButton("حتما!", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id)
+                        {
+                            Intent intent=new Intent(context, SellerEditProductActivity.class);
+                            Product.setWorkingProduct(productList.get(position));
+                            context.startActivity(intent);
+                        }
+                    }).setNegativeButton("بازگشت.", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                        }
+                    });
+                    final AlertDialog alert=dialog.create();
+                    alert.show();
+                }
+            });
+        }
+
     }
 
     @Override

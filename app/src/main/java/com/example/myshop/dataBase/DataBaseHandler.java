@@ -246,14 +246,21 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         long update = db.update(SELLER_TABLE,cv,COLUMN_ID + " = ?", new String[] {String.valueOf(seller.getId())});
     }
 
-    public List<Product> getAllProductsOfSeller(Seller seller){
-        List<Product> AllProducts = this.getAllProducts();
-        List<Product> AllProductsOfSeller = new ArrayList<>();
-        for (Product product : AllProducts){
-            if(product.getSeller().getId()==seller.getId())
-                AllProductsOfSeller.add(product);
+    public List<Product> getAllProductsOfSeller(Seller seller)
+    {
+        try{
+            List<Product> AllProducts = this.getAllProducts();
+            List<Product> AllProductsOfSeller = new ArrayList<>();
+            for (Product product : AllProducts){
+                if(product.getSeller().getId()==seller.getId())
+                    AllProductsOfSeller.add(product);
+            }
+            return AllProductsOfSeller;
         }
-        return AllProductsOfSeller;
+        catch (Exception e)
+        {
+            return null;
+        }
     }
 
 

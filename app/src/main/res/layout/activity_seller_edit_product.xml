@@ -5,15 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/secondaryLight"
-    tools:context=".fragments.SellerPostFragment">
-
+    tools:context=".activities.SellerEditProductActivity">
 
     <EditText
-        android:id="@+id/productName"
+        android:id="@+id/edit_product_productName"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-
         android:hint="نام محصول"
         android:inputType="text"
         android:padding="7dp"
@@ -21,7 +19,7 @@
         android:paddingEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_product_imageView" />
 
     <!--    <EditText-->
     <!--        android:id="@+id/description"-->
@@ -37,7 +35,7 @@
     <!--        app:layout_constraintTop_toBottomOf="@+id/productPrice" />-->
 
     <EditText
-        android:id="@+id/productPrice"
+        android:id="@+id/edit_product_Price"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -45,15 +43,14 @@
         android:hint="قیمت (به تومان)"
         android:inputType="number"
         android:padding="7dp"
-
         android:paddingEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productName" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_product_productName" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/edit_product_imageView"
         android:layout_width="match_parent"
         android:layout_height="225dp"
         android:layout_marginStart="10dp"
@@ -63,60 +60,62 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/category"
-        android:layout_width="250dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/gradient_customer_home"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productPrice" />
 
     <EditText
-        android:id="@+id/description"
+        android:id="@+id/edit_product_description"
         android:layout_width="match_parent"
         android:layout_height="119dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="30dp"
         android:background="@drawable/background_outline"
         android:ems="10"
-        android:padding="10dp"
         android:gravity="start|top"
         android:hint="توضیحات آگهی"
         android:inputType="textMultiLine"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/category" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_product_Price" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addingPhotoButton"
+        android:id="@+id/edit_product_addPhotoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:background="@drawable/background_button_circle"
         android:src="@drawable/ic_baseline_add_circle_24"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.957"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_product_imageView"
+        app:layout_constraintEnd_toEndOf="@+id/edit_product_imageView"
+        app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.947" />
+        app:layout_constraintVertical_bias="0.95" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/postButton"
+        android:id="@+id/edit_product_submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ثبت آگهی"
+        android:text="تغییر آگهی"
         android:background="@drawable/text_editor_background"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description"
+        app:layout_constraintTop_toBottomOf="@+id/edit_product_description"
         app:layout_constraintVertical_bias="0.215" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/delete_product_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="25dp"
+        android:clickable="true"
+        app:maxImageSize="30dp"
+        android:backgroundTint="@color/error_red"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_baseline_delete" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
