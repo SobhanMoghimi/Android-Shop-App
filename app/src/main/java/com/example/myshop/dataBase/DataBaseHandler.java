@@ -158,9 +158,11 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 String phoneNumber = cursor.getString(4);
                 String password = cursor.getString(3);
                 int logCount = Integer.parseInt(cursor.getString(5));
+                int posts = Integer.parseInt(cursor.getString(6));
                 Seller seller = new Seller(name,email,password,phoneNumber);
                 seller.setLoginCount(logCount);
                 seller.setId(id);
+                seller.setPosts(posts);
                 allSellers.add(seller);
             } while (cursor.moveToNext());
         }
