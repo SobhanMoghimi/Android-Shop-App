@@ -128,6 +128,7 @@ public class Product
         else if (category.equals("لوازم خانه"))
             this.category = Category.HOME;
     }
+
     public String getCategoryString()
     {
         if(category==Category.BEAUTY)

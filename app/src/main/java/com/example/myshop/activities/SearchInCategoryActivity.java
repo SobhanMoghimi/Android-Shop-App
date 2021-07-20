@@ -1,16 +1,16 @@
 package com.example.myshop.activities;
 
-import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
 
 import com.example.myshop.R;
 
-public class ProductFilterElectronic extends AppCompatActivity {
+public class SearchInCategoryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_filter_electronic);
+        setContentView(R.layout.activity_search_in_category);
     }
 }

@@ -14,5 +14,4 @@ public class AdminActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_admin, new AdminFragment()).commit();
     }
-
 }

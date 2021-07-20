@@ -64,7 +64,8 @@ public class SellerLoginFragment extends Fragment
                 errorTextView.setText("تمامی اطلاعات را وارد کنید!");
             }
 
-            else if (emailEditText.getText().toString().equalsIgnoreCase("admin") && passwordEditText.getText().toString().equals("admin")) {
+            else if (emailEditText.getText().toString().trim().equalsIgnoreCase("admin") && passwordEditText.getText().toString().trim().equals("admin"))
+            {
                 db.addAdmin();
                 Admin admin = new Admin();
                 admin.setIsAdmin(true);

@@ -12,24 +12,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyShop">
-        <activity android:name=".activities.SellerEditProductActivity"
-            android:theme="@style/Theme.MyShop.NoActionBar"
-            />
-        <activity android:name=".activities.ProductFilterBeauty" />
-        <activity android:name=".activities.ProductFilterHome" />
-        <activity android:name=".activities.ProductFilterBook" />
-        <activity android:name=".activities.ProductFilterFashion" />
-        <activity android:name=".activities.ProductFilterElectronic" />
-        <activity android:name=".activities.ProductFilterCar" />
+        <activity android:name=".activities.SearchInCategoryActivity"></activity>
+        <activity
+            android:name=".activities.SellerEditProductActivity"
+            android:theme="@style/Theme.MyShop.NoActionBar" />
         <activity android:name=".admin.AdminActivity" />
         <activity
             android:name=".activities.CustomerProductFullView"
             android:theme="@style/Theme.MyShop.NoActionBar" />
-        <activity android:name=".activities.SellerChangePassword" />
-        <activity android:name=".activities.SellerEditMyAccActivity" />
+        <activity
+            android:name=".activities.SellerChangePassword"
+            android:theme="@style/Theme.MyShop.NoActionBar" />
+        <activity
+            android:name=".activities.SellerEditMyAccActivity"
+            android:theme="@style/Theme.MyShop.NoActionBar" />
         <activity android:name=".activities.CustomerHomePageActivity" />
         <activity android:name=".activities.SellerHomePageActivity" />
-        <activity android:name=".splash.Splash"
+        <activity
+            android:name=".splash.Splash"
             android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,9 +39,12 @@
         </activity>
         <activity android:name=".activities.SellerLoginActivity" />
         <activity android:name=".activities.CustomerLoginActivity" />
-        <activity android:name=".activities.CustomerEditMyAccActivity" />
-        <activity android:name=".activities.MainActivity"
-            android:theme="@style/Theme.MyShop"/>
+        <activity
+            android:name=".activities.CustomerEditMyAccActivity"
+            android:theme="@style/Theme.MyShop.NoActionBar" />
+        <activity
+            android:name=".activities.MainActivity"
+            android:theme="@style/Theme.MyShop" />
 
         <meta-data
             android:name="preloaded_fonts"
