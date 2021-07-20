@@ -129,6 +129,20 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         return false;
     }
 
+    public boolean deleteProduct(Product product) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryStatement = "DELETE FROM " + PRODUCT_TABLE + " WHERE " + COLUMN_ID + " = " + product.getId();
+
+        Cursor cursor = db.rawQuery(queryStatement,null);
+
+        if (cursor.moveToFirst()) {
+            return true;
+        }
+
+        return false;
+    }
+
+
     public void deleteAllSellers() {
 
         SQLiteDatabase db = this.getWritableDatabase();
