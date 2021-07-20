@@ -79,14 +79,6 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         String createTableStatement_Product = "CREATE TABLE " + PRODUCT_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_PRODUCT_NAME + " TEXT, " + COLUMN_PRODUCT_PRICE + " INT, " + COLUMN_PRODUCT_DESCRIPTION + " TEXT, "+COLUMN_PRODUCT_SELLER_NAME+" TEXT, " + COLUMN_PRODUCT_SELLER_PHONE_NUMBER + " TEXT, " + COLUMN_PRODUCT_CATEGORY + " TEXT, " + COLUMN_PRODUCT_IS_PIN + " TEXT, " + COLUMN_PRODUCT_RELEASE_DATE + " TEXT, "+ COLUMN_PRODUCT_IMAGE + " BLOB)";
         String createTableAdmin = "CREATE TABLE " + ADMIN_TABLE + " (" + ADMIN_USERNAME + " TEXT, " + ADMIN_PASSWORD + " TEXT, " + ADMIN_PIN_PRODUCTS + " TEXT)";
 
-        db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-
-        cv.put(ADMIN_USERNAME,"admin");
-        cv.put(ADMIN_PASSWORD,"admin");
-        cv.put(ADMIN_PIN_PRODUCTS,"0");
-
-        db.insert(ADMIN_TABLE,null,cv);
 
         db.execSQL(createTableAdmin);
         db.execSQL(createTableStatement_Product);
@@ -115,6 +107,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         cv.put(COLUMN_SELLER_NUMBER, seller.getPhoneNumber());
         cv.put(COLUMN_SELLER_PASSWORD, seller.getPassword().toString());
         cv.put(COLUMN_SELLER_LOGIN_COUNT, 1);
+        cv.put(SELLER_POSTS,0);
 
         long insert = db.insert(SELLER_TABLE,null, cv);
 

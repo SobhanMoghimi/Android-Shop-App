@@ -40,7 +40,6 @@ public class SellerLoginFragment extends Fragment
         forgetPasswordTextView=view.findViewById(R.id.text_view_seller_forgot_password);
         registerTextView=view.findViewById(R.id.text_view_seller_register);
         db = new DataBaseHandler(getActivity());
-        List<Seller> allSellers = db.getAllSellers();
 
         registerTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,12 +53,13 @@ public class SellerLoginFragment extends Fragment
 
         loginButton.setOnClickListener(v -> {
 
+            List<Seller> allSellers = db.getAllSellers();
             boolean found = false;
             if (emailEditText.getText().toString().equals("") || passwordEditText.getText().toString().equals(""))
             {
                 errorTextView.setText("تمامی اطلاعات را وارد کنید!");
             }
-            else if (){
+            else {
                 for(Seller seller : allSellers) {
                     if (seller.getEmail().equalsIgnoreCase(emailEditText.getText().toString()))
                     {

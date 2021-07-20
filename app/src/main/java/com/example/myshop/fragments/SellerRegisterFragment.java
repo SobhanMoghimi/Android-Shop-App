@@ -82,7 +82,7 @@ public class SellerRegisterFragment extends Fragment
                             startActivity(new Intent(getActivity(), SellerHomePageActivity.class));
                         }
                         else {
-                            errorField.setText("کیر");
+                            errorField.setText("مشکلی پیش آمده!");
                         }
                     }
                 } catch (Exception e) {
