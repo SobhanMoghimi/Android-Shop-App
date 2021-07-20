@@ -46,7 +46,7 @@ public class CustomerChangePass extends AppCompatActivity {
                         found = true;
                         if (db.updatePassCustomer(customer,newPass.getText().toString())) {
                             customer.setPassword(newPass.getText().toString());
-                            Customer.activeCustomer = customer;
+                            Customer.setActiveCustomer(customer);
                             Toast.makeText(this,"رمز شما با موفقیت تغییر کرد!",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(this,CustomerHomePageActivity.class));
                         }

@@ -45,7 +45,7 @@ public class SellerChangePassword extends AppCompatActivity {
                         if (db.updatePassSeller(seller,newPass.getText().toString()))
                         {
                             seller.setPassword(newPass.getText().toString());
-                            Seller.activeSeller = seller;
+                            Seller.setActiveSeller(seller);
                             startActivity(new Intent(this,SellerHomePageActivity.class));
                         }
                     }
