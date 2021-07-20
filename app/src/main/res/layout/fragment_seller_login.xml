@@ -31,6 +31,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/text_editor_background"
             android:hint="ایمیل خود را وارد کنید"
+            android:inputType="textEmailAddress"
             android:padding="7dp"
             android:paddingEnd="20dp"
             android:paddingRight="20dp" />

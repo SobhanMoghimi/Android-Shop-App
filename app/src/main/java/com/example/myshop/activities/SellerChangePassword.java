@@ -29,11 +29,10 @@ public class SellerChangePassword extends AppCompatActivity {
 
         db = new DataBaseHandler(this);
         allSellers = db.getAllSellers();
-        button = findViewById(R.id.buttonChange);
+        button = findViewById(R.id.buttonSellerChangePass);
         prePass = findViewById(R.id.prePassword);
         newPass = findViewById(R.id.newPassword);
         seller = Seller.activeSeller;
-
         button.setOnClickListener(v -> {
             boolean found=false;
             if (prePass.getText().toString().equals("") || newPass.getText().equals("")) {
@@ -43,7 +42,8 @@ public class SellerChangePassword extends AppCompatActivity {
                 for (Seller seller: allSellers) {
                     if (seller.getPassword().equals(prePass.getText().toString())) {
                         found=true;
-                        if (db.updatePassSeller(seller,newPass.getText().toString())) {
+                        if (db.updatePassSeller(seller,newPass.getText().toString()))
+                        {
                             seller.setPassword(newPass.getText().toString());
                             Seller.activeSeller = seller;
                             startActivity(new Intent(this,SellerHomePageActivity.class));

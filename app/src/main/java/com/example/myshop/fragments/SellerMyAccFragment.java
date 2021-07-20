@@ -1,5 +1,6 @@
 package com.example.myshop.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -12,8 +13,14 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.Fragment;
+
 import com.example.myshop.R;
 import com.example.myshop.activities.SellerLoginActivity;
+import com.example.myshop.activities.SellerEditMyAccActivity;
+import com.example.myshop.activities.SellerLoginActivity;
+import com.example.myshop.activities.SellerEditMyAccActivity;
 import com.example.myshop.model.Seller;
 
 public class SellerMyAccFragment extends Fragment {
@@ -39,19 +46,14 @@ public class SellerMyAccFragment extends Fragment {
         email = view.findViewById(R.id.seller_myacc_email);
         phoneNumber = view.findViewById(R.id.seller_myacc_phone);
 
-        if (SellerRegisterFragment.seller!=null) {
-            seller = SellerRegisterFragment.seller;
-        }
-        else if (SellerLoginFragment.seller!=null) {
-            seller = SellerLoginFragment.seller;
-        }
+        seller=Seller.activeSeller;
 
         name.setText(seller.getFullName().toString());
         email.setText(seller.getEmail().toString());
         phoneNumber.setText(seller.getPhoneNumber().toString());
 
         editButton.setOnClickListener(v -> {
-
+            startActivity(new Intent(getActivity(), SellerEditMyAccActivity.class));
         });
 
         return view;

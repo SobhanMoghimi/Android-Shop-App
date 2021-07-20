@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyShop">
-        <activity android:name=".activities.SellerChangePassword"></activity>
+        <activity android:name=".activities.CustomerProductFullView"
+            android:theme="@style/Theme.MyShop.NoActionBar"
+            />
+        <activity android:name=".activities.SellerChangePassword" />
         <activity android:name=".activities.SellerEditMyAccActivity" />
         <activity android:name=".activities.CustomerHomePageActivity" />
         <activity android:name=".activities.SellerHomePageActivity" />
