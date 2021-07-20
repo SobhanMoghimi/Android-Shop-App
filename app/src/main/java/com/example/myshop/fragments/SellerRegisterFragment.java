@@ -29,6 +29,7 @@ public class SellerRegisterFragment extends Fragment
     private AppCompatButton registerButton;
     private EditText email,password,passwordRepeat,phoneNumber,name;
     private TextView loginTextView,errorField;
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
@@ -70,14 +71,14 @@ public class SellerRegisterFragment extends Fragment
                     {
                         errorField.setText(isChecked(email.getText().toString(),phoneNumber.getText().toString()));
                     }
-                    else
+                    else if(emailPatternCheck(email.getText().toString().trim()))
                     {
                         DataBaseHandler db = new DataBaseHandler(getActivity());
-                        Seller seller = new Seller(name.getText().toString(), email.getText().toString(), password.getText().toString(), phoneNumber.getText().toString());
+                        Seller seller = new Seller(name.getText().toString().trim(), email.getText().toString().trim(), password.getText().toString(), phoneNumber.getText().toString());
                         boolean success = db.addSeller(seller);
                         if (success) {
                             seller.setLoginCount(1);
-                            seller.setId(getNewSellerId(email.getText().toString()));
+                            seller.setId(getNewSellerId(email.getText().toString().trim()));
                             Toast.makeText(getActivity(),"خوش آمدید",Toast.LENGTH_SHORT).show();
                             Seller.setActiveSeller(seller);
                             Customer.setActiveCustomer(null);
@@ -86,6 +87,9 @@ public class SellerRegisterFragment extends Fragment
                         else {
                             errorField.setText("مشکلی پیش آمده!");
                         }
+                    }
+                    else {
+                        errorField.setText("ایمیل وارد شده معتبر نیست!");
                     }
                 } catch (Exception e) {
                     //errorField.setText("ثبت نام با خطا مواجه شده است!");
@@ -117,5 +121,11 @@ public class SellerRegisterFragment extends Fragment
     public int getNewSellerId(String email) {
         DataBaseHandler db = new DataBaseHandler(getActivity());
         return db.getSellerId(email);
+    }
+
+    public boolean emailPatternCheck(String email) {
+        if (email.matches(emailPattern))
+            return true;
+        return false;
     }
 }

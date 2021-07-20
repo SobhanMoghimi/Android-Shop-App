@@ -27,6 +27,7 @@ public class CustomerRegisterFragment extends Fragment
     private AppCompatButton registerButton;
     private EditText emailText,registerPassword,usernameText,registerPasswordRepeat;
     private TextView loginTextView,errorField;
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
@@ -48,38 +49,38 @@ public class CustomerRegisterFragment extends Fragment
             }
         });
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    if (registerPassword.getText().toString().equals("") || emailText.getText().toString().equals("") || registerPasswordRepeat.getText().toString().equals("") || usernameText.getText().toString().equals("")) {
-                        errorField.setText("اطلاعات وارد شده کافی نیست!");
-                    }
+        registerButton.setOnClickListener(v -> {
+            try {
+                if (registerPassword.getText().toString().equals("") || emailText.getText().toString().equals("") || registerPasswordRepeat.getText().toString().equals("") || usernameText.getText().toString().equals("")) {
+                    errorField.setText("اطلاعات وارد شده کافی نیست!");
+                }
 
-                    else if (!registerPassword.getText().toString().equals(registerPasswordRepeat.getText().toString())) {
-                        errorField.setText("رمز عبور مطابقت ندارد!");
-                    }
-                    else if(!checkEmail(emailText.getText().toString()))
-                    {
-                        errorField.setText("کاربر با این ایمیل موجود است !");
+                else if (!registerPassword.getText().toString().equals(registerPasswordRepeat.getText().toString())) {
+                    errorField.setText("رمز عبور مطابقت ندارد!");
+                }
+                else if(!checkEmail(emailText.getText().toString()))
+                {
+                    errorField.setText("کاربر با این ایمیل موجود است !");
+                }
+                else if (emailPatternCheck(emailText.getText().toString().trim())){
+                    DataBaseHandler db = new DataBaseHandler(getActivity());
+                    Customer customer = new Customer(usernameText.getText().toString().trim(), emailText.getText().toString().trim(), registerPassword.getText().toString());
+                    boolean success = db.addCustomer(customer);
+                    if (success) {
+                        Customer.setActiveCustomer(customer);
+                        //Seller.activeSeller=null;
+                        Toast.makeText(getActivity(),"خوش آمدید",Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getActivity(), CustomerHomePageActivity.class));
                     }
                     else {
-                        DataBaseHandler db = new DataBaseHandler(getActivity());
-                        Customer customer = new Customer(usernameText.getText().toString(), emailText.getText().toString(), registerPassword.getText().toString());
-                        boolean success = db.addCustomer(customer);
-                        if (success) {
-                            Customer.setActiveCustomer(customer);
-                            //Seller.activeSeller=null;
-                            Toast.makeText(getActivity(),"خوش آمدید",Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getActivity(), CustomerHomePageActivity.class));
-                        }
-                        else {
-                            errorField.setText("ثبت نام با خطا مواجه شده است!");
-                        }
+                        errorField.setText("ثبت نام با خطا مواجه شده است!");
                     }
-                } catch (Exception e) {
-                    errorField.setText(e.getMessage().toString());
                 }
+                else {
+                    errorField.setText("ایمیل معتبر نیست!");
+                }
+            } catch (Exception e) {
+                errorField.setText(e.getMessage().toString());
             }
         });
         return view;
@@ -94,6 +95,12 @@ public class CustomerRegisterFragment extends Fragment
             }
         }
         return true;
+    }
+
+    public boolean emailPatternCheck(String email) {
+        if (email.matches(emailPattern))
+            return true;
+        return false;
     }
 
 }
