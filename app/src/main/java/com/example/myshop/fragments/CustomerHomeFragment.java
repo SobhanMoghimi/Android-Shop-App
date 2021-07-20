@@ -32,7 +32,7 @@ public class CustomerHomeFragment extends Fragment
 
         View view=inflater.inflate(R.layout.fragment_customer_home,container,false);
 
-        //recyclerView = view.findViewById(R.id.customer_home_recycler_view);
+        recyclerView = view.findViewById(R.id.customer_home_recycler_view);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
