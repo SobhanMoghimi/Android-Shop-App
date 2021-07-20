@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.example.myshop.model.Category;
 import com.example.myshop.model.Customer;
 import com.example.myshop.model.Product;
 import com.example.myshop.model.Seller;
@@ -444,6 +445,26 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         long update = db.update(CUSTOMER_TABLE,cv,COLUMN_ID + " = ?",new String[] {String.valueOf(customer.getId())});
         return update!=-1;
+    }
+
+    public List<Product> getProductsByCategory(Category category) {
+        List<Product> products = new ArrayList<>();
+        for (Product product : this.getAllProducts()) {
+            if (product.getCategory()==category) {
+                products.add(product);
+            }
+        }
+        return products;
+    }
+
+    public List<Product> getProductsByName(String name) {
+        List<Product> products = new ArrayList<>();
+        for (Product product : this.getAllProducts()) {
+            if (product.getName().equalsIgnoreCase(name)) {
+                products.add(product);
+            }
+        }
+        return products;
     }
 
     @Override
