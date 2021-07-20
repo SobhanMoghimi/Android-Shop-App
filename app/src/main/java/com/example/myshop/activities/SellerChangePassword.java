@@ -32,7 +32,7 @@ public class SellerChangePassword extends AppCompatActivity {
         button = findViewById(R.id.buttonSellerChangePass);
         prePass = findViewById(R.id.prePassword);
         newPass = findViewById(R.id.newPassword);
-        seller = Seller.activeSeller;
+        seller = Seller.getActiveSeller();
         button.setOnClickListener(v -> {
             boolean found=false;
             if (prePass.getText().toString().equals("") || newPass.getText().equals("")) {

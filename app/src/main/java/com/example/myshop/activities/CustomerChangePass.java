@@ -28,7 +28,7 @@ public class CustomerChangePass extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_change_pass);
         db = new DataBaseHandler(this);
-        customer = Customer.activeCustomer;
+        customer = Customer.getActiveCustomer();
         allCustomers = db.getAllCustomers();
         button = findViewById(R.id.buttonChangePass);
         prePass = findViewById(R.id.customerPrePassword);
