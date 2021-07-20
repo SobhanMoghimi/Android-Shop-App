@@ -33,11 +33,11 @@ public class Seller extends Person
     public String toString()
     {
         return "Seller{" +
-                "logCount=" + getLoginCount() +
-                ", id=" + getId() +
-                ", name= "+ getFullName() +
-                ", email= "+ getEmail()+
-                ", phoneNumber='" + phoneNumber + '\'' +
+                "logCount = " + getLoginCount() +
+                ", id = " + getId() +
+                ", name = "+ getFullName() +
+                ", email = "+ getEmail()+
+                ", phoneNumber = " + phoneNumber + '\n' +
                 '}';
     }
 }
