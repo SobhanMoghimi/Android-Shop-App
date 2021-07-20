@@ -460,7 +460,17 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public List<Product> getProductsByName(String name) {
         List<Product> products = new ArrayList<>();
         for (Product product : this.getAllProducts()) {
-            if (product.getName().equalsIgnoreCase(name)) {
+            if (product.getName().contains(name)) {
+                products.add(product);
+            }
+        }
+        return products;
+    }
+
+    public List<Product> searchProductByNameInCategory(String name,Category category) {
+        List<Product> products = new ArrayList<>();
+        for (Product product : this.getAllProducts()) {
+            if (product.getName().contains(name) && product.getCategory()==category) {
                 products.add(product);
             }
         }
