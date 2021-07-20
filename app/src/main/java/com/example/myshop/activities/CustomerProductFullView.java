@@ -1,9 +1,12 @@
 package com.example.myshop.activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,5 +43,30 @@ public class CustomerProductFullView extends AppCompatActivity
         product_pic.setImageBitmap(product.getImage());
         seller_phoneNumber.setText(product.getSeller().getPhoneNumber());
         seller_name.setText(product.getSeller().getFullName());
+
+        seller_phoneNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(CustomerProductFullView.this);
+                dialog.setCancelable(false);
+                dialog.setTitle("تماس با فروشنده!");
+                dialog.setMessage("آیا میخواهید با این فروشنده تماس بگیرید؟" );
+                dialog.setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+
+                    }
+                }).setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                    }
+                });
+                final AlertDialog alert=dialog.create();
+                alert.show();
+            }
+        });
     }
 }
