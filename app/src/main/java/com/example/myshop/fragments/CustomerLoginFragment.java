@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,7 +27,7 @@ public class CustomerLoginFragment extends Fragment
     private AppCompatButton loginButton;
     private EditText emailEditText,passwordEditText;
     private TextView errorTextView,forgetPasswordTextView,registerTextView;
-    public static Customer customer;
+    public Customer customer;
     DataBaseHandler db;
     @Nullable
     @org.jetbrains.annotations.Nullable

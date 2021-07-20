@@ -25,6 +25,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private static final int VERSION = 1;
     private static final String NAME = "database.db";
     private Context context;
+
     //Seller
     private static final String SELLER_TABLE = "SELLER_TABLE";
     private static final String COLUMN_SELLER_NAME = "SELLER_NAME";
@@ -32,7 +33,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private static final String COLUMN_SELLER_PASSWORD = "SELLER_PASSWORD";
     private static final String COLUMN_SELLER_NUMBER = "SELLER_NUMBER";
     private static final String COLUMN_SELLER_LOGIN_COUNT = "SELLER_LOG_COUNT";
-
+    private static final String SELLER_POSTS = "SELLER_POSTS";
     private static final String COLUMN_ID = "ID";
 
     //Product
@@ -57,6 +58,13 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private static final String CUSTOMER_LOGIN_COUNT = "CUSTOMER_LOG_COUNT";
 
 
+    // admin
+    public static final String ADMIN_USERNAME = "ADMIN_USERNAME";
+    public static final String ADMIN_PASSWORD = "ADMIN_PASSWORD";
+    public static final String ADMIN_PIN_PRODUCTS = "ADMIN_PIN_PRODUCTS";
+    public static final String ADMIN_TABLE = "ADMIN_TABLE";
+
+
     public DataBaseHandler(@Nullable Context context) {
         super(context,NAME,null,VERSION);
         this.context = context;
@@ -66,9 +74,12 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String onCreateTableString_Seller = "CREATE TABLE " + SELLER_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_SELLER_NAME + " TEXT, " + COLUMN_SELLER_EMAIL + " TEXT, " + COLUMN_SELLER_PASSWORD + " TEXT, " + COLUMN_SELLER_NUMBER + " TEXT, "+ COLUMN_SELLER_LOGIN_COUNT + " INT)";
+        String onCreateTableString_Seller = "CREATE TABLE " + SELLER_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_SELLER_NAME + " TEXT, " + COLUMN_SELLER_EMAIL + " TEXT, " + COLUMN_SELLER_PASSWORD + " TEXT, " + COLUMN_SELLER_NUMBER + " TEXT, "+ COLUMN_SELLER_LOGIN_COUNT + " INT, " + SELLER_POSTS + " INT)";
         String createCustomer = "CREATE TABLE " + CUSTOMER_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + CUSTOMER_NAME + " TEXT, " + CUSTOMER_EMAIL + " TEXT, " + CUSTOMER_PASSWORD + " TEXT, " + CUSTOMER_LOGIN_COUNT + " INT)";
         String createTableStatement_Product = "CREATE TABLE " + PRODUCT_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_PRODUCT_NAME + " TEXT, " + COLUMN_PRODUCT_PRICE + " INT, " + COLUMN_PRODUCT_DESCRIPTION + " TEXT, "+COLUMN_PRODUCT_SELLER_NAME+" TEXT, " + COLUMN_PRODUCT_SELLER_PHONE_NUMBER + " TEXT, " + COLUMN_PRODUCT_CATEGORY + " TEXT, " + COLUMN_PRODUCT_IS_PIN + " TEXT, " + COLUMN_PRODUCT_RELEASE_DATE + " TEXT, "+ COLUMN_PRODUCT_IMAGE + " BLOB)";
+        String createTableAdmin = "CREATE TABLE " + ADMIN_TABLE + " (" + ADMIN_USERNAME + " TEXT, " + ADMIN_PASSWORD + " TEXT, " + ADMIN_PIN_PRODUCTS + " INT)";
+
+        db.execSQL(createTableAdmin);
         db.execSQL(createTableStatement_Product);
         db.execSQL(onCreateTableString_Seller);
         db.execSQL(createCustomer);
@@ -107,10 +118,26 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         return false;
     }
 
-    public void deleteAll() {
+    public void deleteAllSellers() {
 
         SQLiteDatabase db = this.getWritableDatabase();
         String queryStatement = "DELETE FROM " + SELLER_TABLE + ";";
+
+        db.execSQL(queryStatement);
+    }
+
+    public void deleteAllCustomers() {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryStatement = "DELETE FROM " + CUSTOMER_TABLE + ";";
+
+        db.execSQL(queryStatement);
+    }
+
+    public void deleteAllProducts() {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryStatement = "DELETE FROM " + PRODUCT_TABLE + ";";
 
         db.execSQL(queryStatement);
     }
@@ -186,6 +213,12 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     }
 
 
+    public void addSellerPostCount(Seller seller,int newNum) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(SELLER_POSTS, newNum);
+        long update = db.update(SELLER_TABLE,cv,COLUMN_ID + " = ?", new String[] {String.valueOf(seller.getId())});
+    }
 
     public List<Product> getAllProductsOfSeller(Seller seller){
         List<Product> AllProducts = this.getAllProducts();
@@ -367,11 +400,41 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public boolean updatePassSeller(Seller seller,String newPass) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(COLUMN_SELLER_NAME,newPass);
+        cv.put(COLUMN_SELLER_PASSWORD,newPass);
 
         long update = db.update(SELLER_TABLE,cv,COLUMN_ID + " = ?",new String[] {String.valueOf(seller.getId())});
         return update!=-1;
     }
+
+    public Customer getCustomerById(int id) {
+        List<Customer> customers = this.getAllCustomers();
+        for (Customer customer : customers) {
+            if (customer.getId()==id) {
+                return customer;
+            }
+        }
+        return null;
+    }
+
+    public int getCustomerId(String email) {
+        List<Customer> customers = this.getAllCustomers();
+        for (Customer customer : customers) {
+            if (customer.getEmail().equals(email)) {
+                return customer.getId();
+            }
+        }
+        return 0;
+    }
+
+    public boolean updatePassCustomer(Customer customer,String newPass) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(CUSTOMER_PASSWORD,newPass);
+
+        long update = db.update(CUSTOMER_TABLE,cv,COLUMN_ID + " = ?",new String[] {String.valueOf(customer.getId())});
+        return update!=-1;
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 

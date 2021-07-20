@@ -32,6 +32,7 @@ public class SellerEditMyAccActivity extends AppCompatActivity {
         button = findViewById(R.id.buttonPress);
         newName = findViewById(R.id.editTextPersonName);
         newEmail = findViewById(R.id.editTextEmail);
+        error = findViewById(R.id.errorEditSeller);
         newPhone = findViewById(R.id.editTextNumber);
         seller = Seller.activeSeller;
         button.setOnClickListener(v -> {

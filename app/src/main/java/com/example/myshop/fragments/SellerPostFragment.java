@@ -4,12 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.fragment.app.Fragment;
-
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +15,16 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.Fragment;
+
 import com.example.myshop.R;
 import com.example.myshop.activities.SellerHomePageActivity;
 import com.example.myshop.dataBase.DataBaseHandler;
 import com.example.myshop.model.Product;
+import com.example.myshop.model.Seller;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
@@ -40,6 +40,7 @@ public class SellerPostFragment extends Fragment {
     ImageView image;
     FloatingActionButton add;
     private Uri imageFilePath;
+    Seller seller;
     private Bitmap imageToStore;
     AppCompatButton post;
 
@@ -53,6 +54,7 @@ public class SellerPostFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_seller_post,container,false);
         categorySpinner = view.findViewById(R.id.category);
         Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        seller = Seller.activeSeller;
         image = view.findViewById(R.id.imageView);
         name = view.findViewById(R.id.productName);
         price = view.findViewById(R.id.productPrice);
@@ -111,6 +113,9 @@ public class SellerPostFragment extends Fragment {
                         product = new Product(name.getText().toString(),Integer.parseInt(price.getText().toString()),imageToStore,SellerRegisterFragment.seller,description.getText().toString(), Calendar.getInstance().getTime(), chosenCategory);
                         DataBaseHandler db = new DataBaseHandler(getActivity());
                         boolean success = db.addProduct(product);
+                        seller.setPosts(seller.getPosts()+1);
+                        db.addSellerPostCount(seller,seller.getPosts()+1);
+                        Seller.activeSeller = seller;
                         if (success)
                         {
                             Toast.makeText(getActivity(),"کالای شما ثبت شد.",Toast.LENGTH_SHORT).show();
