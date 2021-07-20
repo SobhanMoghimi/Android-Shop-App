@@ -26,13 +26,12 @@ public class CustomerEditMyAccActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_edit_my_acc);
 
-        customer = Customer.activeCustomer;
+        customer = Customer.getActiveCustomer();
         db = new DataBaseHandler(this);
         newName = findViewById(R.id.changeName);
         newEmail = findViewById(R.id.changeEmail);
         button = findViewById(R.id.record);
         error = findViewById(R.id.editCustomerError);
-
         button.setOnClickListener(v -> {
             if (newEmail.getText().toString().equals("") || newName.getText().toString().equals("")) {
                 error.setText("باید تمام فیلد ها را پر کنید!");
@@ -41,7 +40,7 @@ public class CustomerEditMyAccActivity extends AppCompatActivity {
                 if (db.updateCustomer(customer,newName.getText().toString(),newEmail.getText().toString())) {
                     customer.setEmail(newEmail.getText().toString());
                     customer.setFullName(newName.getText().toString());
-                    Customer.activeCustomer = customer;
+                    Customer.setActiveCustomer(customer);
                     startActivity(new Intent(this,CustomerHomePageActivity.class));
                 }
                 else {

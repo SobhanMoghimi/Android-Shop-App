@@ -18,6 +18,7 @@ import com.example.myshop.R;
 import com.example.myshop.activities.CustomerHomePageActivity;
 import com.example.myshop.dataBase.DataBaseHandler;
 import com.example.myshop.model.Customer;
+import com.example.myshop.model.Seller;
 
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class CustomerLoginFragment extends Fragment
                             db.updateCustomerLogCount(customer,customer.getLoginCount()+1);
                             customer.setLoginCount(customer.getLoginCount()+1);
                             Customer.setActiveCustomer(customer);
-                            //Seller.activeSeller=null;
+                            Seller.setActiveSeller(null);
                             startActivity(new Intent(getActivity(), CustomerHomePageActivity.class));
                         }
                         else {

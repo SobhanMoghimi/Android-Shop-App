@@ -40,7 +40,7 @@ public class SellerHomeFragment extends Fragment
     {
         DataBaseHandler DB = new DataBaseHandler(getActivity());
 
-        productList=DB.getAllProductsOfSeller(Seller.activeSeller);
+        productList=DB.getAllProductsOfSeller(Seller.getActiveSeller());
         View view=inflater.inflate(R.layout.fragment_seller_home, container, false);
         recyclerView = view.findViewById(R.id.seller_products_recycler_view);
         recyclerView.setHasFixedSize(true);

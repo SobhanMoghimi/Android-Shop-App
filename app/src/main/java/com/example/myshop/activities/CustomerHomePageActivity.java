@@ -34,6 +34,13 @@ public class CustomerHomePageActivity extends AppCompatActivity {
         frameLayout = findViewById(R.id.customer_frame_layout);
         getSupportFragmentManager().beginTransaction().replace(R.id.customer_frame_layout,new CustomerHomeFragment()).commit();
     }
+
+    @Override
+    public void onBackPressed()
+    {
+
+    }
+
     private BottomNavigationView.OnNavigationItemSelectedListener listener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {

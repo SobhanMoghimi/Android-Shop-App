@@ -61,4 +61,10 @@ public class SellerHomePageActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    @Override
+    public void onBackPressed()
+    {
+
+    }
 }

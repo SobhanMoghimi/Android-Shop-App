@@ -2,7 +2,7 @@ package com.example.myshop.model;
 
 public class Seller extends Person
 {
-    public static Seller activeSeller;
+    private static Seller activeSeller;
 
 
     private String phoneNumber;

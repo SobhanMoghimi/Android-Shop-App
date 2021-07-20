@@ -14,7 +14,7 @@ public class Product
     private String description;
     private boolean isPin=false;
     private Category category;
-    public static Product workingProduct;
+    private static Product workingProduct;
 
     public Product(String name, int price, Bitmap image, Seller seller, String description, String category) {
         this.name = name;
@@ -23,6 +23,25 @@ public class Product
         this.seller = seller;
         this.description = description;
         setCategory(category);
+    }
+
+    public Product(String name, int id, int price, Bitmap image, Seller seller, String description, boolean isPin, String category) {
+        this.name = name;
+        this.id = id;
+        this.price = price;
+        this.image = image;
+        this.seller = seller;
+        this.description = description;
+        this.isPin = isPin;
+        setCategory(category);
+    }
+
+    public static Product getWorkingProduct() {
+        return workingProduct;
+    }
+
+    public static void setWorkingProduct(Product workingProduct) {
+        Product.workingProduct = workingProduct;
     }
 
     public String getName() {

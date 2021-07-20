@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.example.myshop.R;
+import com.example.myshop.activities.MainActivity;
 import com.example.myshop.activities.SellerChangePassword;
 import com.example.myshop.activities.SellerEditMyAccActivity;
 import com.example.myshop.model.Seller;
@@ -21,7 +23,7 @@ public class SellerMyAccFragment extends Fragment {
     private AppCompatButton editButton,changePassButton;
     private TextView name,email,phoneNumber;
     private Seller seller;
-
+    private ImageView logOutButton;
 
     public SellerMyAccFragment() {
         // Required empty public constructor
@@ -29,7 +31,9 @@ public class SellerMyAccFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
+
 
         View view = inflater.inflate(R.layout.fragment_seller_my_acc, container, false);
         editButton = view.findViewById(R.id.seller_edit);
@@ -37,6 +41,16 @@ public class SellerMyAccFragment extends Fragment {
         name = view.findViewById(R.id.seller_myacc_name);
         email = view.findViewById(R.id.seller_myacc_email);
         phoneNumber = view.findViewById(R.id.seller_myacc_phone);
+        logOutButton=view.findViewById(R.id.iv_logOut_seller);
+
+
+        logOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), MainActivity.class));
+            }
+        });
+
 
         seller = Seller.getActiveSeller();
 

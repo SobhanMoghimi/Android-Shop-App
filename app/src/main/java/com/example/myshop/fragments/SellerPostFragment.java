@@ -53,7 +53,7 @@ public class SellerPostFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_seller_post,container,false);
         categorySpinner = view.findViewById(R.id.category);
         Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        seller = Seller.activeSeller;
+        seller = Seller.getActiveSeller();
         image = view.findViewById(R.id.imageView);
         name = view.findViewById(R.id.productName);
         price = view.findViewById(R.id.productPrice);

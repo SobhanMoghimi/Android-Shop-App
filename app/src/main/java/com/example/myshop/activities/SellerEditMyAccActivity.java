@@ -34,7 +34,7 @@ public class SellerEditMyAccActivity extends AppCompatActivity {
         newEmail = findViewById(R.id.editTextEmail);
         error = findViewById(R.id.errorEditSeller);
         newPhone = findViewById(R.id.editTextNumber);
-        seller = Seller.activeSeller;
+        seller = Seller.getActiveSeller();
         button.setOnClickListener(v -> {
             if (newName.getText().toString().equals("") || newEmail.getText().toString().equals("")  || newPhone.getText().toString().equals("")) {
                 error.setText("تمام فیلد ها را پر کنید!");
@@ -48,12 +48,11 @@ public class SellerEditMyAccActivity extends AppCompatActivity {
             }
             else {
                 db.updateSeller(seller,newName.getText().toString(),newEmail.getText().toString(), newPhone.getText().toString());
-                Seller.activeSeller = db.getSellerById(seller.getId());
+                Seller.setActiveSeller(db.getSellerById(seller.getId()));
                 Toast.makeText(this,"تغییرات با موفقیت اعمال شد",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this,SellerHomePageActivity.class));
             }
         });
-
     }
 
     public boolean checkEmail(String email) {

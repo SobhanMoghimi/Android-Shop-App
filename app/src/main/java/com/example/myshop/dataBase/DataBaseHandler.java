@@ -78,7 +78,6 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         String createTableStatement_Product = "CREATE TABLE " + PRODUCT_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_PRODUCT_NAME + " TEXT, " + COLUMN_PRODUCT_PRICE + " INT, " + COLUMN_PRODUCT_DESCRIPTION + " TEXT, "+ PRODUCT_SELLER_ID + " INT, " + COLUMN_PRODUCT_CATEGORY + " TEXT, " + COLUMN_PRODUCT_IS_PIN + " TEXT, " + COLUMN_PRODUCT_IMAGE + " BLOB)";
         String createTableAdmin = "CREATE TABLE " + ADMIN_TABLE + " (" + ADMIN_USERNAME + " TEXT, " + ADMIN_PASSWORD + " TEXT, " + ADMIN_PIN_PRODUCTS + " TEXT)";
 
-
         db.execSQL(createTableAdmin);
         db.execSQL(createTableStatement_Product);
         db.execSQL(onCreateTableString_Seller);
@@ -211,11 +210,12 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         cv.put(COLUMN_PRODUCT_NAME , product.getName());
         cv.put(COLUMN_PRODUCT_PRICE, product.getPrice());
-        cv.put(COLUMN_PRODUCT_CATEGORY, product.getCategory().toString());
+        cv.put(COLUMN_PRODUCT_CATEGORY, product.getCategoryString());
         cv.put(COLUMN_PRODUCT_DESCRIPTION, product.getDescription());
         cv.put(COLUMN_PRODUCT_IS_PIN, product.isPin());
         cv.put(COLUMN_PRODUCT_IMAGE, imageInBytes);
-        cv.put(PRODUCT_SELLER_ID,product.getSeller().getId());
+        cv.put(PRODUCT_SELLER_ID,Seller.getActiveSeller().getId());
+
         long insert = db.insert(PRODUCT_TABLE, null, cv);
         if (insert==-1) {
             return false;
@@ -256,16 +256,16 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                     int Id = cursor.getInt(0);
                     String Name = cursor.getString(1);
                     int Price = cursor.getInt(2);
-                    Seller seller = this.getSellerById(cursor.getInt(5));
+                    Seller seller = this.getSellerById(cursor.getInt(4));
                     String Description = cursor.getString(3);
-                    String Category = cursor.getString(6);
-                    String isPin = cursor.getString(7);
-                    String releaseDate = cursor.getString(8);
-                    byte[] imageBytes = cursor.getBlob(9);
+                    String Category = cursor.getString(5);
+                    String isPin = cursor.getString(6);
+                    byte[] imageBytes = cursor.getBlob(7);
 
                     Bitmap imageProduct = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
                     boolean isPinBool = isPin.equals("true");
-                    Product product = new Product(Name, Price, imageProduct, seller, Description, Category);
+                    Product product = new Product(Name,Id, Price, imageProduct, seller, Description, isPinBool , Category);
+
                     product.setPin(isPinBool);
                     products.add(product);
                 } while (cursor.moveToNext());

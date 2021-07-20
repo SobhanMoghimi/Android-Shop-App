@@ -3,12 +3,12 @@
 
     <item
         android:id="@+id/home"
-        android:title="صفحه اصلی"
+        android:title="کالاهای من"
         android:icon="@drawable/ic_baseline_home_24" />
 
     <item
         android:id="@+id/post"
-        android:title="پست جدید"
+        android:title="افزودن کالا"
         android:icon="@drawable/ic_baseline_add_circle_24" />
 
     <item

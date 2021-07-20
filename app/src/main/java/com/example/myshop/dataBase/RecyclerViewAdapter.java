@@ -50,11 +50,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     {
         holder.tv_row_product_name.setText(productList.get(position).getName());
         holder.tv_row_product_category.setText(productList.get(position).getCategoryString());
-        holder.tv_row_product_phoneNumber.setText(productList.get(position).getSellerPhoneNumber());
+        holder.tv_row_product_phoneNumber.setText(productList.get(position).getSeller().getPhoneNumber());
         holder.tv_row_product_price.setText(productList.get(position).getPrice()+ "\t" + "تومان");
         holder.iv_row_prod_pic.setImageBitmap(productList.get(position).getImage());
 
-        if(Seller.activeSeller==null)
+        if(Seller.getActiveSeller()==null)
         {
 
             holder.row_product_layout.setOnClickListener(new View.OnClickListener()
@@ -63,7 +63,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 public void onClick(View v)
                 {
                     Intent intent=new Intent(context, CustomerProductFullView.class);
-                    Product.workingProduct=productList.get(position);
+                    Product.setWorkingProduct(productList.get(position));
                     context.startActivity(intent);
                 }
             });

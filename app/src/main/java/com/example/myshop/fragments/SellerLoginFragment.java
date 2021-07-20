@@ -17,6 +17,7 @@ import androidx.navigation.Navigation;
 import com.example.myshop.R;
 import com.example.myshop.activities.SellerHomePageActivity;
 import com.example.myshop.dataBase.DataBaseHandler;
+import com.example.myshop.model.Customer;
 import com.example.myshop.model.Seller;
 
 import java.util.List;
@@ -70,6 +71,7 @@ public class SellerLoginFragment extends Fragment
                             seller.setLoginCount(seller.getLoginCount()+1);
                             seller.setId(seller.getId());
                             Seller.setActiveSeller(seller);
+                            Customer.setActiveCustomer(null);
                             startActivity(new Intent(getActivity(),SellerHomePageActivity.class));
                             break;
                         }

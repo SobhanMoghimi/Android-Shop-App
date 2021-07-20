@@ -31,12 +31,14 @@ public class CustomerProductFullView extends AppCompatActivity
         seller_name = findViewById(R.id.tv_product_seller_name_customer_fullView);
         seller_phoneNumber=findViewById(R.id.tv_product_seller_number_customer_fullView);
 
-        Product product = Product.workingProduct;
+        Product product= Product.getWorkingProduct();
         product_name.setText(product.getName());
         String price = product.getPrice() + "تومان";
         product_price.setText(price);
         product_description.setText(product.getDescription());
         product_category.setText(product.getCategoryString());
         product_pic.setImageBitmap(product.getImage());
+        seller_phoneNumber.setText(product.getSeller().getPhoneNumber());
+        seller_name.setText(product.getSeller().getFullName());
     }
 }

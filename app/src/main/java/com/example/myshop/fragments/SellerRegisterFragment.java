@@ -19,6 +19,7 @@ import androidx.navigation.Navigation;
 import com.example.myshop.R;
 import com.example.myshop.activities.SellerHomePageActivity;
 import com.example.myshop.dataBase.DataBaseHandler;
+import com.example.myshop.model.Customer;
 import com.example.myshop.model.Seller;
 
 import java.util.List;
@@ -79,6 +80,7 @@ public class SellerRegisterFragment extends Fragment
                             seller.setId(getNewSellerId(email.getText().toString()));
                             Toast.makeText(getActivity(),"خوش آمدید",Toast.LENGTH_SHORT).show();
                             Seller.setActiveSeller(seller);
+                            Customer.setActiveCustomer(null);
                             startActivity(new Intent(getActivity(), SellerHomePageActivity.class));
                         }
                         else {
