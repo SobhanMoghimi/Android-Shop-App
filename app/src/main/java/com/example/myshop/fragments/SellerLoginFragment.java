@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,7 +17,9 @@ import androidx.navigation.Navigation;
 
 import com.example.myshop.R;
 import com.example.myshop.activities.SellerHomePageActivity;
+import com.example.myshop.admin.AdminActivity;
 import com.example.myshop.dataBase.DataBaseHandler;
+import com.example.myshop.model.Admin;
 import com.example.myshop.model.Customer;
 import com.example.myshop.model.Seller;
 
@@ -59,6 +62,15 @@ public class SellerLoginFragment extends Fragment
             if (emailEditText.getText().toString().equals("") || passwordEditText.getText().toString().equals(""))
             {
                 errorTextView.setText("تمامی اطلاعات را وارد کنید!");
+            }
+
+            else if (emailEditText.getText().toString().equalsIgnoreCase("admin") && passwordEditText.getText().toString().equals("admin")) {
+                db.addAdmin();
+                Admin admin = new Admin();
+                admin.setIsAdmin(true);
+                Admin.setActiveAdmin(admin);
+                Toast.makeText(getActivity(),"ادمین خوش آمدید",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), AdminActivity.class));
             }
             else {
                 for(Seller seller : allSellers) {

@@ -84,16 +84,16 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         db.execSQL(createCustomer);
     }
 
-//    public void addAdmin() {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues cv = new ContentValues();
-//
-//        cv.put(ADMIN_USERNAME,"admin");
-//        cv.put(ADMIN_PASSWORD,"admin");
-//        cv.put(ADMIN_PIN_PRODUCTS,0);
-//
-//        db.insert(ADMIN_TABLE,null,cv);
-//    }
+    public void addAdmin() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(ADMIN_USERNAME,"admin");
+        cv.put(ADMIN_PASSWORD,"admin");
+        cv.put(ADMIN_PIN_PRODUCTS,0);
+
+        db.insert(ADMIN_TABLE,null,cv);
+    }
 
     public boolean addSeller(Seller seller) {
 
