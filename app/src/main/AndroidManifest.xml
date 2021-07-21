@@ -19,6 +19,8 @@
         <activity
             android:name=".activities.SellerEditProductActivity"
             android:theme="@style/Theme.MyShop.NoActionBar" />
+        <activity android:name=".activities.CustomerChangePass"
+            android:theme="@style/Theme.MyShop.NoActionBar" />
         <activity android:name=".admin.AdminActivity" />
         <activity
             android:name=".activities.CustomerProductFullView"

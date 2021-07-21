@@ -129,6 +129,22 @@ public class Product
             this.category = Category.HOME;
     }
 
+    public static Category getCategoryType(String category) {
+        if (category.equals("فشن"))
+            return Category.FASHION;
+        else if (category.equals("لوازم بهداشتی"))
+            return Category.BEAUTY;
+        else if (category.equals("کتاب"))
+            return Category.BOOK;
+        else if (category.equals("خودرو"))
+            return Category.CAR;
+        else if (category.equals("لوازم الکترونیکی"))
+            return Category.ELECTRONICS;
+        else if (category.equals("لوازم خانه"))
+            return  Category.HOME;
+        else return null;
+    }
+
     public String getCategoryString()
     {
         if(category==Category.BEAUTY)

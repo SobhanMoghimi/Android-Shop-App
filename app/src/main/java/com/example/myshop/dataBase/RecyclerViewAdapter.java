@@ -27,6 +27,8 @@ import com.example.myshop.model.Product;
 import com.example.myshop.model.Seller;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>
@@ -102,6 +104,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             });
         }
 
+    }
+
+    public void filterList(ArrayList<Product> filteredList)
+    {
+        productList = filteredList;
+        notifyDataSetChanged();
     }
 
     @Override
