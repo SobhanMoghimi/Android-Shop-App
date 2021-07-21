@@ -1,6 +1,6 @@
 # MyShop Android App
 **Amirkabir University of Tech** Advanced Programming course final project.
-A Farsi classified ads and E-commerce android app written in java for selling and buying stuff online
+A Farsi classified ads and E-commerce android app written in java.
 
 
 ## Users 
