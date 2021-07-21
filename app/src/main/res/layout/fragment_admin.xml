@@ -15,25 +15,25 @@
             android:id="@+id/admin_name_of_products_btn"
             android:layout_width="match_parent"
             android:layout_height="80dp"
+            android:layout_marginTop="20dp"
             android:background="?android:attr/selectableItemBackground"
-            android:textAlignment="textStart"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:layout_marginTop="40dp"
             android:text="تمام آگهی‌ها"
-            android:textSize="20sp"/>
+            android:textAlignment="textStart"
+            android:textSize="20sp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/admin_name_of_sellers_btn"
             android:layout_width="match_parent"
             android:layout_height="80dp"
+            android:layout_marginTop="10dp"
             android:background="?android:attr/selectableItemBackground"
-            android:textAlignment="textStart"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:layout_marginTop="20dp"
             android:text="لیست فروشندگان"
-            android:textSize="20sp"/>
+            android:textAlignment="textStart"
+            android:textSize="20sp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/admin_sum_of_prices_btn"
