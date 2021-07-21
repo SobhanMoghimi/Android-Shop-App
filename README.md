@@ -15,7 +15,7 @@ Customers must register, have a valid email and can see all posts, search among 
 ### Admin:
 Admin can see all users, have access to all products, promote products and see log counts of all users and check the top Seller.
 
-## View:
+## View
 Each user type has it's own page. Sellers and Customers have a navigation bar that leads them to three pages.
 ### Seller Activity :
 Including:
