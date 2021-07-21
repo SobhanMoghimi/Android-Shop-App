@@ -121,7 +121,7 @@ public class Product
             this.category = Category.BEAUTY;
         else if (category.equals("کتاب"))
             this.category = Category.BOOK;
-        else if (category.equals("ماشین"))
+        else if (category.equals("خودرو"))
             this.category = Category.CAR;
         else if (category.equals("لوازم الکترونیکی"))
             this.category = Category.ELECTRONICS;

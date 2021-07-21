@@ -19,8 +19,6 @@ public class CustomerCategoriesFragment extends Fragment
                              Bundle savedInstanceState)
     {
         DataBaseHandler DB = new DataBaseHandler(getActivity());
-
-
         View view=inflater.inflate(R.layout.fragment_customer_categories,container,false);
 
         return view;

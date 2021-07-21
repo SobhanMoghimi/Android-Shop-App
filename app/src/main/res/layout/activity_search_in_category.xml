@@ -21,7 +21,7 @@
         android:drawableEnd="@drawable/ic_baseline_search_24"
         android:drawablePadding="10dp"
         android:background="@drawable/button_background2"
-        android:hint="جست و جو کنید .."
+        android:hint="جست و جو کنید ..."
         android:fontFamily="@font/trochut_bold"
         android:inputType="textPersonName"
         android:paddingStart="10dp" />
