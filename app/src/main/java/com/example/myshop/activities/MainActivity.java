@@ -26,38 +26,35 @@ public class MainActivity extends AppCompatActivity
         {
             getWindow().setNavigationBarColor(getResources().getColor(R.color.secondaryDark));
         }
-        OnBackPressedCallback callback=new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed()
-            {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                dialog.setCancelable(false);
-                dialog.setTitle("هشدار!");
-                dialog.setMessage("آیا میخواهید از برنامه خارج شوید؟!" );
-                dialog.setPositiveButton("بله", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id)
-                    {
-                        finish();
-                        System.exit(0);
-                    }
-                }).setNegativeButton("خیر", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-
-                    }
-                });
-                final AlertDialog alert=dialog.create();
-                alert.show();
-            }
-        };
-        MainActivity.this.getOnBackPressedDispatcher().addCallback(this,callback);
-
 
         customerButton=findViewById(R.id.customer_button);
         sellerButton=findViewById(R.id.seller_button);
         customerButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CustomerLoginActivity.class)));
         sellerButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,SellerLoginActivity.class)));
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+        dialog.setCancelable(false);
+        dialog.setTitle("هشدار!");
+        dialog.setMessage("آیا میخواهید از برنامه خارج شوید؟!" );
+        dialog.setPositiveButton("بله", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
+                finish();
+                System.exit(0);
+            }
+        }).setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+
+            }
+        });
+        final AlertDialog alert=dialog.create();
+        alert.show();
     }
 }

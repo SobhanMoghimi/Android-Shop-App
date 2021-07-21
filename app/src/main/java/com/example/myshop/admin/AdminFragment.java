@@ -146,8 +146,7 @@ public class AdminFragment extends Fragment {
         List<Product> AllProducts = db.getAllProducts();
         for(Product product : AllProducts)
             sum += product.getPrice();
-
-        textView.setText(sum + "ارزش تمام کالا ها:");
+        textView.setText("ارزش تمام کالا ها:" +"\n"+sum);
         builder.setView(showSumOfPricesPopup);
         dialog = builder.create();
         dialog.show();
@@ -169,7 +168,7 @@ public class AdminFragment extends Fragment {
                 if (seller.getPosts()>topSeller.getPosts())
                     topSeller = seller;
             }
-            textView.setText(topSeller.getFullName() + "فروشنده برتر: ");
+            textView.setText("فروشنده برتر: "+"\n" + topSeller.getFullName() + "\n"+ topSeller.getEmail()+"\n"+topSeller.getPhoneNumber());
         }
         builder.setView(showTopSellerPopup);
         dialog = builder.create();
