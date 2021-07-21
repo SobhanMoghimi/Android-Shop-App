@@ -24,7 +24,7 @@ Including:
 3. My Account : Seller's info. They can edit their inforamtion and also they can change password.
 
 ### Customer :
-1. Home : They can see all products and go into it's page by clicking on that.
+1. Home : They can see all products and go into their page by clicking on them.
 2. Categoey and Search : List of Categories and option to sort products by cheapest or expensivest and they can search the product by name and filter it by category.
 3. My Account : Customer's info. They can edit their inforamtion and also they can change password.
 ### Admin :
