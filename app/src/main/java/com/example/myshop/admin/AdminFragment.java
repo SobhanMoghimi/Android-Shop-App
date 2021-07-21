@@ -194,7 +194,7 @@ public class AdminFragment extends Fragment {
 
             ArrayList<String> SellersLoginCount = new ArrayList<>();
             for (Seller seller : allSellers)
-                SellersLoginCount.add(String.valueOf(seller.getLoginCount()));
+                SellersLoginCount.add(String.valueOf(seller.getLoginCount())+ " \t "+ seller.getEmail());
 
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, SellersLoginCount);
             listView.setAdapter(arrayAdapter);
@@ -224,7 +224,7 @@ public class AdminFragment extends Fragment {
 
             ArrayList<String> customersLoginCount = new ArrayList<>();
             for (Customer customer : allCustomers)
-                customersLoginCount.add(String.valueOf(customer.getLoginCount()));
+                customersLoginCount.add(String.valueOf(customer.getLoginCount())+ " \t "+ customer.getEmail());
 
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, customersLoginCount);
             listView.setAdapter(arrayAdapter);

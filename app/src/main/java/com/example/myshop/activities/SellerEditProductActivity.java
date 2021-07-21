@@ -1,9 +1,12 @@
 package com.example.myshop.activities;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.Image;
@@ -48,11 +51,48 @@ public class SellerEditProductActivity extends AppCompatActivity
         addPhotoButton=findViewById(R.id.edit_product_addPhotoButton);
         submitEditButton=findViewById(R.id.edit_product_submitButton);
         product_image=findViewById(R.id.edit_product_imageView);
+        deleteProductButton=findViewById(R.id.delete_product_button);
+
         Product product= Product.getWorkingProduct();
         product_name.setText(product.getName(),TextView.BufferType.EDITABLE);
         product_price.setText(Integer.toString(product.getPrice()),TextView.BufferType.EDITABLE);
         product_description.setText(product.getDescription(),TextView.BufferType.EDITABLE);
         product_image.setImageBitmap(product.getImage());
+
+
+        DataBaseHandler db = new DataBaseHandler(SellerEditProductActivity.this);
+
+        deleteProductButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(SellerEditProductActivity.this);
+                dialog.setCancelable(false);
+                dialog.setTitle("هشدار!");
+                dialog.setMessage("آیا میخواهید کالای مورد نظر را حذف کنید؟!" );
+                dialog.setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        db.deleteProduct(product);
+                        startActivity(new Intent(SellerEditProductActivity.this,SellerHomePageActivity.class));
+                    }
+                }).setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+
+                    }
+                });
+                final AlertDialog alert=dialog.create();
+                alert.show();
+
+
+
+
+            }
+        });
+
 
         addPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +123,6 @@ public class SellerEditProductActivity extends AppCompatActivity
                     }
                     else
                         {
-                        DataBaseHandler db = new DataBaseHandler(SellerEditProductActivity.this);
                         boolean success = db.updateProduct(product,product_name.getText().toString(),Integer.parseInt(product_price.getText().toString()),editImageToStore,product_description.getText().toString());
                         if (success)
                         {
