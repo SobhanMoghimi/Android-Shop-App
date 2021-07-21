@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.example.myshop.model.Admin;
 import com.example.myshop.model.Category;
 import com.example.myshop.model.Customer;
 import com.example.myshop.model.Product;
@@ -76,7 +77,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         String onCreateTableString_Seller = "CREATE TABLE " + SELLER_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_SELLER_NAME + " TEXT, " + COLUMN_SELLER_EMAIL + " TEXT, " + COLUMN_SELLER_PASSWORD + " TEXT, " + COLUMN_SELLER_NUMBER + " TEXT, "+ COLUMN_SELLER_LOGIN_COUNT + " INT, " + SELLER_POSTS + " INT)";
         String createCustomer = "CREATE TABLE " + CUSTOMER_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + CUSTOMER_NAME + " TEXT, " + CUSTOMER_EMAIL + " TEXT, " + CUSTOMER_PASSWORD + " TEXT, " + CUSTOMER_LOGIN_COUNT + " INT)";
         String createTableStatement_Product = "CREATE TABLE " + PRODUCT_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_PRODUCT_NAME + " TEXT, " + COLUMN_PRODUCT_PRICE + " INT, " + COLUMN_PRODUCT_DESCRIPTION + " TEXT, "+ PRODUCT_SELLER_ID + " INT, " + COLUMN_PRODUCT_CATEGORY + " TEXT, " + COLUMN_PRODUCT_IS_PIN + " TEXT, " + COLUMN_PRODUCT_IMAGE + " BLOB)";
-        String createTableAdmin = "CREATE TABLE " + ADMIN_TABLE + " (" + ADMIN_USERNAME + " TEXT, " + ADMIN_PASSWORD + " TEXT, " + ADMIN_PIN_PRODUCTS + " TEXT)";
+        String createTableAdmin = "CREATE TABLE " + ADMIN_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + ADMIN_USERNAME + " TEXT, " + ADMIN_PASSWORD + " TEXT, " + ADMIN_PIN_PRODUCTS + " TEXT)";
 
         db.execSQL(createTableAdmin);
         db.execSQL(createTableStatement_Product);
@@ -93,6 +94,56 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         cv.put(ADMIN_PIN_PRODUCTS,0);
 
         db.insert(ADMIN_TABLE,null,cv);
+    }
+
+    public Admin getAdmin() {
+        List<Admin> allAdmins = new ArrayList<>();
+
+        String queryStatement = "SELECT * FROM " + ADMIN_TABLE + ";";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryStatement,null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Admin admin = new Admin();
+                allAdmins.add(admin);
+            } while (cursor.moveToNext());
+        }
+        else {
+
+        }
+        cursor.close();
+        db.close();
+        return allAdmins.get(0);
+    }
+
+    public void addProductToPromoted(Admin admin, Product product) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(ADMIN_PIN_PRODUCTS, String.valueOf(product.getId())+",");
+
+        db.insert(ADMIN_TABLE,null,cv);
+    }
+
+    public List<Product> getPinedProducts() {
+        List<Product> pinedProducts = new ArrayList<>();
+        for (Product product : this.getAllProducts()) {
+            if (product.isPin().equals("true")){
+                pinedProducts.add(product);
+            }
+        }
+        return pinedProducts;
+    }
+
+    public List<Product> getSortedProducts() {
+        List<Product> sorted = this.getPinedProducts();
+        for (Product product : this.getAllProducts()) {
+            if (product.isPin().equals("false"))
+                sorted.add(product);
+        }
+        return sorted;
     }
 
     public boolean addSeller(Seller seller) {
@@ -299,6 +350,24 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         {
             Toast.makeText(context,e.getMessage(),Toast.LENGTH_SHORT).show();
             return null;
+        }
+    }
+
+    public void pinProducts(Admin admin) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryCommand = "SELECT * FROM " + ADMIN_TABLE + " WHERE " + COLUMN_ID + " = 1";
+        Cursor cursor = db.rawQuery(queryCommand,null);
+        if (cursor.moveToFirst() && !cursor.getString(4).equals("")) {
+            do {
+                String pinedProductsId = cursor.getString(4);
+                String[] ids = pinedProductsId.split(",");
+                for (Product product : this.getAllProducts()) {
+                    for (String s:ids) {
+                        if (product.getId()==Integer.parseInt(s))
+                            this.addProductToPromoted(admin,product);
+                    }
+                }
+            }while (cursor.moveToFirst());
         }
     }
 

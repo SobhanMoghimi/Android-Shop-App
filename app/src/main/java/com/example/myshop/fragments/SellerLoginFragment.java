@@ -69,7 +69,7 @@ public class SellerLoginFragment extends Fragment
                 db.addAdmin();
                 Admin admin = new Admin();
                 admin.setIsAdmin(true);
-                Admin.setActiveAdmin(admin);
+                Admin.setActiveAdmin(db.getAdmin());
                 Toast.makeText(getActivity(),"ادمین خوش آمدید",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getActivity(), AdminActivity.class));
             }
