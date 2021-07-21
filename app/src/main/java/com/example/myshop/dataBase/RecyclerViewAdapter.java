@@ -106,7 +106,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     }
 
-    public void filterList(ArrayList<Product> filteredList)
+    public void filterList(List<Product> filteredList)
     {
         productList = filteredList;
         notifyDataSetChanged();

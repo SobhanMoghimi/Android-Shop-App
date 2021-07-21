@@ -31,7 +31,9 @@
         <activity
             android:name=".activities.SellerEditMyAccActivity"
             android:theme="@style/Theme.MyShop.NoActionBar" />
-        <activity android:name=".activities.CustomerHomePageActivity" />
+        <activity android:name=".activities.CustomerHomePageActivity"
+            android:theme="@style/Theme.MyShop.NoActionBar"
+            />
         <activity android:name=".activities.SellerHomePageActivity" />
         <activity
             android:name=".splash.Splash"

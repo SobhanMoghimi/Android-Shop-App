@@ -122,11 +122,11 @@ public class SearchInCategoryActivity extends AppCompatActivity
 
     private void searchText(String input)
     {
-        ArrayList<Product> searchedList=new ArrayList<>();
+        List<Product> searchedList=new ArrayList<>();
 
         for(Product prod:productList)
         {
-            if(prod.getName().toLowerCase().contains(input.toLowerCase()));
+            if(prod.getName().contains(input.toLowerCase()))
                 searchedList.add(prod);
         }
         mAdapter.filterList(searchedList);

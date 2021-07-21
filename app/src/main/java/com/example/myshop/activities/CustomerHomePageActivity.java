@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -25,10 +26,15 @@ public class CustomerHomePageActivity extends AppCompatActivity {
     private FrameLayout frameLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_home_page);
-
+        if(android.os.Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP)
+        {
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.secondaryLight));
+        }
+        
         bottomNavigationView = findViewById(R.id.customer_nav_bar);
         bottomNavigationView.setOnNavigationItemSelectedListener(listener);
         frameLayout = findViewById(R.id.customer_frame_layout);

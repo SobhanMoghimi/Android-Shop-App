@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,6 +26,10 @@ public class CustomerProductFullView extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_fullview_customer);
+        if(android.os.Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP)
+        {
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.secondaryLight));
+        }
 
         DataBaseHandler  db= new DataBaseHandler(this);
         product_pic = findViewById(R.id.iv_product_customer_fullView_);
@@ -56,7 +62,9 @@ public class CustomerProductFullView extends AppCompatActivity
                     @Override
                     public void onClick(DialogInterface dialog, int id)
                     {
-
+                        Intent intent=new Intent(Intent.ACTION_CALL);
+                        intent.setData(Uri.parse("tel:"+product.getSeller().getPhoneNumber()));
+                        startActivity(intent);
                     }
                 }).setNegativeButton("خیر", new DialogInterface.OnClickListener() {
                     @Override
