@@ -36,14 +36,6 @@ public class MainActivity extends AppCompatActivity
             }
         };
         MainActivity.this.getOnBackPressedDispatcher().addCallback(this,callback);
-
-
-        if(getIntent().getBooleanExtra("EXIT",false))
-        {
-            finish();
-            System.exit(0);
-        }
-
         customerButton=findViewById(R.id.customer_button);
         sellerButton=findViewById(R.id.seller_button);
         customerButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CustomerLoginActivity.class)));
